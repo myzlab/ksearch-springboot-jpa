@@ -479,7 +479,7 @@ public class KFunction {
         final Boolean exists =
             k
             .jdbc(jdbc)
-            .select(existsSelect(kQuery).as("GOD_BLESS_YOU"))
+            .select(exists(kQuery).as("GOD_BLESS_YOU"))
             .single(Boolean.class);
         
         if (!exists) {
@@ -508,7 +508,7 @@ public class KFunction {
         final Boolean notExists =
             k
             .jdbc(jdbc)
-            .select(not(existsSelect(kQuery)).as("GOD_BLESS_YOU"))
+            .select(not(exists(kQuery)).as("GOD_BLESS_YOU"))
             .single(Boolean.class);
         
         if (!notExists) {
@@ -1451,21 +1451,7 @@ public class KFunction {
         return newKColumn;
     }
     
-    public static KColumn existsSelect(
-        final KQuery kQuery
-    ) {
-        KUtils.assertNotNull(kQuery, "kQuery");
-        
-        final KQueryData subQuery = kQuery.generateSubQueryData();
-        
-        final KColumn kColumn = new KColumn(subQuery.sb, subQuery.params, false);
-        
-        kColumn.sb.insert(0, "EXISTS (").append(")");
-        
-        return kColumn;
-    }
-    
-    public static KCondition existsWhere(
+    public static KCondition exists(
         final KQuery kQuery
     ) {
         return KCondition.exists(kQuery);
@@ -2317,16 +2303,6 @@ public class KFunction {
         kCondition.sb.insert(0, "NOT (").append(")");
         
         return kCondition;
-    }
-    
-    public static KColumn not(
-        final KColumn kColumn
-    ) {
-        final KColumn newKColumn = kColumn.cloneMe();
-        
-        newKColumn.sb.insert(0, "NOT (").append(")");
-        
-        return newKColumn;
     }
     
     public static KOptionalLong calculateOffset(

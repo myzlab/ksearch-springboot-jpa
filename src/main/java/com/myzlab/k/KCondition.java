@@ -1,11 +1,12 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class KCondition {
+public class KCondition implements KColumnAllowedToSelect {
     
     public final static int AND_TYPE = 1;
     public final static int OR_TYPE = 2;
@@ -2547,5 +2548,10 @@ public class KCondition {
         }
         
         this.sb.append(kValTextField1.sb).append(" ").append(operator).append(" ").append(kValTextField2.sb);
+    }
+
+    @Override
+    public KBaseColumn getKBaseColumn() {
+        return new KColumn(new StringBuilder(this.sb), this.params, false);
     }
 }
