@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
+import java.util.ArrayList;
 
 public class KSetUpdate extends KQueryUpdate {
 
@@ -107,7 +108,11 @@ public class KSetUpdate extends KQueryUpdate {
     ) {
         KUtils.assertNotNull(object, "object");
         
-        this.process(kColumn, new KColumn(new StringBuilder(object.toString()), false));
+        final KColumn kColumnValue = new KColumn(new StringBuilder("?"), new ArrayList() {{
+            add(object);
+        }}, false);
+        
+        this.process(kColumn, kColumnValue);
         
         return this;
     }
