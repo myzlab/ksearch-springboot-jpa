@@ -81,6 +81,10 @@ public class KWith extends KQuery {
         return KSelect.getDistinctInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQuery, alias);
     }
     
+    public KSelect select1() {
+        return KSelect.getInstance(this.k, this.kSpecialFunctions, KFunction.val(1));
+    }
+    
     public KDistinctOnSelect selectDistinctOn(
         final KColumn kColumn
     ) {

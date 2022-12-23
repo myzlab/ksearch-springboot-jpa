@@ -18,7 +18,7 @@ public class KExecutor {
     }
     
     protected EntityManager getEntityManager() {
-        return k.getJdbcTemplates().get(jdbc);
+        return k.getEntityManagers().get(jdbc);
     }
     
     protected static KExecutor getInstance(

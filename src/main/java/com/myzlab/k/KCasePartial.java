@@ -57,6 +57,12 @@ public class KCasePartial {
         return KCaseFilled.getInstance(this.sb, this.params, kRaw);
     }
     
+    public KCaseAliased as(
+        final String alias
+    ) {
+        return KCaseAliased.getInstance(this.sb, this.params, alias);
+    }
+    
     private void process(
         final KBaseColumnCastable kBaseColumnCastable
     ) {

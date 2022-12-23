@@ -464,7 +464,7 @@ public class KFunction {
         final HttpStatus httpStatus,
         final String message
     ) {
-        assertExists(k, k.getJdbcTemplateDefaultName(), kQuery, httpStatus, message);
+        assertExists(k, k.getEntityManagerDefaultName(), kQuery, httpStatus, message);
     }
     
     public static void assertExists(
@@ -493,7 +493,7 @@ public class KFunction {
         final HttpStatus httpStatus,
         final String message
     ) {
-        assertNotExists(k, k.getJdbcTemplateDefaultName(), kQuery, httpStatus, message);
+        assertNotExists(k, k.getEntityManagerDefaultName(), kQuery, httpStatus, message);
     }
     
     public static void assertNotExists(

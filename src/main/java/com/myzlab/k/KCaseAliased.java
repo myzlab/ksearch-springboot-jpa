@@ -21,7 +21,7 @@ public class KCaseAliased implements KColumnAllowedToSelect {
         this.params.addAll(params);
         this.alias = alias;
         
-        this.process(alias);
+        this.process();
     }
     
     public static KCaseAliased getInstance(
@@ -32,9 +32,7 @@ public class KCaseAliased implements KColumnAllowedToSelect {
         return new KCaseAliased(sb, params, alias);
     }
     
-    private void process(
-        final String alias
-    ) {
+    private void process() {
         this.sb.append(" END");
     }
 

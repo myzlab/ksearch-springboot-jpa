@@ -15,7 +15,7 @@ public abstract class KBuilder {
     }
     
     protected KExecutor jdbc() {
-        return KExecutor.getInstance(this, this.getJdbcTemplateDefaultName());
+        return KExecutor.getInstance(this, this.getEntityManagerDefaultName());
     }
     
     public KSpecialBuilder sf(
@@ -124,7 +124,7 @@ public abstract class KBuilder {
         return KUpdate.getInstance(jdbc(), new KTable(null, kRaw.content, null));
     }
     
-    public abstract Map<String, EntityManager> getJdbcTemplates();
+    public abstract Map<String, EntityManager> getEntityManagers();
     
-    public abstract String getJdbcTemplateDefaultName();
+    public abstract String getEntityManagerDefaultName();
 }
