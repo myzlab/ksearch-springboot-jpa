@@ -446,6 +446,7 @@ public class KQueryUtils {
     ) {
         KUtils.assertNotNull(n, "n");
         
+        kQueryData.distinctOn = true;
         kQueryData.sb.append("SELECT DISTINCT ON (").append(n).append(")");
     }
     

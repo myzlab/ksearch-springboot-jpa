@@ -44,6 +44,21 @@ public class KAliasedColumn extends KBaseColumnUncastable implements KColumnAllo
     }
     
     protected KAliasedColumn(
+        final KColumnOvered kColumnOvered,
+        final String alias
+    ) {
+        super(kColumnOvered.sb, kColumnOvered.params, false, kColumnOvered.name, kColumnOvered.type, kColumnOvered.kTable);
+        
+        if (alias == null) {
+            throw KExceptionHelper.internalServerError("The 'alias' param is required");
+        }
+        
+        this.alias = alias;
+        
+        this.process(alias);
+    }
+    
+    protected KAliasedColumn(
         final StringBuilder sb,
         final String alias,
         final List<Object> params,
@@ -63,17 +78,7 @@ public class KAliasedColumn extends KBaseColumnUncastable implements KColumnAllo
     private void process(
         final String alias
     ) {
-        this.sb.append(" AS ");
-        
-        if (alias.contains(" ")) {
-            this.sb.append("\"");
-        }
-        
-        this.sb.append(alias);
-        
-        if (alias.contains(" ")) {
-            this.sb.append("\"");
-        }
+        this.sb.append(" AS \"").append(alias).append("\"");
     }
     
     @Override

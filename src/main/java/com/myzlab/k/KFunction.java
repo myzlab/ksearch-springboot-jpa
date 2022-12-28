@@ -11,6 +11,7 @@ import com.myzlab.k.optional.KOptionalSpecialFunction;
 import com.myzlab.k.optional.KOptionalString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
@@ -21,8 +22,19 @@ public class KFunction {
         final String alias
     ) {
         KUtils.assertNotNull(kBaseColumnCastable, "kBaseColumnCastable");
+        KUtils.assertNotNullNotEmpty(alias, "alias");
                 
         return new KAliasedColumn(kBaseColumnCastable, alias);
+    }
+    
+    public static KAliasedColumn as(
+        final KColumnOvered kColumnOvered,
+        final String alias
+    ) {
+        KUtils.assertNotNull(kColumnOvered, "kColumnOvered");
+        KUtils.assertNotNullNotEmpty(alias, "alias");
+                
+        return new KAliasedColumn(kColumnOvered, alias);
     }
     
     public static KColumn abs(
@@ -1349,6 +1361,10 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "DEGREES");
     }
     
+    public static KColumn denseRank() {
+        return new KColumn(new StringBuilder("DENSE_RANK()"), true);
+    }
+    
     public static KColumn div(
         final KColumn kColumn1,
         final KColumn kColumn2
@@ -1784,6 +1800,86 @@ public class KFunction {
         isolateKValNumberField.sb.insert(0, "(").append(")");
         
         return isolateKValNumberField;
+    }
+    
+    public static KColumn lag(
+        final KColumn kColumn
+    ) {
+        return lag(kColumn, null, null);
+    }
+    
+    public static KColumn lag(
+        final KColumn kColumn,
+        final int offset
+    ) {
+        return lag(kColumn, offset, null);
+    }
+    
+    public static KColumn lag(
+        final KColumn kColumn,
+        final Integer offset,
+        final KBaseColumnCastable defaultValue
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final StringBuilder sb = new StringBuilder("LAG(");
+        
+        sb.append(kColumn.sb);
+        
+        if (offset != null) {
+            sb.append(", ").append(offset);
+            
+            if (defaultValue != null) {
+                sb.append(", ").append(defaultValue.sb);
+            }
+        }
+        
+        sb.append(")");
+        
+        return new KColumn(sb, new ArrayList() {{
+            addAll(kColumn.params);
+            addAll(defaultValue == null ? new ArrayList() : defaultValue.params);
+        }}, true);
+    }
+    
+    public static KColumn lead(
+        final KColumn kColumn
+    ) {
+        return lead(kColumn, null, null);
+    }
+    
+    public static KColumn lead(
+        final KColumn kColumn,
+        final int offset
+    ) {
+        return lead(kColumn, offset, null);
+    }
+    
+    public static KColumn lead(
+        final KColumn kColumn,
+        final Integer offset,
+        final KBaseColumnCastable defaultValue
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final StringBuilder sb = new StringBuilder("LEAD(");
+        
+        sb.append(kColumn.sb);
+        
+        if (offset != null) {
+            sb.append(", ").append(offset);
+            
+            if (defaultValue != null) {
+                sb.append(", ").append(defaultValue.sb);
+            }
+        }
+        
+        sb.append(")");
+        
+        return new KColumn(sb, new ArrayList() {{
+            addAll(kColumn.params);
+            addAll(defaultValue == null ? new ArrayList() : defaultValue.params);
+        }}, true);
     }
     
     public static KColumn least(
@@ -2265,6 +2361,12 @@ public class KFunction {
         return new KRaw("NULL");
     }
     
+    public static KColumn ntile(int buckets) {
+        return new KColumn(new StringBuilder("NTILE(?)"), new ArrayList() {{
+            add(buckets);
+        }}, true);
+    }
+    
     public static KColumn nullif(
         final KBaseColumnCastable kBaseColumnCastable1,
         final KBaseColumnCastable kBaseColumnCastable2
@@ -2633,6 +2735,10 @@ public class KFunction {
         return new KColumn(new StringBuilder("RANDOM()"), true);
     }
     
+    public static KColumn rank() {
+        return new KColumn(new StringBuilder("RANK()"), true);
+    }
+    
     public static KRaw raw(
         final String content
     ) {
@@ -2881,6 +2987,10 @@ public class KFunction {
         KUtils.assertNotNull(number2, "number2");
         
         return applyTwoParameterFunction(val(number1), val(number2), "ROUND");
+    }
+    
+    public static KColumn rowNumber() {
+        return new KColumn(new StringBuilder("ROW_NUMBER()"), true);
     }
     
     public static KColumn rpad(

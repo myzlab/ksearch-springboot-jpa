@@ -5,6 +5,7 @@ import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
+import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,20 @@ public class KTableColumn extends KColumn implements
         final KTable kTable
     ) {
         super(sb, params, closed, name, type, kTable);
+    }
+    
+    /**
+     * 
+     * @param kWindowDefinitionAllowedToOver
+     * @return
+     * @deprecated Over clause is not supported directly on a column
+     */
+    @Override
+    @Deprecated
+    public KColumnOvered over(
+        final KWindowDefinitionAllowedToOver kWindowDefinitionAllowedToOver
+    ) {
+        throw new UnsupportedOperationException("Over clause is not supported directly on a column");
     }
     
     @Override

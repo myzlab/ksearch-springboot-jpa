@@ -80,6 +80,12 @@ public class KUtils {
                 }
             }
         }
+        
+        if (o instanceof String) {
+            if (((String) o).isEmpty()) {
+                throw KExceptionHelper.internalServerError("The '" + name + "' param cannot be empty");
+            }
+        }
     }
     
 }

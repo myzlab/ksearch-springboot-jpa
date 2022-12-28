@@ -1,9 +1,10 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import java.util.List;
 
-public class KColumnOvered extends KBaseColumn {
+public class KColumnOvered extends KBaseColumn implements KColumnAllowedToSelect {
     
     protected KColumnOvered() {
         super();
@@ -28,6 +29,12 @@ public class KColumnOvered extends KBaseColumn {
         this.process(kWindowDefinitionAllowedToOver);
     }
     
+    public KAliasedColumn as(
+        final String alias
+    ) {
+        return KFunction.as(this, alias);
+    }
+    
     @Override
     protected KColumnOvered cloneMe() {
         return new KColumnOvered(this.sb, this.params, this.closed);
@@ -45,5 +52,10 @@ public class KColumnOvered extends KBaseColumn {
         } else {
             this.sb.append("(").append(kWindowDefinitionAllowedToOver.getSql()).append(")");
         }
+    }
+    
+    @Override
+    public KBaseColumn getKBaseColumn() {
+        return this;
     }
 }
