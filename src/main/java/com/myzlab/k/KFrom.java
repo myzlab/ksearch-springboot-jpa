@@ -4,7 +4,6 @@ import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
-import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -69,9 +68,9 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KFrom from(
-        final KCommonTableExpressionAliased kCommonTableExpressionAliased
+        final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
-        this.process(new KTable(null, kCommonTableExpressionAliased.name, kCommonTableExpressionAliased.alias));
+        this.process(new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
         
         return this;
     }

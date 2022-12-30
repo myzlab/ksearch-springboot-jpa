@@ -21,15 +21,17 @@ public class KCommonTableExpressionColumned extends KCommonTableExpression {
     }
     
     public KCommonTableExpressionFilled as(
-        final KValues kValues
+        final KValues kValues,
+        final String alias
     ) {
-        return KCommonTableExpressionFilled.getInstance(kValues, this.name, this.columns);
+        return KCommonTableExpressionFilled.getInstance(kValues, this.name, alias, this.columns);
     }
     
     public KCommonTableExpressionFilled as(
-        final KQuery kQuery
+        final KQuery kQuery,
+        final String alias
     ) {
-        return KCommonTableExpressionFilled.getInstance(kQuery, this.name, this.columns);
+        return KCommonTableExpressionFilled.getInstance(kQuery, this.name, alias, this.columns);
     }
     
 }

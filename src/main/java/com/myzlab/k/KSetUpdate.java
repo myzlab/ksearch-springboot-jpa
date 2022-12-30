@@ -64,9 +64,9 @@ public class KSetUpdate extends KQueryUpdate {
     }
     
     public KFromUpdate from(
-        final KCommonTableExpressionAliased kCommonTableExpressionAliased
+        final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
-        return KFromUpdate.getInstance(this.k, this.kQueryUpdateData, new KTable(null, kCommonTableExpressionAliased.name, kCommonTableExpressionAliased.alias));
+        return KFromUpdate.getInstance(this.k, this.kQueryUpdateData, new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
     }
     
     public KSetUpdate set(

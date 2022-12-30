@@ -202,9 +202,9 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KFrom from(
-        final KCommonTableExpressionAliased kCommonTableExpressionAliased
+        final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
-        return KFrom.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, new KTable(null, kCommonTableExpressionAliased.name, kCommonTableExpressionAliased.alias));
+        return KFrom.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
     }
     
     public KGroupBy groupBy(

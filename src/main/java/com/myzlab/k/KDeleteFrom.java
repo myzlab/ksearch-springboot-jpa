@@ -59,9 +59,9 @@ public class KDeleteFrom extends KQueryDelete {
     }
     
     public KUsing using(
-        final KCommonTableExpressionAliased kCommonTableExpressionAliased
+        final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
-        return KUsing.getInstance(this.k, this.kQueryDeleteData, new KTable(null, kCommonTableExpressionAliased.name, kCommonTableExpressionAliased.alias));
+        return KUsing.getInstance(this.k, this.kQueryDeleteData, new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
     }
     
     public KWhereDelete where(

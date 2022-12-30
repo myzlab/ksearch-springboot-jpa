@@ -45,9 +45,9 @@ public class KUsing extends KQueryDelete {
     }
     
     public KUsing using(
-        final KCommonTableExpressionAliased kCommonTableExpressionAliased
+        final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
-        this.process(new KTable(null, kCommonTableExpressionAliased.name, kCommonTableExpressionAliased.alias));
+        this.process(new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
         
         return this;
     }
