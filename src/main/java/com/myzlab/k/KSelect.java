@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
@@ -160,6 +161,12 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         kSelect.process(true, kQuery, alias);
         
         return kSelect;
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KSelect select(

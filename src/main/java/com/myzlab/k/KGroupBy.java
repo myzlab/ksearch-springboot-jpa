@@ -1,10 +1,10 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
-import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -30,6 +30,12 @@ public class KGroupBy extends KQuery implements KQueryAllowedToCombining {
         final KColumnAllowedToGroupBy... kColumnsAllowedToGroupBy
     ) {
         return new KGroupBy(kExecutor, kSpecialFunctions, kQueryData, kColumnsAllowedToGroupBy);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
 
     public KHaving having(

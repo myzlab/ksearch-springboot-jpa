@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -43,6 +44,12 @@ public class KLimit extends KQuery {
         final KQueryData kQueryData
     ) {
         return new KLimit(kExecutor, kSpecialFunctions, kQueryData);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KOffsetUnfetchable offset(

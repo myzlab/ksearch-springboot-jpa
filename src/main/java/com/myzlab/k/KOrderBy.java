@@ -1,10 +1,9 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.optional.KOptionalLong;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class KOrderBy extends KQuery {
     
@@ -30,6 +29,12 @@ public class KOrderBy extends KQuery {
         final KColumnAllowedToOrderBy... kColumnsAllowedToOrderBy
     ) {
         return new KOrderBy(kExecutor, kSpecialFunctions, kQueryData, kColumnsAllowedToOrderBy);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KLimit limit(

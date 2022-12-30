@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import java.util.List;
 
 public class KOffsetUnfetchable extends KQuery {
@@ -42,6 +43,12 @@ public class KOffsetUnfetchable extends KQuery {
         final KQueryData kQueryData
     ) {
         return new KOffsetUnfetchable(kExecutor, kSpecialFunctions, kQueryData);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     private void process(

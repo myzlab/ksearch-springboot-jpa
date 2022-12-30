@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.optional.KOptionalLong;
@@ -29,6 +30,12 @@ public class KCombining extends KQuery {
         final boolean all
     ) {
         return new KCombining(kExecutor, kSpecialFunctions, kQueryData, kQueryAllowedToCombining, function, all);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
 
     public KCombining union(

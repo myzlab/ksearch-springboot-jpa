@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
@@ -37,6 +38,12 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         return new KWhere(kExecutor, kSpecialFunctions, kQueryData, kCondition);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KWhere andNot(

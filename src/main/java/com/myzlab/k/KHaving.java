@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
@@ -36,6 +37,12 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         return new KHaving(kExecutor, kSpecialFunctions, kQueryData, kCondition);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KHaving andNot(

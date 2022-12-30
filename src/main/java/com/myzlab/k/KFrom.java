@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
@@ -31,6 +32,12 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
         final KTable kTable
     ) {
         return new KFrom(kExecutor, kSpecialFunctions, kQueryData, kTable);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KFrom crossJoin(
@@ -71,15 +78,6 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
         final KCommonTableExpressionFilled kCommonTableExpressionFilled
     ) {
         this.process(new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
-        
-        return this;
-    }
-    
-    public KFrom from(
-        final KQuery kQuery,
-        final String alias
-    ) {
-        this.process(new KTable(kQuery, alias));//TEST ME
         
         return this;
     }

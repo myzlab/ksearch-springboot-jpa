@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
@@ -32,6 +33,12 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
         final KWindowDefinitionAllowedToWindow... KWindowDefinitionsAllowedToWindow
     ) {
         return new KWindow(kExecutor, kSpecialFunctions, kQueryData, KWindowDefinitionsAllowedToWindow);
+    }
+    
+    public KTable as(
+        final String alias
+    ) {
+        return table(this, alias);
     }
     
     public KWindow window(

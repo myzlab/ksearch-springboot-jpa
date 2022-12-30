@@ -12,8 +12,15 @@ public class KRaw implements KColumnAllowedToOrderBy, KColumnAllowedToGroupBy, K
 
     protected String content;
 
-    public KRaw(String content) {
-        this.content = content;
+    public KRaw(
+        final String content,
+        final Object... args
+    ) {
+        if (args != null && args.length > 0) {
+            this.content = String.format(content, args);
+        } else {
+            this.content = content;
+        }
     }
 
     @Override

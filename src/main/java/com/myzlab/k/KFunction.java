@@ -2740,9 +2740,10 @@ public class KFunction {
     }
     
     public static KRaw raw(
-        final String content
+        final String content,
+        final Object... args
     ) {
-        return new KRaw(content);
+        return new KRaw(content, args);
     }
     
     public static KColumn repeat(
@@ -3643,7 +3644,7 @@ public class KFunction {
         return applyBinaryOperator(kValNumberField, kColumn, "-");
     }
     
-    public static KTable table(
+    protected static KTable table(
         final KQuery kQuery,
         final String alias
     ) {
