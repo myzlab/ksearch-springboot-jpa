@@ -5,30 +5,30 @@ import java.util.Collection;
 public class KOptionalCollection {
 
     private final Collection values;
-    private final boolean applyOnEmpty;
+    private final boolean omitOnEmptyCollection;
     
     private KOptionalCollection() {
         super();
         
         this.values = null;
-        this.applyOnEmpty = false;
+        this.omitOnEmptyCollection = false;
     }
     
     private KOptionalCollection(
         final Collection values,
-        final boolean applyOnEmpty
+        final boolean omitOnEmptyCollection
     ) {
         super();
         
         this.values = values;
-        this.applyOnEmpty = applyOnEmpty;
+        this.omitOnEmptyCollection = omitOnEmptyCollection;
     }
     
     public static KOptionalCollection getInstance(
         final Collection values,
-        final boolean applyOnEmpty
+        final boolean omitOnEmptyCollection
     ) {
-        return new KOptionalCollection(values, applyOnEmpty);
+        return new KOptionalCollection(values, omitOnEmptyCollection);
     }
     
     public Collection get() {
@@ -40,7 +40,7 @@ public class KOptionalCollection {
             return false;
         }
         
-        if (!applyOnEmpty) {
+        if (!omitOnEmptyCollection) {
             return true;
         }
         

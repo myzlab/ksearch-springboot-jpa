@@ -111,6 +111,14 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.avg(this);
     }
     
+    public KColumn count() {
+        return KFunction.count(this);
+    }
+    
+    public KColumn countDistinct() {
+        return KFunction.countDistinct(this);
+    }
+    
     public KColumn div(
         final KColumn kColumn
     ) {
@@ -131,6 +139,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn excluded() {
         return KFunction.excluded(this);
+    }
+    
+    public KColumn grouping() {
+        return KFunction.grouping(this);
     }
     
     public KColumn tableNameAlias() {
@@ -1621,22 +1633,12 @@ public class KColumn extends KBaseColumnCastable implements
         return KCondition.lksw(this, KFunction.val(kOptionalString.get()));
     }
     
-    public KColumn sub(
-        final KColumn kColumn
-    ) {
-        return KFunction.sub(this, kColumn);
+    public KColumn max() {
+        return KFunction.max(this);
     }
     
-    public KColumn sub(
-        final KValNumberField kValNumberField
-    ) {
-        return KFunction.sub(this, kValNumberField);
-    }
-    
-    public KColumn sub(
-        final Number number
-    ) {
-        return KFunction.sub(this, number);
+    public KColumn min() {
+        return KFunction.min(this);
     }
     
     public KColumn mod(
@@ -3131,6 +3133,32 @@ public class KColumn extends KBaseColumnCastable implements
         final KWindowDefinitionAllowedToOver kWindowDefinitionAllowedToOver
     ) {
         return new KColumnOvered(this.sb, this.params, this.closed, kWindowDefinitionAllowedToOver);
+    }
+    
+    public KColumn sub(
+        final KColumn kColumn
+    ) {
+        return KFunction.sub(this, kColumn);
+    }
+    
+    public KColumn sub(
+        final KValNumberField kValNumberField
+    ) {
+        return KFunction.sub(this, kValNumberField);
+    }
+    
+    public KColumn sub(
+        final Number number
+    ) {
+        return KFunction.sub(this, number);
+    }
+    
+    public KColumn sum() {
+        return KFunction.sum(this);
+    }
+    
+    public KColumn sumDistinct() {
+        return KFunction.sumDistinct(this);
     }
     
     public KColumnOrdered asc() {

@@ -3,30 +3,30 @@ package com.myzlab.k.optional;
 public class KOptionalArrayObject {
 
     private Object[] values;
-    private final boolean applyOnEmpty;
+    private final boolean omitOnEmptyArray;
     
     private KOptionalArrayObject() {
         super();
         
         this.values = null;
-        this.applyOnEmpty = false;
+        this.omitOnEmptyArray = false;
     }
     
     private KOptionalArrayObject(
         final Object[] values,
-        final boolean applyOnEmpty
+        final boolean omitOnEmptyArray
     ) {
         super();
         
         this.values = values;
-        this.applyOnEmpty = applyOnEmpty;
+        this.omitOnEmptyArray = omitOnEmptyArray;
     }
     
     public static KOptionalArrayObject getInstance(
         final Object[] values,
-        final boolean applyOnEmpty
+        final boolean omitOnEmptyArray
     ) {
-        return new KOptionalArrayObject(values, applyOnEmpty);
+        return new KOptionalArrayObject(values, omitOnEmptyArray);
     }
     
     public Object[] get() {
@@ -38,7 +38,7 @@ public class KOptionalArrayObject {
             return false;
         }
         
-        if (!applyOnEmpty) {
+        if (!omitOnEmptyArray) {
             return true;
         }
         

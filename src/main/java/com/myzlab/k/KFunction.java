@@ -1,17 +1,23 @@
 package com.myzlab.k;
 
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.optional.KOptionalArrayObject;
+import com.myzlab.k.optional.KOptionalCollection;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKColumnOrdered;
 import com.myzlab.k.optional.KOptionalKValNumberField;
 import com.myzlab.k.optional.KOptionalKValTextField;
+import com.myzlab.k.optional.KOptionalLocalDate;
+import com.myzlab.k.optional.KOptionalLocalDateTime;
 import com.myzlab.k.optional.KOptionalLong;
 import com.myzlab.k.optional.KOptionalNumber;
 import com.myzlab.k.optional.KOptionalSpecialFunction;
 import com.myzlab.k.optional.KOptionalString;
+import com.myzlab.k.optional.KOptionalUuid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
@@ -1251,6 +1257,12 @@ public class KFunction {
         return KCommonTableExpressionNamed.getInstance(name);
     }
     
+    public static KColumn cube(
+        final KColumn... kColumns
+    ) {
+        return groupingSet("CUBE", kColumns);
+    }
+    
     public static KColumn currentDate() {
         return new KColumn(new StringBuilder("CURRENT_DATE"), true);
     }
@@ -1595,47 +1607,6 @@ public class KFunction {
         return KOptionalKColumnOrdered.getNullInstance();
     }
     
-//    private static String getErrorMessageFunctionTextType(
-//        final String functionName,
-//        final KColumn kColumn
-//    ) {
-//        return getGenericErrorMessage(functionName, "function", "text", kColumn);
-//    }
-//    
-//    private static String getErrorMessageFunctionNumberType(
-//        final String functionName,
-//        final KColumn kColumn
-//    ) {
-//        return getGenericErrorMessage(functionName, "function", "number", kColumn);
-//    }
-//    
-//    private static String getErrorMessageOperatorTextType(
-//        final String operatorName,
-//        final KColumn kColumn
-//    ) {
-//        return getGenericErrorMessage(operatorName, "operator", "text", kColumn);
-//    }
-//    
-//    private static String getErrorMessageOperatorNumberType(
-//        final String operatorName,
-//        final KColumn kColumn
-//    ) {
-//        return getGenericErrorMessage(operatorName, "operator", "number", kColumn);
-//    }
-//    
-//    private static String getGenericErrorMessage(
-//        final String name,
-//        final String entity,
-//        final String type,
-//        final KColumn kColumn
-//    ) {
-//        return "The '" + name + "' " + entity + " only can be used with a column or with a 'val' of " + type + " type. Current value: [" 
-//            + (type.equals("number") ? "'" : "") 
-//            + kColumn.sb.toString() 
-//            + (type.equals("number") ? "'" : "") 
-//            + "]";
-//    }
-    
     public static KColumn getJsonArray(
         final KColumn kColumn,
         final int index
@@ -1753,6 +1724,58 @@ public class KFunction {
         greatestkColumn.sb.append(")");
         
         return greatestkColumn;
+    }
+    
+    public static KColumn grouping(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "GROUPING");
+    }
+    
+    private static KColumn groupingSet(
+        final String name,
+        final KColumn... kColumns
+    ) {
+        KUtils.assertNotNullNotEmpty(kColumns, "kColumns");
+        
+        final KColumn groupingSetKColumn = new KColumn();
+        
+        boolean first = true;
+        
+        groupingSetKColumn.sb.append(name).append("(");
+        
+        for (final KColumn kColumn : kColumns) {
+            if (kColumn == null) {
+                continue;
+            }
+            
+            if (!first) {
+                groupingSetKColumn.sb.append(", ");
+            }
+            
+            if (first) {
+                first = false;
+            }
+            
+            groupingSetKColumn.sb.append(kColumn.sb);
+            groupingSetKColumn.params.addAll(kColumn.params);
+        }
+        
+        groupingSetKColumn.sb.append(")");
+        
+        return groupingSetKColumn;
+    }
+    
+    public static KColumn groupingSet(
+        final KColumn... kColumns
+    ) {
+        return groupingSet("", kColumns);
+    }
+    
+    public static KColumn groupingSets(
+        final KColumn... kColumns
+    ) {
+        return groupingSet("GROUPING SETS", kColumns);
     }
     
     public static String iso8601DateUTCFormat() {
@@ -2461,10 +2484,42 @@ public class KFunction {
         return KOptionalString.getInstance(value);
     }
     
+    public static KOptionalUuid optional(
+        final UUID value
+    ) {
+        return KOptionalUuid.getInstance(value);
+    }
+    
+    public static KOptionalLocalDate optional(
+        final LocalDate localDate
+    ) {
+        return KOptionalLocalDate.getInstance(localDate);
+    }
+    
+    public static KOptionalLocalDateTime optional(
+        final LocalDateTime localDateTime
+    ) {
+        return KOptionalLocalDateTime.getInstance(localDateTime);
+    }
+    
     public static KOptionalSpecialFunction optional(
         final KSpecialFunction kSpecialFunction
     ) {
         return KOptionalSpecialFunction.getInstance(kSpecialFunction);
+    }
+    
+    public static KOptionalCollection optional(
+        final Collection values,
+        final boolean omitOnEmptyCollection
+    ) {
+        return KOptionalCollection.getInstance(values, omitOnEmptyCollection);
+    }
+    
+    public static KOptionalArrayObject optional(
+        final Object[] values,
+        final boolean omitOnEmptyArray
+    ) {
+        return KOptionalArrayObject.getInstance(values, omitOnEmptyArray);
     }
     
     public static KColumn overlay(
@@ -2912,6 +2967,12 @@ public class KFunction {
         KUtils.assertNotNull(kValTextField, "kValTextField");
         
         return applyTwoParameterFunction(kValTextField, val(n), "RIGHT");
+    }
+    
+    public static KColumn rollup(
+        final KColumn... kColumns
+    ) {
+        return groupingSet("ROLLUP", kColumns);
     }
     
     public static KColumn round(
@@ -3384,6 +3445,16 @@ public class KFunction {
         KUtils.assertNotNull(number, "number");
         
         return applyOneParameterFunction(val(number), "SUM");
+    }
+    
+    public static KColumn sumDistinct(
+        final KColumn kColumn
+    ) {
+        final KColumn kColumnCloned = kColumn.cloneMe();
+        
+        kColumnCloned.sb.insert(0, "DISTINCT ");
+        
+        return applyOneParameterFunction(kColumnCloned, "SUM");
     }
     
     public static KColumn tableNameAlias(

@@ -60,6 +60,14 @@ public class KCommonTableExpressionFilled extends KCommonTableExpression {
         return KJoinDefinition.getInstance(new KTable(null, this.name, this.alias).toSql(true), kCondition);
     }
     
+    public KJoinDefinition on(
+        final KRaw kRaw
+    ) {
+        KUtils.assertNotNull(kRaw, "kRaw");
+        
+        return KJoinDefinition.getInstance(new KTable(null, this.name, this.alias).toSql(true), new KCondition(kRaw.content));
+    }
+    
     private KColumn processColumn(
         final String name
     ) {
