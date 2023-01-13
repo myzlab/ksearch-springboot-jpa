@@ -177,6 +177,12 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.jsonbAgg(this);
     }
     
+    public KStringAggColumn stringAgg(
+        final KBaseColumnCastable kBaseColumnCastableDelimiter
+    ) {
+        return KFunction.stringAgg(this, kBaseColumnCastableDelimiter);
+    }
+    
     public KColumn tableNameAlias() {
         return KFunction.tableNameAlias(this);
     }
@@ -3191,6 +3197,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn sumDistinct() {
         return KFunction.sumDistinct(this);
+    }
+    
+    public KColumn xmlagg() {
+        return KFunction.xmlagg(this);
     }
     
     public KColumnOrdered asc() {

@@ -21,6 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.Query;
 import org.postgresql.jdbc.PgArray;
+import org.postgresql.jdbc.PgSQLXML;
 import org.postgresql.util.PGobject;
 
 public class KQueryUtils {
@@ -221,9 +222,7 @@ public class KQueryUtils {
         try {
             if (v instanceof PgArray) {
                 return ((PgArray) v).getArray();
-            }
-            
-            if (v instanceof PGobject) {
+            } else if (v instanceof PGobject) {
                 final PGobject pGobject = (PGobject) v;
                 
                 if (pGobject.getType().equals("json")) {
@@ -233,6 +232,8 @@ public class KQueryUtils {
                 if (pGobject.getType().equals("jsonb")) {
                     return pGobject.getValue();
                 }
+            } else if (v instanceof PgSQLXML) {
+                return ((PgSQLXML) v).getString();
             }
 
             return v;

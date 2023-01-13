@@ -483,7 +483,7 @@ public class KFunction {
         
         final KArrayAggColumn kArrayAggColumn = new KArrayAggColumn(kColumn.sb, kColumn.params, true);
         
-        kArrayAggColumn.sb.insert(0, "(").insert(0, "ARRAY_AGG").append(")");
+        kArrayAggColumn.sb.insert(0, "ARRAY_AGG(").append(")");
         
         return kArrayAggColumn;
     }
@@ -1888,7 +1888,7 @@ public class KFunction {
         
         final KJsonAggColumn kJsonAggColumn = new KJsonAggColumn(kColumn.sb, kColumn.params, true);
         
-        kJsonAggColumn.sb.insert(0, "(").insert(0, "JSON_AGG").append(")");
+        kJsonAggColumn.sb.insert(0, "JSON_AGG(").append(")");
         
         return kJsonAggColumn;
     }
@@ -1900,9 +1900,16 @@ public class KFunction {
         
         final KJsonbAggColumn kJsonbAggColumn = new KJsonbAggColumn(kColumn.sb, kColumn.params, true);
         
-        kJsonbAggColumn.sb.insert(0, "(").insert(0, "JSONB_AGG").append(")");
+        kJsonbAggColumn.sb.insert(0, "JSONB_AGG(").append(")");
         
         return kJsonbAggColumn;
+    }
+    
+    public static KColumn jsonObjectAgg(
+        final KColumn kColumnName,
+        final KColumn kColumnValue
+    ) {
+        return applyTwoParameterFunction(kColumnName, kColumnValue, "JSON_OBJECT_AGG");
     }
     
     public static KColumn lag(
@@ -3311,6 +3318,21 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "SQRT");
     }
     
+    public static KStringAggColumn stringAgg(
+        final KColumn kColumn,
+        final KBaseColumnCastable kBaseColumnCastableDelimiter
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kBaseColumnCastableDelimiter, "kBaseColumnCastableDelimiter");
+        
+        final KStringAggColumn kStringAggColumn = new KStringAggColumn(kColumn.sb, kColumn.params, true);
+        
+        kStringAggColumn.sb.insert(0, "STRING_AGG(").append(", ").append(kBaseColumnCastableDelimiter.sb).append(")");
+        kStringAggColumn.params.addAll(kBaseColumnCastableDelimiter.params);
+        
+        return kStringAggColumn;
+    }
+    
     public static KColumn substring(
         final KColumn kColumn,
         final Integer from
@@ -3986,5 +4008,11 @@ public class KFunction {
         widthBucketkColumn.sb.append("WIDTH_BUCKET(").append(op).append(", ").append(b1).append(", ").append(b2).append(", ").append(count).append(")");
         
         return widthBucketkColumn;
+    }
+    
+    public static KColumn xmlagg(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "XMLAGG");
     }
 }
