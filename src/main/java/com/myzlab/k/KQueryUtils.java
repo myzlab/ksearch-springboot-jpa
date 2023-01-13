@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.Query;
+import org.postgresql.jdbc.PgArray;
+import org.postgresql.util.PGobject;
 
 public class KQueryUtils {
     
@@ -213,6 +215,34 @@ public class KQueryUtils {
         }
     }
     
+    private static Object castCustomDBValuesToJava(
+        final Object v
+    ) {
+        try {
+            if (v instanceof PgArray) {
+                return ((PgArray) v).getArray();
+            }
+            
+            if (v instanceof PGobject) {
+                final PGobject pGobject = (PGobject) v;
+                
+                if (pGobject.getType().equals("json")) {
+                    return pGobject.getValue();
+                }
+                
+                if (pGobject.getType().equals("jsonb")) {
+                    return pGobject.getValue();
+                }
+            }
+
+            return v;
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            return v;
+        }
+    }
+    
     protected static <T extends KRow> T mapObject(
         final KQueryGenericData kQueryGenericData,
         final Object[] resultSet,
@@ -232,12 +262,14 @@ public class KQueryUtils {
         final Map<String, Integer> ref = new HashMap<>();
 
         for (int i = 0; i < kQueryGenericData.kBaseColumns.size(); i++) {
-            final Object v = resultSet[i];
+            final Object v_ = resultSet[i];
             final KBaseColumn kBaseColumn = kQueryGenericData.kBaseColumns.get(i);
             
             if (kBaseColumn == null) {
                 throw KExceptionHelper.internalServerError("The 'kBaseColumn' is required"); 
             }
+            
+            final Object v = KQueryUtils.castCustomDBValuesToJava(v_);
             
             KQueryUtils.mapColumn(
                 t,

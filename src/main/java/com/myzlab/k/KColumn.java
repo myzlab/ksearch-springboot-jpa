@@ -107,8 +107,28 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.add(this, number);
     }
     
+    public KArrayAggColumn arrayAgg() {
+        return KFunction.arrayAgg(this);
+    }
+    
     public KColumn avg() {
         return KFunction.avg(this);
+    }
+    
+    public KColumn bitAnd() {
+        return KFunction.bitAnd(this);
+    }
+    
+    public KColumn bitOr() {
+        return KFunction.bitOr(this);
+    }
+    
+    public KColumn boolAnd() {
+        return KFunction.boolAnd(this);
+    }
+    
+    public KColumn boolOr() {
+        return KFunction.boolOr(this);
     }
     
     public KColumn count() {
@@ -137,12 +157,24 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.div(this, number);
     }
     
+    public KColumn every() {
+        return KFunction.every(this);
+    }
+    
     public KColumn excluded() {
         return KFunction.excluded(this);
     }
     
     public KColumn grouping() {
         return KFunction.grouping(this);
+    }
+    
+    public KJsonAggColumn jsonAgg() {
+        return KFunction.jsonAgg(this);
+    }
+    
+    public KJsonbAggColumn jsonbAgg() {
+        return KFunction.jsonbAgg(this);
     }
     
     public KColumn tableNameAlias() {

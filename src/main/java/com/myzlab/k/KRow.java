@@ -697,6 +697,47 @@ public class KRow {
         }
     }
     
+    public Object[] getArray(
+        final KTableColumn kTableColumn
+    ) {
+        return this.getArray(kTableColumn.name);
+    }
+    
+    public Object[] getArray(
+        final String c
+    ) {
+        final Integer n = ref.get(c);
+        
+        if (n == null) {
+            return null;
+        }
+        
+        return this.getArray(n, c);
+    }
+    
+    public Object[] getArray(
+        final int n
+    ) {
+        return this.getArray(n, null);
+    }
+    
+    private Object[] getArray(
+        final int n,
+        final String nameRef
+    ) {
+        if (n >= o.length) {
+            return null;
+        }
+
+        try {
+            return (Object[]) o[n];
+        } catch (Exception e) {
+            throwNoCasteableMessage(n, nameRef, "Object[]");
+            
+            return null;
+        }
+    }
+    
     public boolean isPresent(
         final KTableColumn kTableColumn
     ) {

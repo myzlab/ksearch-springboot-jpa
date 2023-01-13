@@ -476,6 +476,18 @@ public class KFunction {
 //        return functionKColumn;
 //    }
     
+    public static KArrayAggColumn arrayAgg(
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KArrayAggColumn kArrayAggColumn = new KArrayAggColumn(kColumn.sb, kColumn.params, true);
+        
+        kArrayAggColumn.sb.insert(0, "(").insert(0, "ARRAY_AGG").append(")");
+        
+        return kArrayAggColumn;
+    }
+    
     public static void assertExists(
         final KBuilder k,
         final KQuery kQuery,
@@ -672,6 +684,12 @@ public class KFunction {
     }
     
     public static KColumn bitAnd(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "BIT_AND");
+    }
+    
+    public static KColumn bitAnd(
         final KColumn kColumn1,
         final KColumn kColumn2
     ) {
@@ -749,6 +767,12 @@ public class KFunction {
         KUtils.assertNotNull(kValNumberField, "kValNumberField");
         
         return applyUnaryOperator(kValNumberField, "~", false);
+    }
+    
+    public static KColumn bitOr(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "BIT_OR");
     }
     
     public static KColumn bitOr(
@@ -914,11 +938,25 @@ public class KFunction {
     }
     
     public static KColumn boolAnd(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "BOOL_AND");
+    }
+    
+    public static KColumn boolAnd(
         final KCondition kCondition
     ) {
         KUtils.assertNotNull(kCondition, "kCondition");
         
-        return processBoolAnd(kCondition);
+        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        
+        return applyOneParameterFunction(kColumn, "BOOL_AND");
+    }
+    
+    public static KColumn boolOr(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "BOOL_OR");
     }
     
     public static KColumn boolOr(
@@ -926,7 +964,9 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kCondition, "kCondition");
         
-        return processBoolOr(kCondition);
+        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        
+        return applyOneParameterFunction(kColumn, "BOOL_OR");
     }
     
     public static KCase caseConditional() {
@@ -1463,6 +1503,22 @@ public class KFunction {
         return encodeKValTextField;
     }
     
+    public static KColumn every(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "EVERY");
+    }
+    
+    public static KColumn every(
+        final KCondition kCondition
+    ) {
+        KUtils.assertNotNull(kCondition, "kCondition");
+        
+        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        
+        return applyOneParameterFunction(kColumn, "EVERY");
+    }
+    
     public static KColumn excluded(
         final KColumn kColumn
     ) {
@@ -1823,6 +1879,30 @@ public class KFunction {
         isolateKValNumberField.sb.insert(0, "(").append(")");
         
         return isolateKValNumberField;
+    }
+    
+    public static KJsonAggColumn jsonAgg(
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KJsonAggColumn kJsonAggColumn = new KJsonAggColumn(kColumn.sb, kColumn.params, true);
+        
+        kJsonAggColumn.sb.insert(0, "(").insert(0, "JSON_AGG").append(")");
+        
+        return kJsonAggColumn;
+    }
+    
+    public static KJsonbAggColumn jsonbAgg(
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KJsonbAggColumn kJsonbAggColumn = new KJsonbAggColumn(kColumn.sb, kColumn.params, true);
+        
+        kJsonbAggColumn.sb.insert(0, "(").insert(0, "JSONB_AGG").append(")");
+        
+        return kJsonbAggColumn;
     }
     
     public static KColumn lag(
@@ -2700,30 +2780,6 @@ public class KFunction {
         subQuery.sb.insert(0, "ALL (").append(")");
         
         return new KColumn(subQuery.sb, subQuery.params, true);
-    }
-    
-    private static KColumn processBoolAnd(
-        final KCondition kCondition
-    ) {
-        KUtils.assertNotNull(kCondition, "kCondition");
-        
-        final StringBuilder sb = new StringBuilder();
-        
-        sb.append("BOOL_AND (").append(kCondition.sb).append(")");
-        
-        return new KColumn(sb, kCondition.params, false);
-    }
-    
-    private static KColumn processBoolOr(
-        final KCondition kCondition
-    ) {
-        KUtils.assertNotNull(kCondition, "kCondition");
-        
-        final StringBuilder sb = new StringBuilder();
-        
-        sb.append("BOOL_OR (").append(kCondition.sb).append(")");
-        
-        return new KColumn(sb, kCondition.params, false);
     }
     
     private static KColumn processCount(
