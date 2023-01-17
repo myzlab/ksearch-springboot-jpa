@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
+import java.util.List;
 
 public class KWindowDefinitionUnnamedFrameStarted extends KWindowDefinition implements KWindowDefinitionAllowedToOver {
     
@@ -8,9 +9,10 @@ public class KWindowDefinitionUnnamedFrameStarted extends KWindowDefinition impl
     
     private KWindowDefinitionUnnamedFrameStarted(
         final StringBuilder sb,
-        final String frameStart
+        final String frameStart,
+        final List<Object> params
     ) {
-        super(sb);
+        super(sb, params);
         
         this.frameStart = frameStart;
         
@@ -19,29 +21,30 @@ public class KWindowDefinitionUnnamedFrameStarted extends KWindowDefinition impl
     
     protected static KWindowDefinitionUnnamedFrameStarted getInstance(
         final StringBuilder sb,
-        final String frameStart
+        final String frameStart,
+        final List<Object> params
     ) {
-        return new KWindowDefinitionUnnamedFrameStarted(sb, frameStart);
+        return new KWindowDefinitionUnnamedFrameStarted(sb, frameStart, params);
     }
     
     public KWindowDefinitionUnnamedFrameEnded preceding(
         int offset
     ) {
-        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, offset + " PRECEDING");
+        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, offset + " PRECEDING", this.params);
     }
     
     public KWindowDefinitionUnnamedFrameEnded currentRow() {
-        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, "CURRENT ROW");
+        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, "CURRENT ROW", this.params);
     }
     
     public KWindowDefinitionUnnamedFrameEnded following(
         int offset
     ) {
-        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, offset + " FOLLOWING");
+        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, offset + " FOLLOWING", this.params);
     }
     
     public KWindowDefinitionUnnamedFrameEnded unboundedFollowing() {
-        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, "UNBOUNDED FOLLOWING");
+        return KWindowDefinitionUnnamedFrameEnded.getInstance(sb, frameStart, "UNBOUNDED FOLLOWING", this.params);
     }
     
     private void process() {
@@ -58,5 +61,10 @@ public class KWindowDefinitionUnnamedFrameStarted extends KWindowDefinition impl
     @Override
     public String getSql() {
         return this.sb.toString();
+    }
+    
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }

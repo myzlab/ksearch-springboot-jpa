@@ -2,15 +2,17 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import java.util.List;
 
 public class KWindowDefinitionNamedFrameExcluded extends KWindowDefinition implements KWindowDefinitionAllowedToWindow, KWindowDefinitionAllowedToOver {
     
     private KWindowDefinitionNamedFrameExcluded(
         final StringBuilder sb,
         final String name,
-        final String excluding
+        final String excluding,
+        final List<Object> params
     ) {
-        super(sb, name);
+        super(sb, name, params);
         
         this.process(excluding);
     }
@@ -18,9 +20,10 @@ public class KWindowDefinitionNamedFrameExcluded extends KWindowDefinition imple
     protected static KWindowDefinitionNamedFrameExcluded getInstance(
         final StringBuilder sb,
         final String name,
-        final String excluding
+        final String excluding,
+        final List<Object> params
     ) {
-        return new KWindowDefinitionNamedFrameExcluded(sb, name, excluding);
+        return new KWindowDefinitionNamedFrameExcluded(sb, name, excluding, params);
     }
 
     private void process(
@@ -39,5 +42,10 @@ public class KWindowDefinitionNamedFrameExcluded extends KWindowDefinition imple
     @Override
     public String getSql() {
         return this.sb.toString();
+    }
+    
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }

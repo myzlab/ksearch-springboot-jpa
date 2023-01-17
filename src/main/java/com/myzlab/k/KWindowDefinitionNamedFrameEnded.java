@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import java.util.List;
 
 public class KWindowDefinitionNamedFrameEnded extends KWindowDefinition implements KWindowDefinitionAllowedToWindow, KWindowDefinitionAllowedToOver {
     
@@ -9,9 +10,10 @@ public class KWindowDefinitionNamedFrameEnded extends KWindowDefinition implemen
         final StringBuilder sb,
         final String name,
         final String frameStart,
-        final String frameEnd
+        final String frameEnd,
+        final List<Object> params
     ) {
-        super(sb, name);
+        super(sb, name, params);
         
         this.process(frameStart, frameEnd);
     }
@@ -20,25 +22,26 @@ public class KWindowDefinitionNamedFrameEnded extends KWindowDefinition implemen
         final StringBuilder sb,
         final String name,
         final String frameStart,
-        final String frameEnd
+        final String frameEnd,
+        final List<Object> params
     ) {
-        return new KWindowDefinitionNamedFrameEnded(sb, name, frameStart, frameEnd);
+        return new KWindowDefinitionNamedFrameEnded(sb, name, frameStart, frameEnd, params);
     }
     
     public KWindowDefinitionNamedFrameExcluded excludeCurrentRow() {
-        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "CURRENT ROW");
+        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "CURRENT ROW", this.params);
     }
     
     public KWindowDefinitionNamedFrameExcluded excludeGroup() {
-        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "GROUP");
+        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "GROUP", this.params);
     }
     
     public KWindowDefinitionNamedFrameExcluded excludeTies() {
-        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "TIES");
+        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "TIES", this.params);
     }
     
     public KWindowDefinitionNamedFrameExcluded excludeNoOthers() {
-        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "NO OTHERS");
+        return KWindowDefinitionNamedFrameExcluded.getInstance(sb, name, "NO OTHERS", this.params);
     }
     
     private void process(
@@ -61,5 +64,10 @@ public class KWindowDefinitionNamedFrameEnded extends KWindowDefinition implemen
     @Override
     public String getSql() {
         return this.sb.toString();
+    }
+    
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }

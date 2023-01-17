@@ -2,6 +2,8 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import java.util.ArrayList;
+import java.util.List;
 
 public class KWindowDefinitionNamed extends KWindowDefinition implements KWindowDefinitionAllowedToWindow, KWindowDefinitionAllowedToOver {
     
@@ -19,7 +21,7 @@ public class KWindowDefinitionNamed extends KWindowDefinition implements KWindow
         final StringBuilder sb,
         final String name
     ) {
-        super(sb, name);
+        super(sb, name, new ArrayList<>());
     }
     
     protected static KWindowDefinitionNamed getInstance(
@@ -44,21 +46,21 @@ public class KWindowDefinitionNamed extends KWindowDefinition implements KWindow
     public KWindowDefinitionNamedOrdered orderBy(
         final KColumn kColumn
     ) {
-        return KWindowDefinitionNamedOrdered.getInstance(sb, name, kColumn);
+        return KWindowDefinitionNamedOrdered.getInstance(sb, name, kColumn, this.params);
     }
     
     public KWindowDefinitionNamedOrdered orderBy(
         final KColumnOrdered kColumnOrdered
     ) {
-        return KWindowDefinitionNamedOrdered.getInstance(sb, name, kColumnOrdered);
+        return KWindowDefinitionNamedOrdered.getInstance(sb, name, kColumnOrdered, this.params);
     }
     
     public KWindowDefinitionNamedFrameNoStarted range() {
-        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "RANGE", false);
+        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "RANGE", false, this.params);
     }
     
     public KWindowDefinitionNamedFrameNoStarted rows() {
-        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "ROWS", false);
+        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "ROWS", false, this.params);
     }
     
     @Override
@@ -69,5 +71,10 @@ public class KWindowDefinitionNamed extends KWindowDefinition implements KWindow
     @Override
     public String getSql() {
         return this.sb.toString();
+    }
+
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }

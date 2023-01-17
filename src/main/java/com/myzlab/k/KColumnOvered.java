@@ -51,6 +51,7 @@ public class KColumnOvered extends KBaseColumn implements KColumnAllowedToSelect
             this.sb.append(" ").append(kWindowDefinitionAllowedToOver.getName());
         } else {
             this.sb.append("(").append(kWindowDefinitionAllowedToOver.getSql()).append(")");
+            this.params.addAll(kWindowDefinitionAllowedToOver.getParams());
         }
     }
     

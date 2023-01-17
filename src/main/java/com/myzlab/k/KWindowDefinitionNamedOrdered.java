@@ -3,15 +3,17 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
 import com.myzlab.k.helper.KExceptionHelper;
+import java.util.List;
 
 public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements KWindowDefinitionAllowedToWindow, KWindowDefinitionAllowedToOver {
     
     private KWindowDefinitionNamedOrdered(
         final StringBuilder sb,
         final String name,
-        final KColumn kColumn
+        final KColumn kColumn,
+        final List<Object> params
     ) {
-        super(sb, name);
+        super(sb, name, params);
         
         this.process(kColumn);
     }
@@ -19,9 +21,10 @@ public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements 
     private KWindowDefinitionNamedOrdered(
         final StringBuilder sb,
         final String name,
-        final KColumnOrdered kColumnOrdered
+        final KColumnOrdered kColumnOrdered,
+        final List<Object> params
     ) {
-        super(sb, name);
+        super(sb, name, params);
         
         this.process(kColumnOrdered);
     }
@@ -29,29 +32,31 @@ public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements 
     protected static KWindowDefinitionNamedOrdered getInstance(
         final StringBuilder sb,
         final String name,
-        final KColumn kColumn
+        final KColumn kColumn,
+        final List<Object> params
     ) {
-        return new KWindowDefinitionNamedOrdered(sb, name, kColumn);
+        return new KWindowDefinitionNamedOrdered(sb, name, kColumn, params);
     }
     
     protected static KWindowDefinitionNamedOrdered getInstance(
         final StringBuilder sb,
         final String name,
-        final KColumnOrdered kColumnOrdered
+        final KColumnOrdered kColumnOrdered,
+        final List<Object> params
     ) {
-        return new KWindowDefinitionNamedOrdered(sb, name, kColumnOrdered);
+        return new KWindowDefinitionNamedOrdered(sb, name, kColumnOrdered, params);
     }
     
     public KWindowDefinitionNamedFrameNoStarted range() {
-        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "RANGE", true);
+        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "RANGE", true, this.params);
     }
     
     public KWindowDefinitionNamedFrameNoStarted rows() {
-        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "ROWS", true);
+        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "ROWS", true, this.params);
     }
     
     public KWindowDefinitionNamedFrameNoStarted groups() {
-        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "GROUPS", true);
+        return KWindowDefinitionNamedFrameNoStarted.getInstance(sb, name, "GROUPS", true, this.params);
     }
 
     private void process(
@@ -61,15 +66,16 @@ public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements 
             throw KExceptionHelper.internalServerError("The 'kColumn' param is required"); 
         }
         
-        if (!kColumn.params.isEmpty()) {
-            throw KExceptionHelper.internalServerError("Params in 'kColumn' are not allowed"); 
-        }
+//        if (!kColumn.params.isEmpty()) {
+//            throw KExceptionHelper.internalServerError("Params in 'kColumn' are not allowed"); 
+//        }
         
         if (this.sb.length() > 0) {
             this.sb.append(" ");
         }
         
         this.sb.append("ORDER BY ").append(kColumn.sb);
+        this.params.addAll(kColumn.params);
     }
     
     private void process(
@@ -79,15 +85,16 @@ public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements 
             throw KExceptionHelper.internalServerError("The 'kColumnOrdered' param is required"); 
         }
         
-        if (!kColumnOrdered.params.isEmpty()) {
-            throw KExceptionHelper.internalServerError("Params in 'kColumnOrdered' are not allowed"); 
-        }
+//        if (!kColumnOrdered.params.isEmpty()) {
+//            throw KExceptionHelper.internalServerError("Params in 'kColumnOrdered' are not allowed"); 
+//        }
         
         if (this.sb.length() > 0) {
             this.sb.append(" ");
         }
         
         this.sb.append("ORDER BY ").append(kColumnOrdered.sb);
+        this.params.addAll(kColumnOrdered.params);
     }
     
     @Override
@@ -98,5 +105,10 @@ public class KWindowDefinitionNamedOrdered extends KWindowDefinition implements 
     @Override
     public String getSql() {
         return this.sb.toString();
+    }
+    
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }
