@@ -1,6 +1,9 @@
 package com.myzlab.k;
 
-public class KWindowDefinitionUnnamed extends KWindowDefinition {
+import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
+import java.util.List;
+
+public class KWindowDefinitionUnnamed extends KWindowDefinition implements KWindowDefinitionAllowedToOver {
 
     private KWindowDefinitionUnnamed() {
         super();
@@ -40,5 +43,20 @@ public class KWindowDefinitionUnnamed extends KWindowDefinition {
     
     public KWindowDefinitionUnnamedFrameNoStarted rows() {
         return KWindowDefinitionUnnamedFrameNoStarted.getInstance(sb, "ROWS", false, this.params);
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getSql() {
+        return this.sb.toString();
+    }
+
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }
