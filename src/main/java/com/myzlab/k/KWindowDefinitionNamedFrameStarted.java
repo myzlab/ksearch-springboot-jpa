@@ -50,6 +50,22 @@ public class KWindowDefinitionNamedFrameStarted extends KWindowDefinition implem
         return KWindowDefinitionNamedFrameEnded.getInstance(sb, name, frameStart, "UNBOUNDED FOLLOWING", this.params);
     }
     
+    public KWindowDefinitionUnnamedFrameExcluded excludeCurrentRow() {
+        return KWindowDefinitionUnnamedFrameExcluded.getInstance(sb, "CURRENT ROW", this.params);
+    }
+    
+    public KWindowDefinitionUnnamedFrameExcluded excludeGroup() {
+        return KWindowDefinitionUnnamedFrameExcluded.getInstance(sb, "GROUP", this.params);
+    }
+    
+    public KWindowDefinitionUnnamedFrameExcluded excludeTies() {
+        return KWindowDefinitionUnnamedFrameExcluded.getInstance(sb, "TIES", this.params);
+    }
+    
+    public KWindowDefinitionUnnamedFrameExcluded excludeNoOthers() {
+        return KWindowDefinitionUnnamedFrameExcluded.getInstance(sb, "NO OTHERS", this.params);
+    }
+    
     private void process() {
         KUtils.assertNotNull(this.frameStart, "frameStart");
         
