@@ -1303,6 +1303,10 @@ public class KFunction {
         return groupingSet("CUBE", kColumns);
     }
     
+    public static KColumn cumeDist() {
+        return new KColumn(new StringBuilder("CUME_DIST()"), true);
+    }
+    
     public static KColumn currentDate() {
         return new KColumn(new StringBuilder("CURRENT_DATE"), true);
     }
@@ -1573,6 +1577,20 @@ public class KFunction {
         extractKColumn.sb.insert(0, " FROM ").insert(0, kExtractField.toSql()).insert(0, "EXTRACT(").append(")");
         
         return extractKColumn;
+    }
+    
+    public static KColumn firstValue(
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final StringBuilder sb = new StringBuilder("FIRST_VALUE(");
+        
+        sb.append(kColumn.sb).append(")");
+        
+        return new KColumn(sb, new ArrayList() {{
+            addAll(kColumn.params);
+        }}, true);
     }
     
     public static KColumn floor(
@@ -1949,6 +1967,20 @@ public class KFunction {
         return new KColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
             addAll(defaultValue == null ? new ArrayList() : defaultValue.params);
+        }}, true);
+    }
+    
+    public static KColumn lastValue(
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final StringBuilder sb = new StringBuilder("LAST_VALUE(");
+        
+        sb.append(kColumn.sb).append(")");
+        
+        return new KColumn(sb, new ArrayList() {{
+            addAll(kColumn.params);
         }}, true);
     }
     
@@ -2467,14 +2499,33 @@ public class KFunction {
         return new KColumn(new StringBuilder("NOW()"), true);
     }
     
-    public static KRaw nullValue() {
-        return new KRaw("NULL");
+    public static KColumn nthValue(
+        final KColumn kColumn,
+        final int offset
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final StringBuilder sb = new StringBuilder("NTH_VALUE(");
+        
+        sb.append(kColumn.sb).append(", ").append(offset).append(")");
+        
+        return new KColumn(sb, new ArrayList() {{
+            addAll(kColumn.params);
+        }}, true);
     }
     
-    public static KColumn ntile(int buckets) {
-        return new KColumn(new StringBuilder("NTILE(?)"), new ArrayList() {{
-            add(buckets);
-        }}, true);
+    public static KColumn ntile(
+        int buckets
+    ) {
+        final StringBuilder sb = new StringBuilder("NTILE(");
+        
+        sb.append(buckets).append(")");
+        
+        return new KColumn(sb, new ArrayList<>(), true);
+    }
+    
+    public static KRaw nullValue() {
+        return new KRaw("NULL");
     }
     
     public static KColumn nullif(
@@ -2671,6 +2722,10 @@ public class KFunction {
         overlayKValTextField.sb.append(")");
         
         return overlayKValTextField;
+    }
+    
+    public static KColumn percentRank() {
+        return new KColumn(new StringBuilder("PERCENT_RANK()"), true);
     }
     
     public static KColumn pi() {
