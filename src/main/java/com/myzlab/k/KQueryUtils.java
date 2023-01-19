@@ -690,7 +690,7 @@ public class KQueryUtils {
                 kQueryData.sb.append(", ");
             }
             
-            kQueryData.sb.append(kWindowDefinitionAllowedToWindow.getName()).append(" AS (").append(kWindowDefinitionAllowedToWindow.getSql()).append(")");
+            kQueryData.sb.append("\"").append(kWindowDefinitionAllowedToWindow.getName()).append("\" AS (").append(kWindowDefinitionAllowedToWindow.getSql()).append(")");
             kQueryData.params.addAll(kWindowDefinitionAllowedToWindow.getParams());
         }
     }
