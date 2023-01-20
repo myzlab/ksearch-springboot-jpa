@@ -224,6 +224,14 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KOffset offset(
+        final long start
+    ) {
+        this.buildHaving();
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+    }
+    
+    public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
         this.buildHaving();

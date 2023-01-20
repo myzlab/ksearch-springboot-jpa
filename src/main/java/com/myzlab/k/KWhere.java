@@ -233,6 +233,14 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KOffset offset(
+        final long start
+    ) {
+        this.buildWhere();
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+    }
+    
+    public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
         this.buildWhere();

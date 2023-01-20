@@ -142,6 +142,14 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KOffset offset(
+        final long start
+    ) {
+        this.buildWindow();
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+    }
+    
+    public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
         this.buildWindow();

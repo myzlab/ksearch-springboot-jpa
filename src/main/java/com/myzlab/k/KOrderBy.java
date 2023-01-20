@@ -66,6 +66,12 @@ public class KOrderBy extends KQuery {
     }
     
     public KOffset offset(
+        final long start
+    ) {
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+    }
+    
+    public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
         if (!kOptionalLong.isPresent()) {
