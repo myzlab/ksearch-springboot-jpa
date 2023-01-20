@@ -130,7 +130,7 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.boolOr(this);
     }
     
-    public KColumn count() {
+    public KAggregateFunctionColumn count() {
         return KFunction.count(this);
     }
     
@@ -156,7 +156,7 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.div(this, number);
     }
     
-    public KColumn every() {
+    public KAggregateFunctionColumn every() {
         return KFunction.every(this);
     }
     

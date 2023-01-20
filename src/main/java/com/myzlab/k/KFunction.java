@@ -1264,11 +1264,11 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "COT");
     }
     
-    public static KColumn count() {
-        return new KColumn(new StringBuilder("COUNT(*)"), true);
+    public static KAggregateFunctionColumn count() {
+        return new KAggregateFunctionColumn(new StringBuilder("COUNT(*)"), new ArrayList<>(), true);
     }
     
-    public static KColumn count(
+    public static KAggregateFunctionColumn count(
         final KColumn kColumn
     ) {
         return processCount(kColumn);
@@ -1533,20 +1533,20 @@ public class KFunction {
         return encodeKValTextField;
     }
     
-    public static KColumn every(
+    public static KAggregateFunctionColumn every(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "EVERY");
+        return applyOneParameterAggregateFunction(kColumn, "EVERY");
     }
     
-    public static KColumn every(
+    public static KAggregateFunctionColumn every(
         final KCondition kCondition
     ) {
         KUtils.assertNotNull(kCondition, "kCondition");
         
-        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        final KAggregateFunctionColumn kAggregateFunctionColumn = new KAggregateFunctionColumn(kCondition.sb, kCondition.params, false);
         
-        return applyOneParameterFunction(kColumn, "EVERY");
+        return applyOneParameterAggregateFunction(kAggregateFunctionColumn, "EVERY");
     }
     
     public static KColumn excluded(
@@ -2870,18 +2870,18 @@ public class KFunction {
         return new KColumn(subQuery.sb, subQuery.params, true);
     }
     
-    private static KColumn processCount(
+    private static KAggregateFunctionColumn processCount(
         final KColumn kColumn
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
         
-        final KColumn kColumnCount = new KColumn(true);
+        final KAggregateFunctionColumn kAggregateFunctionColumn = new KAggregateFunctionColumn(true);
         
-        kColumnCount.sb.append("COUNT(").append(kColumn.sb).append(")");
+        kAggregateFunctionColumn.sb.append("COUNT(").append(kColumn.sb).append(")");
         
-        kColumnCount.params.addAll(kColumn.params);
+        kAggregateFunctionColumn.params.addAll(kColumn.params);
         
-        return kColumnCount;
+        return kAggregateFunctionColumn;
     }
     
     private static KColumn processCountDistinct(

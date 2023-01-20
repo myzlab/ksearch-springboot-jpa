@@ -17,6 +17,12 @@ public class KAggregateFunctionColumn extends KColumn implements
     }
     
     protected KAggregateFunctionColumn(
+        final boolean closed
+    ) {
+        super(closed);
+    }
+    
+    protected KAggregateFunctionColumn(
         final KTable kTable,
         final String name,
         final Class type
