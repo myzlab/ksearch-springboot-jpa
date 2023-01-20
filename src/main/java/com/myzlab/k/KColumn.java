@@ -1670,11 +1670,11 @@ public class KColumn extends KBaseColumnCastable implements
         return KCondition.lksw(this, KFunction.val(kOptionalString.get()));
     }
     
-    public KColumn max() {
+    public KAggregateFunctionColumn max() {
         return KFunction.max(this);
     }
     
-    public KColumn min() {
+    public KAggregateFunctionColumn min() {
         return KFunction.min(this);
     }
     
@@ -3184,7 +3184,7 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.sub(this, number);
     }
     
-    public KColumn sum() {
+    public KAggregateFunctionColumn sum() {
         return KFunction.sum(this);
     }
     

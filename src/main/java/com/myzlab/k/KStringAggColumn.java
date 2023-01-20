@@ -7,7 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class KStringAggColumn extends KColumn implements KColumnAllowedToSelect {
+public class KStringAggColumn extends KAggregateFunctionColumn implements 
+    TextMethods,
+    KColumnAllowedToOrderBy,
+    KColumnAllowedToSelect
+{
     
     private KStringAggColumn() {
         super();
@@ -70,6 +74,16 @@ public class KStringAggColumn extends KColumn implements KColumnAllowedToSelect 
         return new KStringAggColumn(new StringBuilder(this.sb), new ArrayList<>(this.params), this.closed, this.name, this.type, this.kTable);
     }
 
+    @Override
+    public String getSqlToOrderBy() {
+        return sb.toString();
+    }
+
+    @Override
+    public List<Object> getParams() {
+        return this.params;
+    }
+    
     @Override
     public KBaseColumn getKBaseColumn() {
         return this;

@@ -3602,24 +3602,24 @@ public class KFunction {
         return substringKValTextField;
     }
     
-    public static KColumn sum(
+    public static KAggregateFunctionColumn sum(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "SUM");
+        return applyOneParameterAggregateFunction(kColumn, "SUM");
     }
     
-    public static KValNumberField sum(
+    public static KAggregateFunctionColumn sum(
         final KValNumberField kValNumberField
     ) {
-        return applyOneParameterFunction(kValNumberField, "SUM");
+        return applyOneParameterAggregateFunction(kValNumberField, "SUM");
     }
     
-    public static KValNumberField sum(
+    public static KAggregateFunctionColumn sum(
         final Number number
     ) {
         KUtils.assertNotNull(number, "number");
         
-        return applyOneParameterFunction(val(number), "SUM");
+        return applyOneParameterAggregateFunction(val(number), "SUM");
     }
     
     public static KColumn sumDistinct(
@@ -4107,9 +4107,9 @@ public class KFunction {
         return widthBucketkColumn;
     }
     
-    public static KColumn xmlagg(
+    public static KAggregateFunctionColumn xmlagg(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "XMLAGG");
+        return applyOneParameterAggregateFunction(kColumn, "XMLAGG");
     }
 }
