@@ -7,7 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class KJsonAggColumn extends KColumn implements KColumnAllowedToSelect {
+public class KJsonAggColumn extends KAggregateFunctionColumn implements 
+    TextMethods,
+    KColumnAllowedToOrderBy,
+    KColumnAllowedToSelect
+{
     
     private KJsonAggColumn() {
         super();
@@ -68,6 +72,16 @@ public class KJsonAggColumn extends KColumn implements KColumnAllowedToSelect {
     @Override
     protected KJsonAggColumn cloneMe() {
         return new KJsonAggColumn(new StringBuilder(this.sb), new ArrayList<>(this.params), this.closed, this.name, this.type, this.kTable);
+    }
+    
+    @Override
+    public String getSqlToOrderBy() {
+        return sb.toString();
+    }
+
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 
     @Override

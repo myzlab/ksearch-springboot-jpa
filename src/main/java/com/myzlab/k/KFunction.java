@@ -400,6 +400,22 @@ public class KFunction {
         return functionKColumn;
     }
     
+    private static KAggregateFunctionColumn applyTwoParameterAggregateFunction(
+        final KBaseColumn kBaseColumn1,
+        final KBaseColumn kBaseColumn2,
+        final String functionName
+    ) {
+        KUtils.assertNotNull(kBaseColumn1, "kBaseColumn1");
+        KUtils.assertNotNull(kBaseColumn2, "kBaseColumn2");
+        
+        final KAggregateFunctionColumn kAggregateFunctionColumn = new KAggregateFunctionColumn(kBaseColumn1.sb, kBaseColumn1.params, true);
+        
+        kAggregateFunctionColumn.sb.insert(0, "(").insert(0, functionName).append(", ").append(kBaseColumn2.sb).append(")");
+        kAggregateFunctionColumn.params.addAll(kBaseColumn2.params);
+        
+        return kAggregateFunctionColumn;
+    }
+    
 //    private static KColumn applyTwoParameterFunction(
 //        final KColumn kColumn1,
 //        final KColumn kColumn2,
@@ -1949,11 +1965,11 @@ public class KFunction {
         return kJsonbAggColumn;
     }
     
-    public static KColumn jsonObjectAgg(
+    public static KAggregateFunctionColumn jsonObjectAgg(
         final KColumn kColumnName,
         final KColumn kColumnValue
     ) {
-        return applyTwoParameterFunction(kColumnName, kColumnValue, "JSON_OBJECT_AGG");
+        return applyTwoParameterAggregateFunction(kColumnName, kColumnValue, "JSON_OBJECT_AGG");
     }
     
     public static KWindowFunctionColumn lag(
@@ -2343,24 +2359,24 @@ public class KFunction {
         return genericTrim(kValTextField, characters, "LTRIM");
     }
     
-    public static KColumn max(
+    public static KAggregateFunctionColumn max(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "MAX");
+        return applyOneParameterAggregateFunction(kColumn, "MAX");
     }
     
-    public static KValNumberField max(
+    public static KAggregateFunctionColumn max(
         final KValNumberField kValNumberField
     ) {
-        return applyOneParameterFunction(kValNumberField, "MAX");
+        return applyOneParameterAggregateFunction(kValNumberField, "MAX");
     }
     
-    public static KValNumberField max(
+    public static KAggregateFunctionColumn max(
         final Number number
     ) {
         KUtils.assertNotNull(number, "number");
         
-        return applyOneParameterFunction(val(number), "MAX");
+        return applyOneParameterAggregateFunction(val(number), "MAX");
     }
     
     public static KColumn md5(
@@ -2383,24 +2399,24 @@ public class KFunction {
         return applyOneParameterFunction(val(value), "MD5");
     }
     
-    public static KColumn min(
+    public static KAggregateFunctionColumn min(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "MIN");
+        return applyOneParameterAggregateFunction(kColumn, "MIN");
     }
     
-    public static KValNumberField min(
+    public static KAggregateFunctionColumn min(
         final KValNumberField kValNumberField
     ) {
-        return applyOneParameterFunction(kValNumberField, "MIN");
+        return applyOneParameterAggregateFunction(kValNumberField, "MIN");
     }
     
-    public static KValNumberField min(
+    public static KAggregateFunctionColumn min(
         final Number number
     ) {
         KUtils.assertNotNull(number, "number");
         
-        return applyOneParameterFunction(val(number), "MIN");
+        return applyOneParameterAggregateFunction(val(number), "MIN");
     }
     
     public static KColumn mod(
