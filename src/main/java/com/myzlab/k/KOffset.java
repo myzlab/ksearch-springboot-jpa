@@ -53,6 +53,12 @@ public class KOffset extends KQuery {
     }
     
     public KFetch fetch(
+        final int rowCount
+    ) {
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+    }
+    
+    public KFetch fetch(
         final long rowCount
     ) {
         return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);

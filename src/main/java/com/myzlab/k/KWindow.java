@@ -170,6 +170,14 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KFetch fetch(
+        final long rowCount
+    ) {
+        this.buildWindow();
+        
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+    }
+    
+    public KFetch fetch(
         final KOptionalLong kOptionalLong
     ) {
         if (!kOptionalLong.isPresent()) {
