@@ -1303,8 +1303,8 @@ public class KFunction {
         return groupingSet("CUBE", kColumns);
     }
     
-    public static KColumn cumeDist() {
-        return new KColumn(new StringBuilder("CUME_DIST()"), true);
+    public static KWindowFunctionColumn cumeDist() {
+        return new KWindowFunctionColumn(new StringBuilder("CUME_DIST()"), true);
     }
     
     public static KColumn currentDate() {
@@ -1417,8 +1417,8 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "DEGREES");
     }
     
-    public static KColumn denseRank() {
-        return new KColumn(new StringBuilder("DENSE_RANK()"), true);
+    public static KWindowFunctionColumn denseRank() {
+        return new KWindowFunctionColumn(new StringBuilder("DENSE_RANK()"), true);
     }
     
     public static KColumn div(
@@ -1579,7 +1579,7 @@ public class KFunction {
         return extractKColumn;
     }
     
-    public static KColumn firstValue(
+    public static KWindowFunctionColumn firstValue(
         final KColumn kColumn
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
@@ -1588,7 +1588,7 @@ public class KFunction {
         
         sb.append(kColumn.sb).append(")");
         
-        return new KColumn(sb, new ArrayList() {{
+        return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
         }}, true);
     }
@@ -1930,20 +1930,20 @@ public class KFunction {
         return applyTwoParameterFunction(kColumnName, kColumnValue, "JSON_OBJECT_AGG");
     }
     
-    public static KColumn lag(
+    public static KWindowFunctionColumn lag(
         final KColumn kColumn
     ) {
         return lag(kColumn, null, null);
     }
     
-    public static KColumn lag(
+    public static KWindowFunctionColumn lag(
         final KColumn kColumn,
         final int offset
     ) {
         return lag(kColumn, offset, null);
     }
     
-    public static KColumn lag(
+    public static KWindowFunctionColumn lag(
         final KColumn kColumn,
         final Integer offset,
         final KBaseColumnCastable defaultValue
@@ -1964,13 +1964,13 @@ public class KFunction {
         
         sb.append(")");
         
-        return new KColumn(sb, new ArrayList() {{
+        return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
             addAll(defaultValue == null ? new ArrayList() : defaultValue.params);
         }}, true);
     }
     
-    public static KColumn lastValue(
+    public static KWindowFunctionColumn lastValue(
         final KColumn kColumn
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
@@ -1979,25 +1979,25 @@ public class KFunction {
         
         sb.append(kColumn.sb).append(")");
         
-        return new KColumn(sb, new ArrayList() {{
+        return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
         }}, true);
     }
     
-    public static KColumn lead(
+    public static KWindowFunctionColumn lead(
         final KColumn kColumn
     ) {
         return lead(kColumn, null, null);
     }
     
-    public static KColumn lead(
+    public static KWindowFunctionColumn lead(
         final KColumn kColumn,
         final int offset
     ) {
         return lead(kColumn, offset, null);
     }
     
-    public static KColumn lead(
+    public static KWindowFunctionColumn lead(
         final KColumn kColumn,
         final Integer offset,
         final KBaseColumnCastable defaultValue
@@ -2018,7 +2018,7 @@ public class KFunction {
         
         sb.append(")");
         
-        return new KColumn(sb, new ArrayList() {{
+        return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
             addAll(defaultValue == null ? new ArrayList() : defaultValue.params);
         }}, true);
@@ -2499,7 +2499,7 @@ public class KFunction {
         return new KColumn(new StringBuilder("NOW()"), true);
     }
     
-    public static KColumn nthValue(
+    public static KWindowFunctionColumn nthValue(
         final KColumn kColumn,
         final int offset
     ) {
@@ -2509,19 +2509,19 @@ public class KFunction {
         
         sb.append(kColumn.sb).append(", ").append(offset).append(")");
         
-        return new KColumn(sb, new ArrayList() {{
+        return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
         }}, true);
     }
     
-    public static KColumn ntile(
+    public static KWindowFunctionColumn ntile(
         int buckets
     ) {
         final StringBuilder sb = new StringBuilder("NTILE(");
         
         sb.append(buckets).append(")");
         
-        return new KColumn(sb, new ArrayList<>(), true);
+        return new KWindowFunctionColumn(sb, true);
     }
     
     public static KRaw nullValue() {
@@ -2724,8 +2724,8 @@ public class KFunction {
         return overlayKValTextField;
     }
     
-    public static KColumn percentRank() {
-        return new KColumn(new StringBuilder("PERCENT_RANK()"), true);
+    public static KWindowFunctionColumn percentRank() {
+        return new KWindowFunctionColumn(new StringBuilder("PERCENT_RANK()"), true);
     }
     
     public static KColumn pi() {
@@ -2908,8 +2908,8 @@ public class KFunction {
         return new KColumn(new StringBuilder("RANDOM()"), true);
     }
     
-    public static KColumn rank() {
-        return new KColumn(new StringBuilder("RANK()"), true);
+    public static KWindowFunctionColumn rank() {
+        return new KWindowFunctionColumn(new StringBuilder("RANK()"), true);
     }
     
     public static KRaw raw(
@@ -3169,8 +3169,8 @@ public class KFunction {
         return applyTwoParameterFunction(val(number1), val(number2), "ROUND");
     }
     
-    public static KColumn rowNumber() {
-        return new KColumn(new StringBuilder("ROW_NUMBER()"), true);
+    public static KWindowFunctionColumn rowNumber() {
+        return new KWindowFunctionColumn(new StringBuilder("ROW_NUMBER()"), true);
     }
     
     public static KColumn rpad(

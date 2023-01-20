@@ -5,7 +5,6 @@ import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
-import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKValTextField;
 import com.myzlab.k.optional.KOptionalString;
@@ -3165,12 +3164,6 @@ public class KColumn extends KBaseColumnCastable implements
         }
         
         return KCondition.nlksw(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    public KColumnOvered over(
-        final KWindowDefinitionAllowedToOver kWindowDefinitionAllowedToOver
-    ) {
-        return new KColumnOvered(this.sb, this.params, this.closed, kWindowDefinitionAllowedToOver);
     }
     
     public KColumn sub(
