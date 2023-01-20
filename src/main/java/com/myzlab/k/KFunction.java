@@ -332,6 +332,19 @@ public class KFunction {
         return functionKColumn;
     }
     
+    private static KAggregateFunctionColumn applyOneParameterAggregateFunction(
+        final KColumn kColumn,
+        final String functionName
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KAggregateFunctionColumn functionKAggregateFunctionColumn = new KAggregateFunctionColumn(kColumn.sb, kColumn.params, true);
+        
+        functionKAggregateFunctionColumn.sb.insert(0, "(").insert(0, functionName).append(")");
+        
+        return functionKAggregateFunctionColumn;
+    }
+    
     private static KValNumberField applyOneParameterFunction(
         final KValNumberField kValNumberField,
         final String functionName
@@ -343,6 +356,19 @@ public class KFunction {
         functionKValNumberField.sb.insert(0, "(").insert(0, functionName).append(")");
         
         return functionKValNumberField;
+    }
+    
+    private static KAggregateFunctionColumn applyOneParameterAggregateFunction(
+        final KValNumberField kValNumberField,
+        final String functionName
+    ) {
+        KUtils.assertNotNull(kValNumberField, "kValNumberField");
+        
+        final KAggregateFunctionColumn functionKAggregateFunctionColumn = new KAggregateFunctionColumn(kValNumberField.sb, kValNumberField.params, true);
+        
+        functionKAggregateFunctionColumn.sb.insert(0, "(").insert(0, functionName).append(")");
+        
+        return functionKAggregateFunctionColumn;
     }
     
     private static KValTextField applyOneParameterFunction(
@@ -663,30 +689,30 @@ public class KFunction {
         return applyTwoParameterFunction(val(number1), val(number2), "ATAN2");
     }
     
-    public static KColumn avg(
+    public static KAggregateFunctionColumn avg(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "AVG");
+        return applyOneParameterAggregateFunction(kColumn, "AVG");
     }
     
-    public static KValNumberField avg(
+    public static KAggregateFunctionColumn avg(
         final KValNumberField kValNumberField
     ) {
-        return applyOneParameterFunction(kValNumberField, "AVG");
+        return applyOneParameterAggregateFunction(kValNumberField, "AVG");
     }
     
-    public static KValNumberField avg(
+    public static KAggregateFunctionColumn avg(
         final Number number
     ) {
         KUtils.assertNotNull(number, "number");
         
-        return applyOneParameterFunction(val(number), "AVG");
+        return applyOneParameterAggregateFunction(val(number), "AVG");
     }
     
-    public static KColumn bitAnd(
+    public static KAggregateFunctionColumn bitAnd(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "BIT_AND");
+        return applyOneParameterAggregateFunction(kColumn, "BIT_AND");
     }
     
     public static KColumn bitAnd(
@@ -769,10 +795,10 @@ public class KFunction {
         return applyUnaryOperator(kValNumberField, "~", false);
     }
     
-    public static KColumn bitOr(
+    public static KAggregateFunctionColumn bitOr(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "BIT_OR");
+        return applyOneParameterAggregateFunction(kColumn, "BIT_OR");
     }
     
     public static KColumn bitOr(
@@ -937,36 +963,36 @@ public class KFunction {
         return applyBinaryOperator(kValNumberField, kColumn, "#");
     }
     
-    public static KColumn boolAnd(
+    public static KAggregateFunctionColumn boolAnd(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "BOOL_AND");
+        return applyOneParameterAggregateFunction(kColumn, "BOOL_AND");
     }
     
-    public static KColumn boolAnd(
+    public static KAggregateFunctionColumn boolAnd(
         final KCondition kCondition
     ) {
         KUtils.assertNotNull(kCondition, "kCondition");
         
-        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        final KAggregateFunctionColumn kAggregateFunctionColumn = new KAggregateFunctionColumn(kCondition.sb, kCondition.params, false);
         
-        return applyOneParameterFunction(kColumn, "BOOL_AND");
+        return applyOneParameterAggregateFunction(kAggregateFunctionColumn, "BOOL_AND");
     }
     
-    public static KColumn boolOr(
+    public static KAggregateFunctionColumn boolOr(
         final KColumn kColumn
     ) {
-        return applyOneParameterFunction(kColumn, "BOOL_OR");
+        return applyOneParameterAggregateFunction(kColumn, "BOOL_OR");
     }
     
-    public static KColumn boolOr(
+    public static KAggregateFunctionColumn boolOr(
         final KCondition kCondition
     ) {
         KUtils.assertNotNull(kCondition, "kCondition");
         
-        final KColumn kColumn = new KColumn(kCondition.sb, kCondition.params, false);
+        final KAggregateFunctionColumn kAggregateFunctionColumn = new KAggregateFunctionColumn(kCondition.sb, kCondition.params, false);
         
-        return applyOneParameterFunction(kColumn, "BOOL_OR");
+        return applyOneParameterAggregateFunction(kAggregateFunctionColumn, "BOOL_OR");
     }
     
     public static KCase caseConditional() {

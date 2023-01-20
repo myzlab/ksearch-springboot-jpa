@@ -110,23 +110,23 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.arrayAgg(this);
     }
     
-    public KColumn avg() {
+    public KAggregateFunctionColumn avg() {
         return KFunction.avg(this);
     }
     
-    public KColumn bitAnd() {
+    public KAggregateFunctionColumn bitAnd() {
         return KFunction.bitAnd(this);
     }
     
-    public KColumn bitOr() {
+    public KAggregateFunctionColumn bitOr() {
         return KFunction.bitOr(this);
     }
     
-    public KColumn boolAnd() {
+    public KAggregateFunctionColumn boolAnd() {
         return KFunction.boolAnd(this);
     }
     
-    public KColumn boolOr() {
+    public KAggregateFunctionColumn boolOr() {
         return KFunction.boolOr(this);
     }
     
