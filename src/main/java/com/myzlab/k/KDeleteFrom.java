@@ -80,6 +80,10 @@ public class KDeleteFrom extends KQueryDelete {
         return KWhereDelete.getInstance(this.k, this.kQueryDeleteData, kCondition);
     }
     
+    public int execute() {
+        return super.executeSingle();
+    }
+    
     private void process(
         final KTable kTable
     ) {
