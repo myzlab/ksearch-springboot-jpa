@@ -21,11 +21,7 @@ public class KReturningUpdate extends KQueryUpdate {
                 throw KExceptionHelper.internalServerError("'kColumnAllowedToReturning' cannot be null"); 
             }
             
-            if (kColumnAllowedToReturning instanceof KBaseColumn) {
-                this.kQueryUpdateData.kBaseColumns.add((KBaseColumn) kColumnAllowedToReturning);
-            } else {
-                this.kQueryUpdateData.kBaseColumns.add(new KColumn(new StringBuilder(((KRaw) kColumnAllowedToReturning).content), false));
-            }
+            this.kQueryUpdateData.kBaseColumns.add(kColumnAllowedToReturning.getKBaseColumn());
         }
         
         this.process(kColumnsAllowedToReturning);

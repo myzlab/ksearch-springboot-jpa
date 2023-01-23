@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.helper.KExceptionHelper;
 
 public class KUsing extends KQueryDelete {
@@ -24,6 +25,12 @@ public class KUsing extends KQueryDelete {
         final KTable kTable
     ) {
         return new KUsing(kExecutor, kQueryDeleteData, kTable);
+    }
+    
+    public KReturningDelete returning(
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return KReturningDelete.getInstance(this.k, this.kQueryDeleteData, kColumnsAllowedToReturning);
     }
     
     public KUsing using(

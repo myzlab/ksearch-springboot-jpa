@@ -5,7 +5,6 @@ import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
-import com.myzlab.k.allowed.KWindowDefinitionAllowedToOver;
 import java.util.ArrayList;
 import java.util.List;
 

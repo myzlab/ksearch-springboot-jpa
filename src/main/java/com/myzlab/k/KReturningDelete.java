@@ -21,11 +21,7 @@ public class KReturningDelete extends KQueryDelete {
                 throw KExceptionHelper.internalServerError("'kColumnAllowedToReturning' cannot be null"); 
             }
             
-            if (kColumnAllowedToReturning instanceof KBaseColumn) {
-                this.kQueryDeleteData.kBaseColumns.add((KBaseColumn) kColumnAllowedToReturning);
-            } else {
-                this.kQueryDeleteData.kBaseColumns.add(new KColumn(new StringBuilder(((KRaw) kColumnAllowedToReturning).content), false));
-            }
+            this.kQueryDeleteData.kBaseColumns.add(kColumnAllowedToReturning.getKBaseColumn());
         }
         
         this.process(kColumnsAllowedToReturning);

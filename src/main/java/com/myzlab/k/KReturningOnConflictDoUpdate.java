@@ -21,11 +21,7 @@ public class KReturningOnConflictDoUpdate extends KQueryInsertInto {
                 throw KExceptionHelper.internalServerError("'kColumnAllowedToReturning' cannot be null"); 
             }
             
-            if (kColumnAllowedToReturning instanceof KBaseColumn) {
-                this.kQueryInsertIntoData.kBaseColumns.add((KBaseColumn) kColumnAllowedToReturning);
-            } else {
-                this.kQueryInsertIntoData.kBaseColumns.add(new KColumn(new StringBuilder(((KRaw) kColumnAllowedToReturning).content), false));
-            }
+            this.kQueryInsertIntoData.kBaseColumns.add(kColumnAllowedToReturning.getKBaseColumn());
         }
         
         this.process(kColumnsAllowedToReturning);
