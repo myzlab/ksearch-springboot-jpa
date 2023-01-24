@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.util.ArrayList;
 
@@ -69,6 +70,12 @@ public class KSetUpdate extends KQueryUpdate {
         return KFromUpdate.getInstance(this.k, this.kQueryUpdateData, new KTable(null, kCommonTableExpressionFilled.name, kCommonTableExpressionFilled.alias));
     }
     
+    public KReturningUpdate returning(
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return KReturningUpdate.getInstance(this.k, this.kQueryUpdateData, kColumnsAllowedToReturning);
+    }
+    
     public KSetUpdate set(
         final KColumn kColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
@@ -131,6 +138,10 @@ public class KSetUpdate extends KQueryUpdate {
         final KCondition kCondition = new KCondition(kRaw.content);
         
         return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, kCondition);
+    }
+    
+    public int execute() {
+        return super.executeSingle();
     }
     
     private void process(
