@@ -3,7 +3,6 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.ArrayList;
-import java.util.List;
 
 public class KUpdate extends KQueryUpdate {
 
@@ -54,15 +53,6 @@ public class KUpdate extends KQueryUpdate {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
         return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kColumn, kColumnAllowedToSetUpdate);
-    }
-    
-    public KSetUpdate set(
-        final KColumn kColumn,
-        final KRaw kRaw
-    ) {
-        KUtils.assertNotNull(kRaw, "kRaw");
-        
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kColumn, new KColumn(new StringBuilder(((KRaw) kRaw).content), false));
     }
     
     public KSetUpdate set(

@@ -89,17 +89,6 @@ public class KSetUpdate extends KQueryUpdate {
     
     public KSetUpdate set(
         final KColumn kColumn,
-        final KRaw kRaw
-    ) {
-        KUtils.assertNotNull(kRaw, "kRaw");
-        
-        this.process(kColumn, new KColumn(new StringBuilder(((KRaw) kRaw).content), false));
-        
-        return this;
-    }
-    
-    public KSetUpdate set(
-        final KColumn kColumn,
         final KQuery kQuery
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");

@@ -2,12 +2,14 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
+import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class KCaseAliased implements
     KColumnAllowedToSelect,
-    KColumnAllowedToReturning
+    KColumnAllowedToReturning,
+    KColumnAllowedToSetUpdate
 {
     
     private final StringBuilder sb = new StringBuilder();
@@ -53,5 +55,10 @@ public class KCaseAliased implements
     @Override
     public List<Object> getParams() {
         return this.params;
+    }
+
+    @Override
+    public String getSqlToSet() {
+        return sb.toString();
     }
 }
