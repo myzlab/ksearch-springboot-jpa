@@ -78,10 +78,10 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
         return this;
     }
     
-    public KReturningOnConflictDoUpdate returning(
+    public KReturningInsertInto returning(
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return KReturningOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kColumnsAllowedToReturning);
+        return KReturningInsertInto.getInstance(this.k, this.kQueryInsertIntoData, kColumnsAllowedToReturning);
     }
     
     private void process(

@@ -3,13 +3,13 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.helper.KExceptionHelper;
 
-public class KReturningOnConflictDoUpdate extends KQueryInsertInto {
+public class KReturningInsertInto extends KQueryInsertInto {
 
-    private KReturningOnConflictDoUpdate() {
+    private KReturningInsertInto() {
         super();
     }
     
-    private KReturningOnConflictDoUpdate(
+    private KReturningInsertInto(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
@@ -27,12 +27,12 @@ public class KReturningOnConflictDoUpdate extends KQueryInsertInto {
         this.process(kColumnsAllowedToReturning);
     }
     
-    protected static KReturningOnConflictDoUpdate getInstance(
+    protected static KReturningInsertInto getInstance(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return new KReturningOnConflictDoUpdate(kExecutor, kQueryInsertIntoData, kColumnsAllowedToReturning);
+        return new KReturningInsertInto(kExecutor, kQueryInsertIntoData, kColumnsAllowedToReturning);
     }
     
     private void process(
