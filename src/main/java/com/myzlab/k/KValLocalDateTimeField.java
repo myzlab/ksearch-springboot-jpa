@@ -1,12 +1,13 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KValLocalDateTimeField extends KBaseValField implements KColumnAllowedToSetUpdate, KColumnAllowedToSelect {
+public class KValLocalDateTimeField extends KBaseValField implements KColumnAllowedToSetUpdate, KColumnAllowedToSelect, KColumnAllowedToReturning {
     
     protected KValLocalDateTimeField() {
         super();
@@ -52,5 +53,10 @@ public class KValLocalDateTimeField extends KBaseValField implements KColumnAllo
     @Override
     public KBaseColumn getKBaseColumn() {
         return this;
+    }
+    
+    @Override
+    public String getSqlToReturning() {
+        return sb.toString();
     }
 }

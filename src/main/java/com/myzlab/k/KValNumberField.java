@@ -1,11 +1,12 @@
 package com.myzlab.k;
 
+import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KValNumberField extends KBaseValField implements KColumnAllowedToSetUpdate, KColumnAllowedToSelect {
+public class KValNumberField extends KBaseValField implements KColumnAllowedToSetUpdate, KColumnAllowedToSelect, KColumnAllowedToReturning {
     
     protected KValNumberField() {
         super();
@@ -141,5 +142,10 @@ public class KValNumberField extends KBaseValField implements KColumnAllowedToSe
     @Override
     public KBaseColumn getKBaseColumn() {
         return this;
+    }
+    
+    @Override
+    public String getSqlToReturning() {
+        return sb.toString();
     }
 }
