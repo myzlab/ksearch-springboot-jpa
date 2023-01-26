@@ -7,12 +7,12 @@ public class KCommonTableExpressionFilled extends KCommonTableExpression {
     }
     
     protected KCommonTableExpressionFilled(
-        final KQuery kQuery,
+        final KGenericQuery kGenericQuery,
         final String name,
         final String alias,
         final String... columns
     ) {
-        super(null, kQuery, name, alias, columns);
+        super(null, kGenericQuery, name, alias, columns);
     }
     
     protected KCommonTableExpressionFilled(
@@ -25,12 +25,12 @@ public class KCommonTableExpressionFilled extends KCommonTableExpression {
     }
     
     protected static KCommonTableExpressionFilled getInstance(
-        final KQuery kQuery,
+        final KGenericQuery kGenericQuery,
         final String name,
         final String alias,
         final String... columns
     ) {
-        return new KCommonTableExpressionFilled(kQuery, name, alias, columns);
+        return new KCommonTableExpressionFilled(kGenericQuery, name, alias, columns);
     }
         
     protected static KCommonTableExpressionFilled getInstance(

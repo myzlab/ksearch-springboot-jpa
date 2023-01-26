@@ -8,7 +8,7 @@ public abstract class KCommonTableExpression {
     protected final String[] columns;
     protected final KValues kValues;
     protected final String alias;
-    protected final KQuery kQuery;
+    protected final KGenericQuery kGenericQuery;
     
     protected KCommonTableExpression() {
         super();
@@ -17,7 +17,7 @@ public abstract class KCommonTableExpression {
         this.columns = null;
         this.kValues = null;
         this.alias = null;
-        this.kQuery = null;
+        this.kGenericQuery = null;
     }
 
     protected KCommonTableExpression(
@@ -31,7 +31,7 @@ public abstract class KCommonTableExpression {
         this.columns = null;
         this.kValues = null;
         this.alias = null;
-        this.kQuery = null;
+        this.kGenericQuery = null;
     }
     
     protected KCommonTableExpression(
@@ -50,7 +50,7 @@ public abstract class KCommonTableExpression {
         this.columns = columns;
         this.kValues = null;
         this.alias = null;
-        this.kQuery = null;
+        this.kGenericQuery = null;
     }
     
     protected KCommonTableExpression(
@@ -71,20 +71,20 @@ public abstract class KCommonTableExpression {
         this.columns = columns;
         this.kValues = kValues;
         this.alias = null;
-        this.kQuery = null;
+        this.kGenericQuery = null;
     }
     
     protected KCommonTableExpression(
         final KValues kValues,
-        final KQuery kQuery,
+        final KGenericQuery kGenericQuery,
         final String name,
         final String alias,
         final String... columns
     ) {
         super();
         
-        if (kValues == null && kQuery == null) {
-            throw KExceptionHelper.internalServerError("'KCommonTableExpression' required 'kValues' or 'kQuery' param"); 
+        if (kValues == null && kGenericQuery == null) {
+            throw KExceptionHelper.internalServerError("'KCommonTableExpression' required 'kValues' or 'kGenericQuery' param"); 
         }
         
         KUtils.assertNotNull(name, "name");
@@ -94,23 +94,23 @@ public abstract class KCommonTableExpression {
         this.columns = columns;
         this.kValues = kValues;
         this.alias = alias;
-        this.kQuery = kQuery;
+        this.kGenericQuery = kGenericQuery;
     }
     
     protected KCommonTableExpression(
-        final KQuery kQuery,
+        final KGenericQuery kGenericQuery,
         final String name,
         final String... columns
     ) {
         super();
         
-        KUtils.assertNotNull(kQuery, "kQuery");
+        KUtils.assertNotNull(kGenericQuery, "kGenericQuery");
         KUtils.assertNotNull(name, "name");
         
         this.name = name;
         this.columns = columns;
         this.kValues = null;
         this.alias = null;
-        this.kQuery = kQuery;
+        this.kGenericQuery = kGenericQuery;
     }
 }

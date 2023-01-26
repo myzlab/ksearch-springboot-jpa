@@ -213,7 +213,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "=");
         
@@ -228,7 +228,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "<=");
         
@@ -254,7 +254,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), ">");
         
@@ -280,7 +280,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), ">=");
         
@@ -306,7 +306,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "<");
         
@@ -332,7 +332,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "<=");
         
@@ -1359,7 +1359,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "=");
         
@@ -1385,7 +1385,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), ">");
         
@@ -1411,7 +1411,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), ">=");
         
@@ -1437,7 +1437,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "<");
         
@@ -1462,7 +1462,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processExists(new KColumn(subQuery.sb, subQuery.params, false));
         
@@ -2295,7 +2295,7 @@ public class KCondition implements KColumnAllowedToSelect {
         
         final KCondition kCondition = new KCondition();
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kCondition.processNotExists(new KColumn(subQuery.sb, subQuery.params, false));
         

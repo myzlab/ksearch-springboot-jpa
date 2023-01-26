@@ -2867,7 +2867,7 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         subQuery.sb.insert(0, "ANY (").append(")");
         
@@ -2879,7 +2879,7 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         subQuery.sb.insert(0, "ALL (").append(")");
         
@@ -2919,7 +2919,7 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         subQuery.sb.insert(0, "SOME (").append(")");
         

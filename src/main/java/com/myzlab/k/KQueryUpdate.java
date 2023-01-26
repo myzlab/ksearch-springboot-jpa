@@ -2,7 +2,7 @@ package com.myzlab.k;
 
 import java.util.ArrayList;
 
-public abstract class KQueryUpdate {
+public abstract class KQueryUpdate extends KGenericQuery {
     
     protected KExecutor k;
     protected KQueryUpdateData kQueryUpdateData;
@@ -40,4 +40,8 @@ public abstract class KQueryUpdate {
         return KQueryUtils.multipleMapping(this.k, new ArrayList<>(), this.kQueryUpdateData, clazz);
     }
     
+    @Override
+    protected KQueryGenericData generateSubQueryData() {
+        return this.kQueryUpdateData.cloneMe();
+    }
 }

@@ -123,7 +123,7 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
         
         this.kQueryInsertIntoData.setValuesAdded++;
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         this.kQueryInsertIntoData.params.addAll(subQuery.params);
         this.kQueryInsertIntoData.sb.append(kColumn.name).append(" = (").append(subQuery.sb).append(")");

@@ -1,14 +1,13 @@
 package com.myzlab.k;
 
 import com.myzlab.k.helper.KExceptionHelper;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
-public abstract class KQuery {
+public abstract class KQuery extends KGenericQuery {
     
     protected KExecutor k;
     protected KQueryData kQueryData;
@@ -169,7 +168,8 @@ public abstract class KQuery {
         return t;
     }
     
-    protected KQueryData generateSubQueryData() {
+    @Override
+    protected KQueryGenericData generateSubQueryData() {
         return this.kQueryData.cloneMe();
     }
 }

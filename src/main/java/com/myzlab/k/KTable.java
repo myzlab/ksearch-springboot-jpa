@@ -11,7 +11,7 @@ public class KTable {
     protected final String schema;
     protected final String name;
     protected String alias;
-    protected final KQueryData kQueryData;
+    protected final KQueryGenericData kQueryData;
     protected final boolean isRoot;
     
     private KTable() {

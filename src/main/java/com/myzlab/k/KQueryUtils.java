@@ -412,7 +412,7 @@ public class KQueryUtils {
                 return;
             }
             
-            KQueryUtils.processKQueryWith(kQueryData, kCommonTableExpressionFilled.kQuery);
+            KQueryUtils.processKQueryWith(kQueryData, kCommonTableExpressionFilled.kGenericQuery);
         }
     }
     
@@ -453,9 +453,9 @@ public class KQueryUtils {
     
     protected static void processKQueryWith(
         final KQueryData kQueryData,
-        final KQuery kQuery
+        final KGenericQuery kGenericQuery
     ) {
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kGenericQuery.generateSubQueryData();
         
         kQueryData.sb.append("(").append(subQuery.sb).append(")");
         
@@ -519,7 +519,7 @@ public class KQueryUtils {
         KUtils.assertNotNull(kQuery, "kQuery");
         KUtils.assertNotNull(alias, "alias");
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         kQueryData.kBaseColumns.add(new KColumn(subQuery.sb, subQuery.params, false).as(alias));
         

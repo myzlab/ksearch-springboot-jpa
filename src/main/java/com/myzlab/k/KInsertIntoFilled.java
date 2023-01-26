@@ -93,7 +93,7 @@ public class KInsertIntoFilled extends KQueryInsertInto {
     private void process(
         final KQuery kQuery
     ) {
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         this.kQueryInsertIntoData.params.addAll(subQuery.params);
         this.kQueryInsertIntoData.sb.append(" ").append(subQuery.sb);

@@ -167,7 +167,7 @@ public class KSetUpdate extends KQueryUpdate {
         
         this.kQueryUpdateData.setValuesAdded++;
         
-        final KQueryData subQuery = kQuery.generateSubQueryData();
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         this.kQueryUpdateData.params.addAll(subQuery.params);
         this.kQueryUpdateData.sb.append(kColumn.name).append(" = (").append(subQuery.sb).append(")");

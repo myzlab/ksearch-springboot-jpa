@@ -2,7 +2,7 @@ package com.myzlab.k;
 
 import java.util.ArrayList;
 
-public abstract class KQueryInsertInto {
+public abstract class KQueryInsertInto extends KGenericQuery {
     
     protected KExecutor k;
     protected KQueryInsertIntoData kQueryInsertIntoData;
@@ -40,4 +40,8 @@ public abstract class KQueryInsertInto {
         return KQueryUtils.multipleMapping(this.k, new ArrayList<>(), this.kQueryInsertIntoData, clazz);
     }
     
+    @Override
+    protected KQueryGenericData generateSubQueryData() {
+        return this.kQueryInsertIntoData.cloneMe();
+    }
 }

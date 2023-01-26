@@ -2,7 +2,7 @@ package com.myzlab.k;
 
 import java.util.ArrayList;
 
-public abstract class KQueryDelete {
+public abstract class KQueryDelete extends KGenericQuery {
     
     protected KExecutor k;
     protected KQueryDeleteData kQueryDeleteData;
@@ -40,4 +40,8 @@ public abstract class KQueryDelete {
         return KQueryUtils.multipleMapping(this.k, new ArrayList<>(), this.kQueryDeleteData, clazz);
     }
     
+    @Override
+    protected KQueryGenericData generateSubQueryData() {
+        return this.kQueryDeleteData.cloneMe();
+    }
 }
