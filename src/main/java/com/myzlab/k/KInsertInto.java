@@ -45,9 +45,9 @@ public class KInsertInto extends KQueryInsertInto {
     }
     
     public KInsertIntoColumned columns(
-        final KColumn... kColumns
+        final KTableColumn... kTableColumns
     ) {
-        return KInsertIntoColumned.getInstance(this.k, this.kQueryInsertIntoData, kColumns);
+        return KInsertIntoColumned.getInstance(this.k, this.kQueryInsertIntoData, kTableColumns);
     }
     
     private void process(

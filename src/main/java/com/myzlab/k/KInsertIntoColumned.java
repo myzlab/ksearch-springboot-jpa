@@ -11,19 +11,19 @@ public class KInsertIntoColumned extends KQueryInsertInto {
     private KInsertIntoColumned(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn... kColumns
+        final KTableColumn... kTableColumns
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        this.process(kColumns);
+        this.process(kTableColumns);
     }
     
     protected static KInsertIntoColumned getInstance(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn... kColumns
+        final KTableColumn... kTableColumns
     ) {
-        return new KInsertIntoColumned(kExecutor, kQueryInsertIntoData, kColumns);
+        return new KInsertIntoColumned(kExecutor, kQueryInsertIntoData, kTableColumns);
     }
     
     public KInsertIntoFilled values(
@@ -39,21 +39,21 @@ public class KInsertIntoColumned extends KQueryInsertInto {
     }
     
     private void process(
-        final KColumn... kColumns
+        final KTableColumn... kTableColumns
     ) {
-        KUtils.assertNotNullNotEmpty(kColumns, "kColumns", false);
+        KUtils.assertNotNullNotEmpty(kTableColumns, "kTableColumns", false);
             
         this.kQueryInsertIntoData.sb.append(" (");
         
 
-        for (int i = 0; i < kColumns.length; i++) {
-            final KColumn kColumn = kColumns[i];
+        for (int i = 0; i < kTableColumns.length; i++) {
+            final KTableColumn kTableColumn = kTableColumns[i];
                     
             if (i > 0) {
                 this.kQueryInsertIntoData.sb.append(", ");
             }
 
-            this.kQueryInsertIntoData.sb.append(kColumn.name);
+            this.kQueryInsertIntoData.sb.append(kTableColumn.name);
         }
 
         this.kQueryInsertIntoData.sb.append(")");
