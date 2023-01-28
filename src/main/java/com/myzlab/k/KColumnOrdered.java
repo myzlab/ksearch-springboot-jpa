@@ -27,6 +27,14 @@ public class KColumnOrdered extends KBaseColumn implements KColumnAllowedToOrder
         
         this.process(orientation);
     }
+    
+    public KColumnOrderedWithNull nullsFirst() {
+        return new KColumnOrderedWithNull(this.sb, this.params, this.closed, true);
+    }
+    
+    public KColumnOrderedWithNull nullsLast() {
+        return new KColumnOrderedWithNull(this.sb, this.params, this.closed, false);
+    }
 
     @Override
     protected KColumnOrdered cloneMe() {
