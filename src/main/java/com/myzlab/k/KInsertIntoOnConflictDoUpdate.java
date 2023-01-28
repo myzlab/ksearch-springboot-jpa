@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
+import java.util.ArrayList;
 
 public class KInsertIntoOnConflictDoUpdate extends KQueryInsertInto {
 
@@ -38,6 +39,19 @@ public class KInsertIntoOnConflictDoUpdate extends KQueryInsertInto {
         final KQuery kQuery
     ) {
         return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kTableColumn, kQuery);
+    }
+    
+    public KSetOnConflictDoUpdate set(
+        final KTableColumn kTableColumn,
+        final Object object
+    ) {
+        KUtils.assertNotNull(object, "object");
+        
+        final KColumn kColumnValue = new KColumn(new StringBuilder("?"), new ArrayList() {{
+            add(object);
+        }}, false);
+        
+        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kTableColumn, kColumnValue);
     }
 
     private void process() {
