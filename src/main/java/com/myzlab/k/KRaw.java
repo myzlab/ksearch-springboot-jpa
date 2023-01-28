@@ -8,7 +8,13 @@ import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KRaw implements KColumnAllowedToOrderBy, KColumnAllowedToGroupBy, KColumnAllowedToReturning, KColumnAllowedToSetUpdate, KColumnAllowedToSelect {
+public class KRaw implements
+    KColumnAllowedToOrderBy,
+    KColumnAllowedToGroupBy,
+    KColumnAllowedToReturning,
+    KColumnAllowedToSetUpdate,
+    KColumnAllowedToSelect
+{
 
     protected String content;
 

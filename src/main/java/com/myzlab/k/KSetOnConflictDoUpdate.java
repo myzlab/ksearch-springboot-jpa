@@ -12,68 +12,57 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
     private KSetOnConflictDoUpdate(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        this.process(kColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     private KSetOnConflictDoUpdate(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        this.process(kColumn, kQuery);
+        this.process(kTableColumn, kQuery);
     }
     
     protected static KSetOnConflictDoUpdate getInstance(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        return new KSetOnConflictDoUpdate(kExecutor, kQueryInsertIntoData, kColumn, kColumnAllowedToSetUpdate);
+        return new KSetOnConflictDoUpdate(kExecutor, kQueryInsertIntoData, kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     protected static KSetOnConflictDoUpdate getInstance(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        return new KSetOnConflictDoUpdate(kExecutor, kQueryInsertIntoData, kColumn, kQuery);
+        return new KSetOnConflictDoUpdate(kExecutor, kQueryInsertIntoData, kTableColumn, kQuery);
     }
     
     public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        this.process(kColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate);
         
         return this;
     }
     
     public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
-        final KRaw kRaw
-    ) {
-        KUtils.assertNotNull(kRaw, "kRaw");
-        
-        this.process(kColumn, new KColumn(new StringBuilder(((KRaw) kRaw).content), false));
-        
-        return this;
-    }
-    
-    public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        this.process(kColumn, kQuery);
+        this.process(kTableColumn, kQuery);
         
         return this;
     }
@@ -85,10 +74,10 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
     }
     
     private void process(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
         if (this.kQueryInsertIntoData.setValuesAdded == 0) {
@@ -101,18 +90,18 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
         
         this.kQueryInsertIntoData.params.addAll(kColumnAllowedToSetUpdate.getParams());
         
-        String value = kColumnAllowedToSetUpdate.getSqlToSet();//EXCLUDED
+        String value = kColumnAllowedToSetUpdate.getSqlToSet();
         
         if (value.contains(value))
         
-        this.kQueryInsertIntoData.sb.append(kColumn.name).append(" = ").append(kColumnAllowedToSetUpdate.getSqlToSet());
+        this.kQueryInsertIntoData.sb.append(kTableColumn.name).append(" = ").append(kColumnAllowedToSetUpdate.getSqlToSet());
     }
     
     private void process(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kQuery, "kQuery");
         
         if (this.kQueryInsertIntoData.setValuesAdded == 0) {
@@ -126,7 +115,7 @@ public class KSetOnConflictDoUpdate extends KQueryInsertInto {
         final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         this.kQueryInsertIntoData.params.addAll(subQuery.params);
-        this.kQueryInsertIntoData.sb.append(kColumn.name).append(" = (").append(subQuery.sb).append(")");
+        this.kQueryInsertIntoData.sb.append(kTableColumn.name).append(" = (").append(subQuery.sb).append(")");
     }
     
     public int execute() {

@@ -11,13 +11,13 @@ public class KInsertIntoOnConflictTargeted extends KQueryInsertInto {
     private KInsertIntoOnConflictTargeted(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kTableColumn, "kTableColumn");
         
-        this.process(kColumn);
+        this.process(kTableColumn);
     }
     
     private KInsertIntoOnConflictTargeted(
@@ -35,9 +35,9 @@ public class KInsertIntoOnConflictTargeted extends KQueryInsertInto {
     protected static KInsertIntoOnConflictTargeted getInstanceOnColumn(
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
-        return new KInsertIntoOnConflictTargeted(kExecutor, kQueryInsertIntoData, kColumn);
+        return new KInsertIntoOnConflictTargeted(kExecutor, kQueryInsertIntoData, kTableColumn);
     }
     
     protected static KInsertIntoOnConflictTargeted getInstanceOnConstraint(
@@ -57,9 +57,9 @@ public class KInsertIntoOnConflictTargeted extends KQueryInsertInto {
     }
 
     private void process(
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
-        this.kQueryInsertIntoData.sb.append(" (").append(kColumn.name).append(")");
+        this.kQueryInsertIntoData.sb.append(" (").append(kTableColumn.name).append(")");
     }
     
     private void process(

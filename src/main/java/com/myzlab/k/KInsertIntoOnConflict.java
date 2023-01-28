@@ -29,9 +29,9 @@ public class KInsertIntoOnConflict extends KQueryInsertInto {
     }
     
     public KInsertIntoOnConflictTargeted targetColumn(
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
-        return KInsertIntoOnConflictTargeted.getInstanceOnColumn(this.k, this.kQueryInsertIntoData, kColumn);
+        return KInsertIntoOnConflictTargeted.getInstanceOnColumn(this.k, this.kQueryInsertIntoData, kTableColumn);
     }
     
     public KInsertIntoOnConflictTargeted targetConstraint(

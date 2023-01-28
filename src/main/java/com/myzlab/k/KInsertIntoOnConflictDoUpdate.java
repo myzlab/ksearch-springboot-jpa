@@ -27,26 +27,17 @@ public class KInsertIntoOnConflictDoUpdate extends KQueryInsertInto {
     }
     
     public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kColumn, kColumnAllowedToSetUpdate);
+        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
-        final KRaw kRaw
-    ) {
-        KUtils.assertNotNull(kRaw, "kRaw");
-        
-        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kColumn, new KColumn(new StringBuilder(((KRaw) kRaw).content), false));
-    }
-    
-    public KSetOnConflictDoUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kColumn, kQuery);
+        return KSetOnConflictDoUpdate.getInstance(this.k, this.kQueryInsertIntoData, kTableColumn, kQuery);
     }
 
     private void process() {
