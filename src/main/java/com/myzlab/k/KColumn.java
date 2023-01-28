@@ -160,10 +160,6 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.every(this);
     }
     
-    public KColumn excluded() {
-        return KFunction.excluded(this);
-    }
-    
     public KColumn grouping() {
         return KFunction.grouping(this);
     }
@@ -180,14 +176,6 @@ public class KColumn extends KBaseColumnCastable implements
         final KBaseColumnCastable kBaseColumnCastableDelimiter
     ) {
         return KFunction.stringAgg(this, kBaseColumnCastableDelimiter);
-    }
-    
-    public KColumn tableNameAlias() {
-        return KFunction.tableNameAlias(this);
-    }
-    
-    public KColumn noTableAlias() {
-        return KFunction.noTableAlias(this);
     }
     
     @Override

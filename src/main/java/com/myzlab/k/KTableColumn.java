@@ -40,6 +40,18 @@ public class KTableColumn extends KColumn implements
         super(sb, params, closed, name, type, kTable);
     }
     
+    public KColumn excluded() {
+        return KFunction.excluded(this);
+    }
+    
+    public KColumn noAlias() {
+        return KFunction.noAlias(this);
+    }
+    
+    public KColumn tableNameAlias() {
+        return KFunction.tableNameAlias(this);
+    }
+    
     @Override
     protected KTableColumn cloneMe() {
         return new KTableColumn(new StringBuilder(this.sb), new ArrayList<>(this.params), this.closed, this.name, this.type, this.kTable);

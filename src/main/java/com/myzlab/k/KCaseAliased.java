@@ -49,7 +49,7 @@ public class KCaseAliased implements
     
     @Override
     public String getSqlToReturning() {
-        return sb.toString();
+        return this.getKBaseColumn().sb.toString();
     }
 
     @Override

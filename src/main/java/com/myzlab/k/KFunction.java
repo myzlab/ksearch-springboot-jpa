@@ -1566,19 +1566,19 @@ public class KFunction {
     }
     
     public static KColumn excluded(
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
-        final KColumn newKColumn = kColumn.cloneMe();
+        final KTableColumn newKTableColumn = kTableColumn.cloneMe();
         
-        if (newKColumn.kTable != null) {
-            final String content = newKColumn.sb.toString().replaceAll(newKColumn.kTable.alias + ".", "EXCLUDED.");
+        if (newKTableColumn.kTable != null) {
+            final String content = newKTableColumn.sb.toString().replace(newKTableColumn.kTable.alias + ".", "EXCLUDED.");
             
-            newKColumn.sb.setLength(0);
+            newKTableColumn.sb.setLength(0);
             
-            newKColumn.sb.append(content);
+            newKTableColumn.sb.append(content);
         }
         
-        return newKColumn;
+        return newKTableColumn;
     }
     
     public static KCondition exists(
@@ -2586,20 +2586,20 @@ public class KFunction {
         return nullifkColumn;
     }
     
-    public static KColumn noTableAlias(
-        final KColumn kColumn
+    public static KColumn noAlias(
+        final KTableColumn kTableColumn
     ) {
-        final KColumn newKColumn = kColumn.cloneMe();
+        final KColumn newKTableColumn = kTableColumn.cloneMe();
         
-        if (newKColumn.kTable != null) {
-            final String content = newKColumn.sb.toString().replaceAll(newKColumn.kTable.alias + ".", "");
+        if (newKTableColumn.kTable != null) {
+            final String content = newKTableColumn.sb.toString().replace(newKTableColumn.kTable.alias + ".", "");
             
-            newKColumn.sb.setLength(0);
+            newKTableColumn.sb.setLength(0);
             
-            newKColumn.sb.append(content);
+            newKTableColumn.sb.append(content);
         }
         
-        return newKColumn;
+        return newKTableColumn;
     }
     
     public static KCondition not(
@@ -3633,19 +3633,19 @@ public class KFunction {
     }
     
     public static KColumn tableNameAlias(
-        final KColumn kColumn
+        final KTableColumn kTableColumn
     ) {
-        final KColumn newKColumn = kColumn.cloneMe();
+        final KTableColumn newKTableColumn = kTableColumn.cloneMe();
         
-        if (newKColumn.kTable != null) {
-            final String content = newKColumn.sb.toString().replaceAll(newKColumn.kTable.alias + ".", newKColumn.kTable.schema + "." + newKColumn.kTable.name + ".");
+        if (newKTableColumn.kTable != null) {
+            final String content = newKTableColumn.sb.toString().replace(newKTableColumn.kTable.alias + ".", newKTableColumn.kTable.schema + "." + newKTableColumn.kTable.name + ".");
             
-            newKColumn.sb.setLength(0);
+            newKTableColumn.sb.setLength(0);
             
-            newKColumn.sb.append(content);
+            newKTableColumn.sb.append(content);
         }
         
-        return newKColumn;
+        return newKTableColumn;
     }
     
     public static KColumn tan(
