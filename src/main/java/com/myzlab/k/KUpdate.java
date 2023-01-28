@@ -47,25 +47,25 @@ public class KUpdate extends KQueryUpdate {
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kColumn, kColumnAllowedToSetUpdate);
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kColumn, kQuery);
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kQuery);
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final Object object
     ) {
         KUtils.assertNotNull(object, "object");
@@ -74,7 +74,7 @@ public class KUpdate extends KQueryUpdate {
             add(object);
         }}, false);
         
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kColumn, kColumnValue);
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue);
     }
     
     private void process(

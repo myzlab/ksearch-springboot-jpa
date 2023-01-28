@@ -13,41 +13,41 @@ public class KSetUpdate extends KQueryUpdate {
     private KSetUpdate(
         final KExecutor kExecutor,
         final KQueryUpdateData kQueryUpdateData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
         super(kQueryUpdateData, kExecutor);
         
-        this.process(kColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     private KSetUpdate(
         final KExecutor kExecutor,
         final KQueryUpdateData kQueryUpdateData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
         super(kQueryUpdateData, kExecutor);
         
-        this.process(kColumn, kQuery);
+        this.process(kTableColumn, kQuery);
     }
     
     protected static KSetUpdate getInstance(
         final KExecutor kExecutor,
         final KQueryUpdateData kQueryUpdateData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        return new KSetUpdate(kExecutor, kQueryUpdateData, kColumn, kColumnAllowedToSetUpdate);
+        return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate);
     }
     
     protected static KSetUpdate getInstance(
         final KExecutor kExecutor,
         final KQueryUpdateData kQueryUpdateData,
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        return new KSetUpdate(kExecutor, kQueryUpdateData, kColumn, kQuery);
+        return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kQuery);
     }
     
     public KFromUpdate from(
@@ -77,29 +77,29 @@ public class KSetUpdate extends KQueryUpdate {
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
-        this.process(kColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate);
         
         return this;
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
-        this.process(kColumn, kQuery);
+        this.process(kTableColumn, kQuery);
         
         return this;
     }
     
     public KSetUpdate set(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final Object object
     ) {
         KUtils.assertNotNull(object, "object");
@@ -108,7 +108,7 @@ public class KSetUpdate extends KQueryUpdate {
             add(object);
         }}, false);
         
-        this.process(kColumn, kColumnValue);
+        this.process(kTableColumn, kColumnValue);
         
         return this;
     }
@@ -134,10 +134,10 @@ public class KSetUpdate extends KQueryUpdate {
     }
     
     private void process(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
-        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
         if (this.kQueryUpdateData.setValuesAdded == 0) {
@@ -149,14 +149,14 @@ public class KSetUpdate extends KQueryUpdate {
         this.kQueryUpdateData.setValuesAdded++;
         
         this.kQueryUpdateData.params.addAll(kColumnAllowedToSetUpdate.getParams());
-        this.kQueryUpdateData.sb.append(kColumn.name).append(" = ").append(kColumnAllowedToSetUpdate.getSqlToSet());
+        this.kQueryUpdateData.sb.append(kTableColumn.name).append(" = ").append(kColumnAllowedToSetUpdate.getSqlToSet());
     }
     
     private void process(
-        final KColumn kColumn,
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
-        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kQuery, "kQuery");
         
         if (this.kQueryUpdateData.setValuesAdded == 0) {
@@ -170,6 +170,6 @@ public class KSetUpdate extends KQueryUpdate {
         final KQueryGenericData subQuery = kQuery.generateSubQueryData();
         
         this.kQueryUpdateData.params.addAll(subQuery.params);
-        this.kQueryUpdateData.sb.append(kColumn.name).append(" = (").append(subQuery.sb).append(")");
+        this.kQueryUpdateData.sb.append(kTableColumn.name).append(" = (").append(subQuery.sb).append(")");
     }
 }
