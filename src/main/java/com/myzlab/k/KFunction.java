@@ -2248,6 +2248,12 @@ public class KFunction {
         return groupingSet("GROUPING SETS", kColumns);
     }
     
+    public static KColumn isempty(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "ISEMPTY");
+    }
+    
     public static String iso8601DateUTCFormat() {
         return "YYYY-MM-DD";
     }
@@ -2629,6 +2635,18 @@ public class KFunction {
         KUtils.assertNotNull(value, "value");
         
         return applyOneParameterFunction(val(value), "LOWER");
+    }
+    
+    public static KColumn lowerInc(
+        final KColumn kColumnRange
+    ) {
+        return applyOneParameterFunction(kColumnRange, "LOWER_INC");
+    }
+    
+    public static KColumn lowerInf(
+        final KColumn kColumnRange
+    ) {
+        return applyOneParameterFunction(kColumnRange, "LOWER_INF");
     }
     
     public static KColumn lpad(
@@ -3302,6 +3320,13 @@ public class KFunction {
     
     public static KColumn random() {
         return new KColumn(new StringBuilder("RANDOM()"), true);
+    }
+    
+    public static KColumn rangeMerge(
+        final KColumn kColumnRange1,
+        final KColumn kColumnRange2
+    ) {
+        return applyTwoParameterFunction(kColumnRange1, kColumnRange2, "RANGE_MERGE");
     }
     
     public static KWindowFunctionColumn rank() {
@@ -4365,6 +4390,18 @@ public class KFunction {
         KUtils.assertNotNull(value, "value");
         
         return applyOneParameterFunction(val(value), "UPPER");
+    }
+    
+    public static KColumn upperInc(
+        final KColumn kColumnRange
+    ) {
+        return applyOneParameterFunction(kColumnRange, "UPPER_INC");
+    }
+    
+    public static KColumn upperInf(
+        final KColumn kColumnRange
+    ) {
+        return applyOneParameterFunction(kColumnRange, "UPPER_INF");
     }
     
     public static KValTextField val(
