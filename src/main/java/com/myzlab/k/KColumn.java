@@ -17,7 +17,7 @@ public class KColumn extends KBaseColumnCastable implements
     KColumnAllowedToGroupBy,
     KColumnAllowedToReturning,
     KColumnAllowedToSetUpdate,
-    KColumnAllowedToSelect 
+    KColumnAllowedToSelect
 {
     
     protected KColumn() {
@@ -110,6 +110,14 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.arrayAgg(this);
     }
     
+    public KColumn arrayDims() {
+        return KFunction.arrayDims(this);
+    }
+    
+    public KColumn arrayNdims() {
+        return KFunction.arrayNdims(this);
+    }
+    
     public KAggregateFunctionColumn avg() {
         return KFunction.avg(this);
     }
@@ -128,6 +136,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KAggregateFunctionColumn boolOr() {
         return KFunction.boolOr(this);
+    }
+    
+    public KColumn cardinality() {
+        return KFunction.cardinality(this);
     }
     
     public KAggregateFunctionColumn count() {
@@ -3178,6 +3190,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn sumDistinct() {
         return KFunction.sumDistinct(this);
+    }
+    
+    public KColumn unnest() {
+        return KFunction.unnest(this);
     }
     
     public KColumn xmlagg() {

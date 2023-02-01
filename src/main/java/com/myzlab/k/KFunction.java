@@ -795,38 +795,38 @@ public class KFunction {
     
     public static KColumn arrayReplace(
         final KColumn kColumnArray,
-        final KColumn kColumnElement,
-        final Object element
+        final KColumn kColumnPreviousValue,
+        final Object newValue
     ) {
         KUtils.assertNotNull(kColumnArray, "kColumnArray");
-        KUtils.assertNotNull(kColumnElement, "kColumnElement");
-        KUtils.assertNotNull(element, "element");
+        KUtils.assertNotNull(kColumnPreviousValue, "kColumnPreviousValue");
+        KUtils.assertNotNull(newValue, "newValue");
         
         final KColumn arrayReplaceKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
         
-        arrayReplaceKColumn.sb.insert(0, "ARRAY_REPLACE(").append(", ").append(kColumnElement.sb).append(", ?)");
+        arrayReplaceKColumn.sb.insert(0, "ARRAY_REPLACE(").append(", ").append(kColumnPreviousValue.sb).append(", ?)");
         
-        arrayReplaceKColumn.params.addAll(kColumnElement.params);
-        arrayReplaceKColumn.params.add(element);
+        arrayReplaceKColumn.params.addAll(kColumnPreviousValue.params);
+        arrayReplaceKColumn.params.add(newValue);
         
         return arrayReplaceKColumn;
     }
     
     public static KColumn arrayReplace(
         final KColumn kColumnArray,
-        final Object element1,
-        final Object element2
+        final Object previousValue,
+        final Object newValue
     ) {
         KUtils.assertNotNull(kColumnArray, "kColumnArray");
-        KUtils.assertNotNull(element1, "element1");
-        KUtils.assertNotNull(element2, "element2");
+        KUtils.assertNotNull(previousValue, "previousValue");
+        KUtils.assertNotNull(newValue, "newValue");
         
         final KColumn arrayReplaceKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
         
         arrayReplaceKColumn.sb.insert(0, "ARRAY_REPLACE(").append(", ?, ?)");
         
-        arrayReplaceKColumn.params.add(element1);
-        arrayReplaceKColumn.params.add(element2);
+        arrayReplaceKColumn.params.add(previousValue);
+        arrayReplaceKColumn.params.add(newValue);
         
         return arrayReplaceKColumn;
     }
