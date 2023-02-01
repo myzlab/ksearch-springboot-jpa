@@ -530,6 +530,354 @@ public class KFunction {
         return kArrayAggColumn;
     }
     
+    public static KColumn arrayAppend(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement
+    ) {
+        return applyTwoParameterFunction(kColumnArray, kColumnElement, "ARRAY_APPEND");
+    }
+    
+    public static KColumn arrayAppend(
+        final KColumn kColumnArray,
+        final Object element
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder("?"),
+                new ArrayList(){{
+                    add(element);
+                }},
+                false
+            ),
+            "ARRAY_APPEND"
+        );
+    }
+    
+    public static KColumn arrayCat(
+        final KColumn kColumnArray1,
+        final KColumn kColumnArray2
+    ) {
+        return applyTwoParameterFunction(kColumnArray1, kColumnArray2, "ARRAY_CAT");
+    }
+    
+    public static KColumn arrayDims(
+        final KColumn kColumnArray
+    ) {
+        return applyOneParameterFunction(kColumnArray, "ARRAY_DIMS");
+    }
+    
+    public static KColumn arrayFill(
+        final KColumn kColumn,
+        final int upper
+    ) {
+        return arrayFill(kColumn, upper, null);
+    }
+    
+    public static KColumn arrayFill(
+        final KColumn kColumn,
+        final int upper,
+        final Integer lower
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KColumn arrayFillKColumn = new KColumn(kColumn.sb, kColumn.params, true);
+        
+        arrayFillKColumn.sb.insert(0, "ARRAY_FILL(").append(", ARRAY[").append(upper).append("]");
+        
+        if (lower != null) {
+            arrayFillKColumn.sb.append(", ARRAY[").append(lower).append("]");
+        }
+        
+        arrayFillKColumn.sb.append(")");
+        
+        return arrayFillKColumn;
+    }
+    
+    public static KColumn arrayFill(
+        final Object element,
+        final int upper
+    ) {
+        return arrayFill(element, upper, null);
+    }
+    
+    public static KColumn arrayFill(
+        final Object element,
+        final int upper,
+        final Integer lower
+    ) {
+        KUtils.assertNotNull(element, "element");
+        
+        final KColumn arrayFillKColumn = new KColumn(
+            new StringBuilder("?"),
+            new ArrayList(){{
+                add(element);
+            }},
+            false
+        );
+        
+        arrayFillKColumn.sb.insert(0, "ARRAY_FILL(").append(", ARRAY[").append(upper).append("]");
+        
+        if (lower != null) {
+            arrayFillKColumn.sb.append(", ARRAY[").append(lower).append("]");
+        }
+        
+        arrayFillKColumn.sb.append(")");
+        
+        return arrayFillKColumn;
+    }
+    
+    public static KColumn arrayLength(
+        final KColumn kColumnArray,
+        final int n
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder(String.valueOf(n)),
+                new ArrayList<>(),
+                false
+            ),
+            "ARRAY_LENGTH"
+        );
+    }
+    
+    public static KColumn arrayLower(
+        final KColumn kColumnArray,
+        final int n
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder(String.valueOf(n)),
+                new ArrayList<>(),
+                false
+            ),
+            "ARRAY_LOWER"
+        );
+    }
+    
+    public static KColumn arrayNdims(
+        final KColumn kColumnArray
+    ) {
+        return applyOneParameterFunction(kColumnArray, "ARRAY_NDIMS");
+    }
+    
+    public static KColumn arrayPosition(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement
+    ) {
+        return arrayPosition(kColumnArray, kColumnElement, null);
+    }
+    
+    public static KColumn arrayPosition(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement,
+        final Integer n
+    ) {
+        KUtils.assertNotNull(kColumnArray, "kColumnArray");
+        KUtils.assertNotNull(kColumnElement, "kColumnElement");
+        
+        final KColumn arrayPositionKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
+        
+        arrayPositionKColumn.sb.insert(0, "ARRAY_POSITION(").append(", ").append(kColumnElement.sb);
+        
+        if (n != null) {
+            arrayPositionKColumn.sb.append(", ").append(n);
+        }
+        
+        arrayPositionKColumn.sb.append(")");
+        arrayPositionKColumn.params.addAll(kColumnElement.params);
+        
+        return arrayPositionKColumn;
+    }
+    
+    public static KColumn arrayPosition(
+        final KColumn kColumnArray,
+        final Object element
+    ) {
+        return arrayPosition(kColumnArray, element, null);
+    }
+    
+    public static KColumn arrayPosition(
+        final KColumn kColumnArray,
+        final Object element,
+        final Integer n
+    ) {
+        KUtils.assertNotNull(kColumnArray, "kColumnArray");
+        KUtils.assertNotNull(element, "element");
+        
+        final KColumn arrayPositionKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
+        
+        arrayPositionKColumn.sb.insert(0, "ARRAY_POSITION(").append(", ?");
+        
+        if (n != null) {
+            arrayPositionKColumn.sb.append(", ").append(n);
+        }
+        
+        arrayPositionKColumn.sb.append(")");
+        arrayPositionKColumn.params.add(element);
+        
+        return arrayPositionKColumn;
+    }
+    
+    public static KColumn arrayPositions(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement
+    ) {
+        return applyTwoParameterFunction(kColumnArray, kColumnElement, "ARRAY_POSITIONS");
+    }
+    
+    public static KColumn arrayPositions(
+        final KColumn kColumnArray,
+        final Object element
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder("?"),
+                new ArrayList(){{
+                    add(element);
+                }},
+                false
+            ),
+            "ARRAY_POSITIONS"
+        );
+    }
+    
+    public static KColumn arrayPrepend(
+        final KColumn kColumnElement,
+        final KColumn kColumnArray
+    ) {
+        return applyTwoParameterFunction(kColumnElement, kColumnArray, "ARRAY_PREPEND");
+    }
+    
+    public static KColumn arrayPrepend(
+        final Object element,
+        final KColumn kColumnArray
+    ) {
+        return applyTwoParameterFunction(
+            new KColumn(
+                new StringBuilder("?"),
+                new ArrayList(){{
+                    add(element);
+                }},
+                false
+            ),
+            kColumnArray,
+            "ARRAY_PREPEND"
+        );
+    }
+    
+    public static KColumn arrayRemove(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement
+    ) {
+        return applyTwoParameterFunction(kColumnArray, kColumnElement, "ARRAY_REMOVE");
+    }
+    
+    public static KColumn arrayRemove(
+        final KColumn kColumnArray,
+        final Object element
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder("?"),
+                new ArrayList(){{
+                    add(element);
+                }},
+                false
+            ),
+            "ARRAY_REMOVE"
+        );
+    }
+    
+    public static KColumn arrayReplace(
+        final KColumn kColumnArray,
+        final KColumn kColumnElement,
+        final Object element
+    ) {
+        KUtils.assertNotNull(kColumnArray, "kColumnArray");
+        KUtils.assertNotNull(kColumnElement, "kColumnElement");
+        KUtils.assertNotNull(element, "element");
+        
+        final KColumn arrayReplaceKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
+        
+        arrayReplaceKColumn.sb.insert(0, "ARRAY_REPLACE(").append(", ").append(kColumnElement.sb).append(", ?)");
+        
+        arrayReplaceKColumn.params.addAll(kColumnElement.params);
+        arrayReplaceKColumn.params.add(element);
+        
+        return arrayReplaceKColumn;
+    }
+    
+    public static KColumn arrayReplace(
+        final KColumn kColumnArray,
+        final Object element1,
+        final Object element2
+    ) {
+        KUtils.assertNotNull(kColumnArray, "kColumnArray");
+        KUtils.assertNotNull(element1, "element1");
+        KUtils.assertNotNull(element2, "element2");
+        
+        final KColumn arrayReplaceKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
+        
+        arrayReplaceKColumn.sb.insert(0, "ARRAY_REPLACE(").append(", ?, ?)");
+        
+        arrayReplaceKColumn.params.add(element1);
+        arrayReplaceKColumn.params.add(element2);
+        
+        return arrayReplaceKColumn;
+    }
+    
+    public static KColumn arrayToString(
+        final KColumn kColumnArray,
+        final String delimiter
+    ) {
+        return arrayToString(kColumnArray, delimiter, null);
+    }
+    
+    public static KColumn arrayToString(
+        final KColumn kColumnArray,
+        final String delimiter,
+        final String nullString
+    ) {
+        KUtils.assertNotNull(kColumnArray, "kColumnArray");
+        KUtils.assertNotNullNotEmpty(delimiter, "delimiter");
+        
+        final KColumn arrayToStringKColumn = new KColumn(kColumnArray.sb, kColumnArray.params, true);
+        
+        arrayToStringKColumn.sb.insert(0, "ARRAY_TO_STRING(").append(", ?");
+        
+        arrayToStringKColumn.params.add(delimiter);
+        
+        if (nullString != null) {
+            arrayToStringKColumn.sb.append(", ?");
+            
+            arrayToStringKColumn.params.add(nullString);
+        }
+        
+        arrayToStringKColumn.sb.append(")");
+        
+        return arrayToStringKColumn;
+    }
+    
+    public static KColumn arrayUpper(
+        final KColumn kColumnArray,
+        final int n
+    ) {
+        return applyTwoParameterFunction(
+            kColumnArray, 
+            new KColumn(
+                new StringBuilder(String.valueOf(n)),
+                new ArrayList<>(),
+                false
+            ),
+            "ARRAY_UPPER"
+        );
+    }
+    
     public static void assertExists(
         final KBuilder k,
         final KQuery kQuery,
@@ -1059,6 +1407,12 @@ public class KFunction {
         castkColumn.sb.insert(0, "CAST(").append(" AS ").append(kDataType.toSql()).append(")");
         
         return castkColumn;
+    }
+    
+    public static KColumn cardinality(
+        final KColumn kColumnArray
+    ) {
+        return applyOneParameterFunction(kColumnArray, "CARDINALITY");
     }
     
 //    public static KColumn cast(
@@ -3430,6 +3784,38 @@ public class KFunction {
         return kStringAggColumn;
     }
     
+    public static KColumn stringToArray(
+        final KBaseColumnCastable kBaseColumnCastable,
+        final String delimiter
+    ) {
+        return stringToArray(kBaseColumnCastable, delimiter, null);
+    }
+    
+    public static KColumn stringToArray(
+        final KBaseColumnCastable kBaseColumnCastable,
+        final String delimiter,
+        final String nullString
+    ) {
+        KUtils.assertNotNull(kBaseColumnCastable, "kBaseColumnCastable");
+        KUtils.assertNotNullNotEmpty(delimiter, "delimiter");
+        
+        final KColumn arrayToStringKColumn = new KColumn(kBaseColumnCastable.sb, kBaseColumnCastable.params, true);
+        
+        arrayToStringKColumn.sb.insert(0, "STRING_TO_ARRAY(").append(", ?");
+        
+        arrayToStringKColumn.params.add(delimiter);
+        
+        if (nullString != null) {
+            arrayToStringKColumn.sb.append(", ?");
+            
+            arrayToStringKColumn.params.add(nullString);
+        }
+        
+        arrayToStringKColumn.sb.append(")");
+        
+        return arrayToStringKColumn;
+    }
+    
     public static KColumn substring(
         final KColumn kColumn,
         final Integer from
@@ -3945,6 +4331,12 @@ public class KFunction {
         KUtils.assertNotNull(number, "number");
         
         return applyOneParameterFunction(val(number), "TRUNC");
+    }
+    
+    public static KColumn unnest(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "UNNEST");
     }
     
     public static KColumn uuidGenerateV1() {
