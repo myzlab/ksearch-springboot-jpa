@@ -738,13 +738,13 @@ public class KRow {
         }
     }
     
-    public boolean isPresent(
+    protected boolean isPresent(
         final KTableColumn kTableColumn
     ) {
         return this.isPresent(kTableColumn.name);
     }
     
-    public boolean isPresent(
+    protected boolean isPresent(
         final String c
     ) {
         if (o == null) {

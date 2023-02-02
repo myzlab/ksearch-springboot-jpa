@@ -1,8 +1,10 @@
 package com.myzlab.k.optional;
 
+import com.myzlab.k.KBaseColumn;
 import com.myzlab.k.KColumn;
+import com.myzlab.k.allowed.KColumnAllowedToSelect;
 
-public class KOptionalKColumn {
+public class KOptionalKColumn implements KColumnAllowedToSelect {
 
     private final KColumn kColumn;
     
@@ -32,5 +34,14 @@ public class KOptionalKColumn {
     
     public boolean isPresent() {
         return kColumn != null;
+    }
+    
+    @Override
+    public KBaseColumn getKBaseColumn() {
+        if (isPresent()) {
+            return kColumn.getKBaseColumn();
+        }
+        
+        return null;
     }
 }

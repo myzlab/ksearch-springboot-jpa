@@ -37,6 +37,10 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final List<KBaseColumn> kBaseColumns = new ArrayList<>();
         
         for (final KColumnAllowedToSelect kColumnAllowedToSelect : kColumnsAllowedToSelect) {
+            if (kColumnAllowedToSelect.getKBaseColumn() == null) {
+                continue;
+            }
+            
             kBaseColumns.add(kColumnAllowedToSelect.getKBaseColumn());
         }
          
@@ -57,6 +61,10 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final List<KBaseColumn> kBaseColumns = new ArrayList<>();
         
         for (final KColumnAllowedToSelect kColumnAllowedToSelect : kColumnsAllowedToSelect) {
+            if (kColumnAllowedToSelect.getKBaseColumn() == null) {
+                continue;
+            }
+            
             kBaseColumns.add(kColumnAllowedToSelect.getKBaseColumn());
         }
          
@@ -78,6 +86,10 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final List<KBaseColumn> kBaseColumns = new ArrayList<>();
         
         for (final KColumnAllowedToSelect kColumnAllowedToSelect : kColumnsAllowedToSelect) {
+            if (kColumnAllowedToSelect.getKBaseColumn() == null) {
+                continue;
+            }
+            
             kBaseColumns.add(kColumnAllowedToSelect.getKBaseColumn());
         }
          
@@ -99,6 +111,10 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final List<KBaseColumn> kBaseColumns = new ArrayList<>();
         
         for (final KColumnAllowedToSelect kColumnAllowedToSelect : kColumnsAllowedToSelect) {
+            if (kColumnAllowedToSelect.getKBaseColumn() == null) {
+                continue;
+            }
+            
             kBaseColumns.add(kColumnAllowedToSelect.getKBaseColumn());
         }
         
@@ -177,6 +193,10 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final List<KBaseColumn> kBaseColumns = new ArrayList<>();
         
         for (final KColumnAllowedToSelect kColumnAllowedToSelect : kColumnsAllowedToSelect) {
+            if (kColumnAllowedToSelect.getKBaseColumn() == null) {
+                continue;
+            }
+            
             kBaseColumns.add(kColumnAllowedToSelect.getKBaseColumn());
         }
         

@@ -5,6 +5,7 @@ import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import com.myzlab.k.optional.KOptionalKJoinDefinition;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -91,6 +92,18 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KFrom fullJoin(
+        final KOptionalKJoinDefinition kOptionalKJoinDefinition
+    ) {
+        if (!kOptionalKJoinDefinition.isPresent()) {
+            return this;
+        }
+        
+        this.processGeneralJoin("FULL JOIN", kOptionalKJoinDefinition.get());
+        
+        return this;
+    }
+    
+    public KFrom fullJoin(
         final KRaw kRaw
     ) {
         this.processGeneralJoin("FULL JOIN", kRaw);
@@ -102,6 +115,18 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
         final KJoinDefinition kJoinDefinition
     ) {
         this.processGeneralJoin("INNER JOIN", kJoinDefinition);
+        
+        return this;
+    }
+    
+    public KFrom innerJoin(
+        final KOptionalKJoinDefinition kOptionalKJoinDefinition
+    ) {
+        if (!kOptionalKJoinDefinition.isPresent()) {
+            return this;
+        }
+        
+        this.processGeneralJoin("INNER JOIN", kOptionalKJoinDefinition.get());
         
         return this;
     }
@@ -123,6 +148,18 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KFrom leftJoin(
+        final KOptionalKJoinDefinition kOptionalKJoinDefinition
+    ) {
+        if (!kOptionalKJoinDefinition.isPresent()) {
+            return this;
+        }
+        
+        this.processGeneralJoin("LEFT JOIN", kOptionalKJoinDefinition.get());
+        
+        return this;
+    }
+    
+    public KFrom leftJoin(
         final KRaw kRaw
     ) {
         this.processGeneralJoin("LEFT JOIN", kRaw);
@@ -134,6 +171,18 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
         final KJoinDefinition kJoinDefinition
     ) {
         this.processGeneralJoin("RIGHT JOIN", kJoinDefinition);
+        
+        return this;
+    }
+    
+    public KFrom rightJoin(
+        final KOptionalKJoinDefinition kOptionalKJoinDefinition
+    ) {
+        if (!kOptionalKJoinDefinition.isPresent()) {
+            return this;
+        }
+        
+        this.processGeneralJoin("RIGHT JOIN", kOptionalKJoinDefinition.get());
         
         return this;
     }

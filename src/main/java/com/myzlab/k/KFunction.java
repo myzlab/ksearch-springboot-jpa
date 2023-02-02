@@ -3,6 +3,8 @@ package com.myzlab.k;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
 import com.myzlab.k.optional.KOptionalCollection;
+import com.myzlab.k.optional.KOptionalKAliasedColumn;
+import com.myzlab.k.optional.KOptionalKJoinDefinition;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKColumnOrdered;
 import com.myzlab.k.optional.KOptionalKValNumberField;
@@ -3006,6 +3008,12 @@ public class KFunction {
         return KOptionalKColumn.getInstance(kColumn);
     }
     
+    public static KOptionalKAliasedColumn optional(
+        final KAliasedColumn kAliasedColumn
+    ) {
+        return KOptionalKAliasedColumn.getInstance(kAliasedColumn);
+    }
+    
     public static KOptionalKValNumberField optional(
         final KValNumberField kValNumberField
     ) {
@@ -3072,6 +3080,12 @@ public class KFunction {
         final boolean omitOnEmptyArray
     ) {
         return KOptionalArrayObject.getInstance(values, omitOnEmptyArray);
+    }
+    
+    public static KOptionalKJoinDefinition optional(
+        final KJoinDefinition kJoinDefinition
+    ) {
+        return KOptionalKJoinDefinition.getInstance(kJoinDefinition);
     }
     
     public static KColumn overlay(
