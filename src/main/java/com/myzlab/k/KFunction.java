@@ -1137,6 +1137,12 @@ public class KFunction {
         return applyBinaryOperator(kValNumberField, kColumn, "&");
     }
     
+    public static KColumn bitLength(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "BIT_LENGTH");
+    }
+    
     public static KColumn bitNot(
         final KColumn kColumn
     ) {
@@ -1361,6 +1367,50 @@ public class KFunction {
         return applyOneParameterAggregateFunction(kAggregateFunctionColumn, "BOOL_OR");
     }
     
+    public static KColumn btrim(
+        final KColumn kColumn
+    ) {
+        return btrim(kColumn, null);
+    }
+    
+    public static KColumn btrim(
+        final KColumn kColumn,
+        final String characters
+    ) {
+        return genericTrim(kColumn, characters, "BTRIM");
+    }
+    
+    public static KValTextField btrim(
+        final KValTextField kValTextField
+    ) {
+        return btrim(kValTextField, null);
+    }
+    
+    public static KValTextField btrim(
+        final KValTextField kValTextField,
+        final String characters
+    ) {
+        return genericTrim(kValTextField, characters, "BTRIM");
+    }
+    
+    public static KOptionalLong calculateOffset(
+        final Long page,
+        final Long limit
+    ) {
+        return KOptionalLong.getInstance((page - 1) * limit);
+    }
+    
+    public static KOptionalLong calculateOffset(
+        final KOptionalLong page,
+        final KOptionalLong limit
+    ) {
+        if (!limit.isPresent() || !page.isPresent()) {
+            return KOptionalLong.getNullInstance();
+        }
+        
+        return KOptionalLong.getInstance((page.get() - 1) * limit.get());
+    }
+    
     public static KCase caseConditional() {
         return KCase.getInstance();
     }
@@ -1517,6 +1567,18 @@ public class KFunction {
         KUtils.assertNotNull(number, "number");
         
         return applyOneParameterFunction(val(number), "CEILING");
+    }
+    
+    public static KColumn characterLength(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "CHARACTER_LENGTH");
+    }
+    
+    public static KColumn charLength(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "CHAR_LENGTH");
     }
     
     public static KColumn chr(
@@ -1975,6 +2037,12 @@ public class KFunction {
         extractKColumn.sb.insert(0, " FROM ").insert(0, kExtractField.toSql()).insert(0, "EXTRACT(").append(")");
         
         return extractKColumn;
+    }
+    
+    public static KColumn factorial(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "FACTORIAL");
     }
     
     public static KWindowFunctionColumn firstValue(
@@ -2984,22 +3052,10 @@ public class KFunction {
         return kCondition;
     }
     
-    public static KOptionalLong calculateOffset(
-        final Long page,
-        final Long limit
+    public static KColumn octetLength(
+        final KColumn kColumn
     ) {
-        return KOptionalLong.getInstance((page - 1) * limit);
-    }
-    
-    public static KOptionalLong calculateOffset(
-        final KOptionalLong page,
-        final KOptionalLong limit
-    ) {
-        if (!limit.isPresent() || !page.isPresent()) {
-            return KOptionalLong.getNullInstance();
-        }
-        
-        return KOptionalLong.getInstance((page.get() - 1) * limit.get());
+        return applyOneParameterFunction(kColumn, "OCTET_LENGTH");
     }
     
     public static KOptionalKColumn optional(
@@ -3688,6 +3744,12 @@ public class KFunction {
         final String characters
     ) {
         return genericTrim(kValTextField, characters, "RTRIM");
+    }
+    
+    public static KColumn scale(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "SCALE");
     }
     
     public static KColumn sign(
