@@ -2318,6 +2318,12 @@ public class KFunction {
         return groupingSet("GROUPING SETS", kColumns);
     }
     
+    public static KColumn initcap(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "INITCAP");
+    }
+    
     public static KColumn isempty(
         final KColumn kColumn
     ) {
@@ -3212,6 +3218,10 @@ public class KFunction {
         return new KWindowFunctionColumn(new StringBuilder("PERCENT_RANK()"), true);
     }
     
+    public static KColumn pgClientEncoding() {
+        return new KColumn(new StringBuilder("PG_CLIENT_ENCODING()"), true);
+    }
+    
     public static KColumn pi() {
         return new KColumn(new StringBuilder("PI()"), true);
     }
@@ -3366,6 +3376,24 @@ public class KFunction {
         subQuery.sb.insert(0, "SOME (").append(")");
         
         return new KColumn(subQuery.sb, subQuery.params, true);
+    }
+    
+    public static KColumn quoteIdent(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "QUOTE_IDENT");
+    }
+    
+    public static KColumn quoteLiteral(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "QUOTE_LITERAL");
+    }
+    
+    public static KColumn quoteNullable(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "QUOTE_NULLABLE");
     }
     
     public static KColumn radians(

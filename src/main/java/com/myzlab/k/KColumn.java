@@ -200,1036 +200,6 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.jsonbAgg(this);
     }
     
-    public KStringAggColumn stringAgg(
-        final KBaseColumnCastable kBaseColumnCastableDelimiter
-    ) {
-        return KFunction.stringAgg(this, kBaseColumnCastableDelimiter);
-    }
-    
-    @Override
-    public KCondition iBetween(
-        final KColumn kColumnLow,
-        final KColumn kColumnHigh
-    ) {
-        return KCondition.ibt(this, kColumnLow, kColumnHigh);
-    }
-    
-    @Override
-    public KCondition iBetween(
-        final KValTextField kValTextFieldLow,
-        final KValTextField kValTextFieldHigh
-    ) {
-        return KCondition.ibt(this, kValTextFieldLow, kValTextFieldHigh);
-    }
-    
-    @Override
-    public KCondition iBetween(
-        final String valueLow,
-        final String valueHigh
-    ) {
-        return KCondition.ibt(this, KFunction.val(valueLow), KFunction.val(valueHigh));
-    }
-    
-    @Override
-    public KCondition ibt(
-        final KColumn kColumnLow,
-        final KColumn kColumnHigh
-    ) {
-        return KCondition.ibt(this, kColumnLow, kColumnHigh);
-    }
-    
-    @Override
-    public KCondition ibt(
-        final KValTextField kValTextFieldLow,
-        final KValTextField kValTextFieldHigh
-    ) {
-        return KCondition.ibt(this, kValTextFieldLow, kValTextFieldHigh);
-    }
-    
-    @Override
-    public KCondition ibt(
-        final String valueLow,
-        final String valueHigh
-    ) {
-        return KCondition.ibt(this, KFunction.val(valueLow), KFunction.val(valueHigh));
-    }
-    
-    @Override
-    public KCondition ieq(
-        final KColumn kColumn
-    ) {
-        return KCondition.ieq(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ieq(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ieq(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ieq(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ieq(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ieq(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ieq(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ieq(
-        final String value
-    ) {
-        return KCondition.ieq(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ieq(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ieq(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final KColumn kColumn
-    ) {
-        return KCondition.ieq(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ieq(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ieq(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ieq(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final String value
-    ) {
-        return KCondition.ieq(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iEqual(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ieq(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition igt(
-        final KColumn kColumn
-    ) {
-        return KCondition.igt(this, kColumn);
-    }
-    
-    @Override
-    public KCondition igt(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.igt(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition igt(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.igt(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition igt(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igt(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition igt(
-        final String value
-    ) {
-        return KCondition.igt(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition igt(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igt(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition igte(
-        final KColumn kColumn
-    ) {
-        return KCondition.igte(this, kColumn);
-    }
-    
-    @Override
-    public KCondition igte(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.igte(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition igte(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.igte(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition igte(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igte(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition igte(
-        final String value
-    ) {
-        return KCondition.igte(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition igte(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igte(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final KColumn kColumn
-    ) {
-        return KCondition.igt(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.igt(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.igt(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igt(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final String value
-    ) {
-        return KCondition.igt(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iGreaterThan(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igt(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final KColumn kColumn
-    ) {
-        return KCondition.igte(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.igte(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.igte(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igte(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final String value
-    ) {
-        return KCondition.igte(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iGreaterThanOrEqualTo(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.igte(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilt(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilt(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilt(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilt(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final String value
-    ) {
-        return KCondition.ilt(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLessThan(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilt(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilte(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilte(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilte(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilte(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final String value
-    ) {
-        return KCondition.ilte(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLessThanOrEqualTo(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilte(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLike(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilk(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLike(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilk(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLike(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilk(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLike(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilk(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLike(
-        final String value
-    ) {
-        return KCondition.ilk(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLike(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilk(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilka(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilka(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilka(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilka(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final String value
-    ) {
-        return KCondition.ilka(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLikeAny(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilka(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilkew(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilkew(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilkew(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilkew(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final String value
-    ) {
-        return KCondition.ilkew(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLikeEndWith(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilkew(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilksw(this, kColumn);
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilksw(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilksw(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilksw(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final String value
-    ) {
-        return KCondition.ilksw(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition iLikeStartWith(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilksw(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilk(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilk(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilk(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilk(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilk(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilk(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilk(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilk(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilk(
-        final String value
-    ) {
-        return KCondition.ilk(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilk(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilk(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilka(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilka(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilka(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilka(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilka(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilka(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilka(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilka(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilka(
-        final String value
-    ) {
-        return KCondition.ilka(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilka(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilka(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilkew(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilkew(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilkew(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilkew(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final String value
-    ) {
-        return KCondition.ilkew(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilkew(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilkew(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilksw(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilksw(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilksw(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilksw(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final String value
-    ) {
-        return KCondition.ilksw(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilksw(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilksw(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilt(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilt(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilt(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilt(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilt(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilt(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilt(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilt(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilt(
-        final String value
-    ) {
-        return KCondition.ilt(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilt(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilt(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    @Override
-    public KCondition ilte(
-        final KColumn kColumn
-    ) {
-        return KCondition.ilte(this, kColumn);
-    }
-    
-    @Override
-    public KCondition ilte(
-        final KOptionalKColumn kOptionalKColumn
-    ) {
-        if (!kOptionalKColumn.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return this.ilte(kOptionalKColumn.get());
-    }
-    
-    @Override
-    public KCondition ilte(
-        final KValTextField kValTextField
-    ) {
-        return KCondition.ilte(this, kValTextField);
-    }
-    
-    @Override
-    public KCondition ilte(
-        final KOptionalKValTextField kOptionalKValTextField
-    ) {
-        if (!kOptionalKValTextField.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilte(this, kOptionalKValTextField.get());
-    }
-    
-    @Override
-    public KCondition ilte(
-        final String value
-    ) {
-        return KCondition.ilte(this, KFunction.val(value));
-    }
-    
-    @Override
-    public KCondition ilte(
-        final KOptionalString kOptionalString
-    ) {
-        if (!kOptionalString.isPresent()) {
-            return KCondition.getEmptyInstance();
-        }
-        
-        return KCondition.ilte(this, KFunction.val(kOptionalString.get()));
-    }
-    
-    public KColumn isolate() {
-        return KFunction.isolate(this);
-    }
-    
     public KColumn getJsonArray(final int index) {
         return KFunction.getJsonArray(this, index);
     }
@@ -1252,6 +222,1034 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn getJsonObjectAtPathAsText(final String name) {
         return KFunction.getJsonObjectAtPathAsText(this, name);
+    }
+    
+    @Override
+    public KCondition iBetween(
+        final KColumn kColumnLow,
+        final KColumn kColumnHigh
+    ) {
+        return KCondition.ibt(this, kColumnLow, kColumnHigh);
+    }
+    
+    @Override
+    public KCondition iBetween(
+        final KValTextField kValTextFieldLow,
+        final KValTextField kValTextFieldHigh
+    ) {
+        return KCondition.ibt(this, kValTextFieldLow, kValTextFieldHigh);
+    }
+    
+    @Override
+    public KCondition iBetween(
+        final String valueLow,
+        final String valueHigh
+    ) {
+        return KCondition.ibt(this, KFunction.val(valueLow), KFunction.val(valueHigh));
+    }
+    
+    @Override
+    public KCondition ibt(
+        final KColumn kColumnLow,
+        final KColumn kColumnHigh
+    ) {
+        return KCondition.ibt(this, kColumnLow, kColumnHigh);
+    }
+    
+    @Override
+    public KCondition ibt(
+        final KValTextField kValTextFieldLow,
+        final KValTextField kValTextFieldHigh
+    ) {
+        return KCondition.ibt(this, kValTextFieldLow, kValTextFieldHigh);
+    }
+    
+    @Override
+    public KCondition ibt(
+        final String valueLow,
+        final String valueHigh
+    ) {
+        return KCondition.ibt(this, KFunction.val(valueLow), KFunction.val(valueHigh));
+    }
+    
+    @Override
+    public KCondition ieq(
+        final KColumn kColumn
+    ) {
+        return KCondition.ieq(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ieq(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ieq(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ieq(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ieq(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ieq(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ieq(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ieq(
+        final String value
+    ) {
+        return KCondition.ieq(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ieq(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ieq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final KColumn kColumn
+    ) {
+        return KCondition.ieq(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ieq(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ieq(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ieq(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final String value
+    ) {
+        return KCondition.ieq(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iEqual(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ieq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition igt(
+        final KColumn kColumn
+    ) {
+        return KCondition.igt(this, kColumn);
+    }
+    
+    @Override
+    public KCondition igt(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.igt(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition igt(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.igt(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition igt(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igt(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition igt(
+        final String value
+    ) {
+        return KCondition.igt(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition igt(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igt(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition igte(
+        final KColumn kColumn
+    ) {
+        return KCondition.igte(this, kColumn);
+    }
+    
+    @Override
+    public KCondition igte(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.igte(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition igte(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.igte(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition igte(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igte(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition igte(
+        final String value
+    ) {
+        return KCondition.igte(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition igte(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igte(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final KColumn kColumn
+    ) {
+        return KCondition.igt(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.igt(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.igt(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igt(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final String value
+    ) {
+        return KCondition.igt(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iGreaterThan(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igt(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final KColumn kColumn
+    ) {
+        return KCondition.igte(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.igte(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.igte(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igte(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final String value
+    ) {
+        return KCondition.igte(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iGreaterThanOrEqualTo(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.igte(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilt(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilt(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilt(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilt(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final String value
+    ) {
+        return KCondition.ilt(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLessThan(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilt(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilte(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilte(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilte(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilte(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final String value
+    ) {
+        return KCondition.ilte(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLessThanOrEqualTo(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilte(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLike(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilk(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLike(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilk(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLike(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilk(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLike(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilk(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLike(
+        final String value
+    ) {
+        return KCondition.ilk(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLike(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilk(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilka(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilka(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilka(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilka(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final String value
+    ) {
+        return KCondition.ilka(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLikeAny(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilka(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilkew(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilkew(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilkew(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilkew(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final String value
+    ) {
+        return KCondition.ilkew(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLikeEndWith(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilkew(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilksw(this, kColumn);
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilksw(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilksw(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilksw(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final String value
+    ) {
+        return KCondition.ilksw(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition iLikeStartWith(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilksw(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilk(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilk(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilk(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilk(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilk(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilk(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilk(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilk(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilk(
+        final String value
+    ) {
+        return KCondition.ilk(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilk(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilk(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilka(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilka(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilka(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilka(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilka(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilka(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilka(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilka(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilka(
+        final String value
+    ) {
+        return KCondition.ilka(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilka(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilka(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilkew(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilkew(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilkew(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilkew(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final String value
+    ) {
+        return KCondition.ilkew(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilkew(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilkew(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilksw(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilksw(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilksw(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilksw(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final String value
+    ) {
+        return KCondition.ilksw(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilksw(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilksw(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilt(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilt(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilt(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilt(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilt(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilt(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilt(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilt(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilt(
+        final String value
+    ) {
+        return KCondition.ilt(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilt(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilt(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    @Override
+    public KCondition ilte(
+        final KColumn kColumn
+    ) {
+        return KCondition.ilte(this, kColumn);
+    }
+    
+    @Override
+    public KCondition ilte(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.ilte(kOptionalKColumn.get());
+    }
+    
+    @Override
+    public KCondition ilte(
+        final KValTextField kValTextField
+    ) {
+        return KCondition.ilte(this, kValTextField);
+    }
+    
+    @Override
+    public KCondition ilte(
+        final KOptionalKValTextField kOptionalKValTextField
+    ) {
+        if (!kOptionalKValTextField.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilte(this, kOptionalKValTextField.get());
+    }
+    
+    @Override
+    public KCondition ilte(
+        final String value
+    ) {
+        return KCondition.ilte(this, KFunction.val(value));
+    }
+    
+    @Override
+    public KCondition ilte(
+        final KOptionalString kOptionalString
+    ) {
+        if (!kOptionalString.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.ilte(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KColumn initcap() {
+        return KFunction.initcap(this);
+    }
+    
+    public KColumn isolate() {
+        return KFunction.isolate(this);
     }
     
     @Override
@@ -3186,8 +3184,26 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.octetLength(this);
     }
     
+    public KColumn quoteIdent() {
+        return KFunction.quoteIdent(this);
+    }
+    
+    public KColumn quoteLiteral() {
+        return KFunction.quoteLiteral(this);
+    }
+    
+    public KColumn quoteNullable() {
+        return KFunction.quoteNullable(this);
+    }
+    
     public KColumn scale() {
         return KFunction.scale(this);
+    }
+    
+    public KStringAggColumn stringAgg(
+        final KBaseColumnCastable kBaseColumnCastableDelimiter
+    ) {
+        return KFunction.stringAgg(this, kBaseColumnCastableDelimiter);
     }
     
     public KColumn sub(
