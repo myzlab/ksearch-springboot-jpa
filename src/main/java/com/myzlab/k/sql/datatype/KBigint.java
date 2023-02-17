@@ -6,6 +6,6 @@ public class KBigint extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("BIGINT").toString();
+        return "BIGINT";
     }
 }

@@ -6,6 +6,6 @@ public class KDecade extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("DECADE").toString();
+        return "DECADE";
     }
 }

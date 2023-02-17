@@ -6,6 +6,6 @@ public class KCentury extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("CENTURY").toString();
+        return "CENTURY";
     }
 }

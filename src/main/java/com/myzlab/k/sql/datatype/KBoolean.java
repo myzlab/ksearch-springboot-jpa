@@ -6,6 +6,6 @@ public class KBoolean extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("BOOLEAN").toString();
+        return "BOOLEAN";
     }
 }

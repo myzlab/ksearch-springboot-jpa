@@ -6,6 +6,6 @@ public class KDow extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("DOW").toString();
+        return "DOW";
     }
 }

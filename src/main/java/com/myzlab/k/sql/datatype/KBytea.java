@@ -6,6 +6,6 @@ public class KBytea extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("BYTEA").toString();
+        return "BYTEA";
     }
 }

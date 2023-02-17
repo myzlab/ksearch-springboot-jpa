@@ -6,6 +6,6 @@ public class KBigserial extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("BIGSERIAL").toString();
+        return "BIGSERIAL";
     }
 }
