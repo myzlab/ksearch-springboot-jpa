@@ -1735,7 +1735,7 @@ public class KFunction {
             }
             
             if (!first) {
-                concatKColumn.sb.append(" || ");
+                concatKColumn.sb.append(", ");
             }
             
             if (first) {
@@ -1743,6 +1743,35 @@ public class KFunction {
             }
             
             concatKColumn.sb.append(kBaseColumnCastable.sb);
+            concatKColumn.params.addAll(kBaseColumnCastable.params);
+        }
+        
+        concatKColumn.sb.append(")");
+        
+        return concatKColumn;
+    }
+    
+    public static KColumn concatWs(
+        final String separator,
+        final KBaseColumnCastable... kBaseColumnCastables
+    ) {
+        KUtils.assertNotNullNotEmpty(separator, "separator");
+        KUtils.assertNotNull(kBaseColumnCastables, "kBaseColumnCastables");
+        
+        if (kBaseColumnCastables.length < 2) {
+            throw KExceptionHelper.internalServerError("'CONCAT_WS' function requires at least two kBaseColumnCastables");
+        }
+        
+        final KColumn concatKColumn = new KColumn(false);
+        
+        concatKColumn.sb.append("CONCAT_WS('").append(separator).append("'");
+        
+        for (final KBaseColumnCastable kBaseColumnCastable : kBaseColumnCastables) {
+            if (kBaseColumnCastable == null) {
+                continue;
+            }
+
+            concatKColumn.sb.append(", ").append(kBaseColumnCastable.sb);
             concatKColumn.params.addAll(kBaseColumnCastable.params);
         }
         
