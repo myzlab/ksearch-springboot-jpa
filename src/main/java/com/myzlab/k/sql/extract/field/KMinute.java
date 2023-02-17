@@ -6,6 +6,6 @@ public class KMinute extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("MINUTE").toString();
+        return "MINUTE";
     }
 }

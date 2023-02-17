@@ -6,6 +6,6 @@ public class KSerial extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("SERIAL").toString();
+        return "SERIAL";
     }
 }

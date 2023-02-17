@@ -6,6 +6,6 @@ public class KTimestampWithTimeZone extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("TIMESTAMP WITH TIME ZONE").toString();
+        return "TIMESTAMP WITH TIME ZONE";
     }
 }

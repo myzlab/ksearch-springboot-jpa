@@ -6,6 +6,6 @@ public class KSmallint extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("SMALLINT").toString();
+        return "SMALLINT";
     }
 }

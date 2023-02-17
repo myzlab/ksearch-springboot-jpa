@@ -6,6 +6,6 @@ public class KSecond extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("SECOND").toString();
+        return "SECOND";
     }
 }

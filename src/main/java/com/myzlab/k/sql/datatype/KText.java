@@ -6,6 +6,6 @@ public class KText extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("TEXT").toString();
+        return "TEXT";
     }
 }

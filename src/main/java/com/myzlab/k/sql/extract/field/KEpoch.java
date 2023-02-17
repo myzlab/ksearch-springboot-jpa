@@ -6,6 +6,6 @@ public class KEpoch extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("EPOCH").toString();
+        return "EPOCH";
     }
 }

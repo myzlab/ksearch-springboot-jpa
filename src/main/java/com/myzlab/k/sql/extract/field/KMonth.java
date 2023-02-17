@@ -6,6 +6,6 @@ public class KMonth extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("MONTH").toString();
+        return "MONTH";
     }
 }

@@ -6,6 +6,6 @@ public class KReal extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("REAL").toString();
+        return "REAL";
     }
 }

@@ -6,6 +6,6 @@ public class KWeek extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("WEEK").toString();
+        return "WEEK";
     }
 }

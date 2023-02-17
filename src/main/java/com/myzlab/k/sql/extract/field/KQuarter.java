@@ -6,6 +6,6 @@ public class KQuarter extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("QUARTER").toString();
+        return "QUARTER";
     }
 }

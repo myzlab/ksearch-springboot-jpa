@@ -6,6 +6,6 @@ public class KJson extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("JSON").toString();
+        return "JSON";
     }
 }

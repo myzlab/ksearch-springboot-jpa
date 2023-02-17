@@ -6,6 +6,6 @@ public class KYear extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("YEAR").toString();
+        return "YEAR";
     }
 }

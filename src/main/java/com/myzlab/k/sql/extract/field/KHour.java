@@ -6,6 +6,6 @@ public class KHour extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("HOUR").toString();
+        return "HOUR";
     }
 }

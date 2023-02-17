@@ -6,6 +6,6 @@ public class KJsonb extends KDataType {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("JSONB").toString();
+        return "JSONB";
     }
 }

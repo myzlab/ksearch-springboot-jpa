@@ -6,6 +6,6 @@ public class KMilliseconds extends KExtractField {
     
     @Override
     public String toSql() {
-        return new StringBuilder().append("MILLISECONDS").toString();
+        return "MILLISECONDS";
     }
 }
