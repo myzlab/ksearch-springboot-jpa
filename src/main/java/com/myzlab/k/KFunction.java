@@ -1785,7 +1785,7 @@ public class KFunction {
         final KEncoding srcEncoding,
         final KEncoding destEncoding
     ) {
-        KUtils.assertNotNullNotEmpty(kColumn, "kColumn");
+        KUtils.assertNotNull(kColumn, "kColumn");
         KUtils.assertNotNull(srcEncoding, "srcEncoding");
         KUtils.assertNotNull(destEncoding, "destEncoding");
 
@@ -1794,6 +1794,26 @@ public class KFunction {
         convertKColumn.sb.insert(0, "CONVERT(").append(", '").append(srcEncoding.toSql()).append("', '").append(destEncoding.toSql()).append("')");
         
         return convertKColumn;
+    }
+    
+    public static KColumn convertFrom(
+        final KColumn kColumn,
+        final KEncoding srcEncoding
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(srcEncoding, "srcEncoding");
+        
+        return applyTwoParameterFunction(kColumn, new KColumn(new StringBuilder("'" + srcEncoding.toSql() + "'"), true), "CONVERT_FROM");
+    }
+    
+    public static KColumn convertTo(
+        final KColumn kColumn,
+        final KEncoding srcEncoding
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(srcEncoding, "srcEncoding");
+        
+        return applyTwoParameterFunction(kColumn, new KColumn(new StringBuilder("'" + srcEncoding.toSql() + "'"), true), "CONVERT_TO");
     }
     
     public static KCommonTableExpressionNamed cte(
