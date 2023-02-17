@@ -1764,7 +1764,8 @@ public class KFunction {
         
         final KColumn concatWsKColumn = new KColumn(false);
         
-        concatWsKColumn.sb.append("CONCAT_WS('").append(separator).append("'");
+        concatWsKColumn.sb.append("CONCAT_WS(?");
+        concatWsKColumn.params.add(separator);
         
         for (final KBaseColumnCastable kBaseColumnCastable : kBaseColumnCastables) {
             if (kBaseColumnCastable == null) {
@@ -2122,6 +2123,31 @@ public class KFunction {
         return new KWindowFunctionColumn(sb, new ArrayList() {{
             addAll(kColumn.params);
         }}, true);
+    }
+    
+    public static KColumn format(
+        final String formatString,
+        final KColumn... kColumns
+    ) {
+        KUtils.assertNotNullNotEmpty(formatString, "formatString");
+        KUtils.assertNotNullNotEmpty(kColumns, "kColumns");
+        
+        final KColumn formatKColumn = new KColumn();
+        
+        formatKColumn.sb.append("FORMAT('").append(formatString).append("'");
+        
+        for (final KColumn kColumn : kColumns) {
+            if (kColumn == null) {
+                continue;
+            }
+
+            formatKColumn.sb.append(", ").append(kColumn.sb);
+            formatKColumn.params.addAll(kColumn.params);
+        }
+        
+        formatKColumn.sb.append(")");
+        
+        return formatKColumn;
     }
     
     public static KColumn floor(
