@@ -4174,6 +4174,80 @@ public class KFunction {
         return arrayToStringKColumn;
     }
     
+    public static KColumn strpos(
+        final KColumn kColumn1,
+        final KColumn kColumn2
+    ) {
+        return applyTwoParameterFunction(kColumn1, kColumn2, "STRPOS");
+    }
+    
+    public static KColumn strpos(
+        final KColumn kColumn,
+        final KValTextField kValTextField
+    ) {
+        return applyTwoParameterFunction(kColumn, kValTextField, "STRPOS");
+    }
+    
+    public static KColumn substr(
+        final KColumn kColumn,
+        final Integer from
+    ) {
+        return substr(kColumn, from, null);
+    }
+    
+    public static KColumn substr(
+        final KColumn kColumn,
+        final Integer from,
+        final Integer count
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(from, "from");
+        
+        final KColumn substrKColumn = new KColumn(kColumn.sb, kColumn.params, true);
+        
+        substrKColumn.sb.insert(0, "SUBSTR(").append(", ?");
+        substrKColumn.params.add(from);
+        
+        if (count != null) {
+            substrKColumn.sb.append(", ?");
+            substrKColumn.params.add(count);
+        }
+                
+        substrKColumn.sb.append(")");
+        
+        return substrKColumn;
+    }
+    
+    public static KColumn substr(
+        final KValTextField kValTextField,
+        final Integer from
+    ) {
+        return substr(kValTextField, from, null);
+    }
+    
+    public static KColumn substr(
+        final KValTextField kValTextField,
+        final Integer from,
+        final Integer count
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        KUtils.assertNotNull(from, "from");
+        
+        final KColumn substrKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
+        
+        substrKColumn.sb.insert(0, "SUBSTR(").append(", ?");
+        substrKColumn.params.add(from);
+        
+        if (count != null) {
+            substrKColumn.sb.append(", ?");
+            substrKColumn.params.add(count);
+        }
+                
+        substrKColumn.sb.append(")");
+        
+        return substrKColumn;
+    }
+    
     public static KColumn substring(
         final KColumn kColumn,
         final Integer from
@@ -4211,33 +4285,14 @@ public class KFunction {
         return substringKColumn;
     }
     
-    public static KValTextField substring(
-        final String value,
-        final Integer from
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return substring(val(value), from, null);
-    }
-    
-    public static KValTextField substring(
+    public static KColumn substring(
         final KValTextField kValTextField,
         final Integer from
     ) {
         return substring(kValTextField, from, null);
     }
     
-    public static KValTextField substring(
-        final String value,
-        final Integer from,
-        final Integer for_
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return substring(val(value), from, for_);
-    }
-    
-    public static KValTextField substring(
+    public static KColumn substring(
         final KValTextField kValTextField,
         final Integer from,
         final Integer for_
@@ -4248,23 +4303,23 @@ public class KFunction {
             throw KExceptionHelper.internalServerError("Between 'from' and 'for', at least one is required");
         }
         
-        final KValTextField substringKValTextField = new KValTextField(kValTextField.sb, kValTextField.params, true);
+        final KColumn substringKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
         
-        substringKValTextField.sb.insert(0, "SUBSTRING(");
+        substringKColumn.sb.insert(0, "SUBSTRING(");
         
         if (from != null) {
-            substringKValTextField.sb.append(" from ?");
-            substringKValTextField.params.add(from);
+            substringKColumn.sb.append(" from ?");
+            substringKColumn.params.add(from);
         }
         
         if (for_ != null) {
-            substringKValTextField.sb.append(" for ?");
-            substringKValTextField.params.add(for_);
+            substringKColumn.sb.append(" for ?");
+            substringKColumn.params.add(for_);
         }
                 
-        substringKValTextField.sb.append(")");
+        substringKColumn.sb.append(")");
         
-        return substringKValTextField;
+        return substringKColumn;
     }
     
     public static KColumn substring(
@@ -4297,33 +4352,14 @@ public class KFunction {
         return substringKColumn;
     }
     
-    public static KValTextField substring(
-        final String value,
-        final String from
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return substring(val(value), from);
-    }
-    
-    public static KValTextField substring(
+    public static KColumn substring(
         final KValTextField kValTextField,
         final String from
     ) {
         return substring(kValTextField, from, null);
     }
     
-    public static KValTextField substring(
-        final String value,
-        final String from,
-        final String for_
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return substring(val(value), from, for_);
-    }
-    
-    public static KValTextField substring(
+    public static KColumn substring(
         final KValTextField kValTextField,
         final String from,
         final String for_
@@ -4331,19 +4367,19 @@ public class KFunction {
         KUtils.assertNotNull(kValTextField, "kValTextField");
         KUtils.assertNotNull(from, "from");
         
-        final KValTextField substringKValTextField = new KValTextField(kValTextField.sb, kValTextField.params, true);
+        final KColumn substringKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
         
-        substringKValTextField.sb.insert(0, "SUBSTRING(").append(" from ?");
-        substringKValTextField.params.add(from);
+        substringKColumn.sb.insert(0, "SUBSTRING(").append(" from ?");
+        substringKColumn.params.add(from);
         
         if (for_ != null) {
-            substringKValTextField.sb.append(" for ?");
-            substringKValTextField.params.add(for_);
+            substringKColumn.sb.append(" for ?");
+            substringKColumn.params.add(for_);
         }
         
-        substringKValTextField.sb.append(")");
+        substringKColumn.sb.append(")");
         
-        return substringKValTextField;
+        return substringKColumn;
     }
     
     public static KAggregateFunctionColumn sum(
