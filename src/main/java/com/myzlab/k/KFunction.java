@@ -3555,6 +3555,84 @@ public class KFunction {
         return repeatKValTextField;
     }
     
+    private static KColumn regexpGenericFunction(
+        final KColumn kColumn,
+        final String pattern,
+        final String flags,
+        final String function
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(pattern, "pattern");
+        
+        final KColumn regexpMatchesKColumn = new KColumn(kColumn.sb, kColumn.params, true);
+        
+        regexpMatchesKColumn.sb.insert(0, "(").insert(0, function).append(", ?");
+        regexpMatchesKColumn.params.add(pattern);
+        
+        if (flags != null) {
+            regexpMatchesKColumn.sb.append(", ?");
+            regexpMatchesKColumn.params.add(flags);
+        }
+        
+        regexpMatchesKColumn.sb.append(")");
+        
+        return regexpMatchesKColumn;
+    }
+    
+    private static KColumn regexpGenericFunction(
+        final KValTextField kValTextField,
+        final String pattern,
+        final String flags,
+        final String function
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        KUtils.assertNotNull(pattern, "pattern");
+        
+        final KColumn regexpMatchesKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
+        
+        regexpMatchesKColumn.sb.insert(0, "(").insert(0, function).append(", ?");
+        regexpMatchesKColumn.params.add(pattern);
+        
+        if (flags != null) {
+            regexpMatchesKColumn.sb.append(", ?");
+            regexpMatchesKColumn.params.add(flags);
+        }
+        
+        regexpMatchesKColumn.sb.append(")");
+        
+        return regexpMatchesKColumn;
+    }
+    
+    public static KColumn regexpMatches(
+        final KColumn kColumn,
+        final String pattern
+    ) {
+        return regexpMatches(kColumn, pattern, null);
+    }
+    
+    public static KColumn regexpMatches(
+        final KColumn kColumn,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kColumn, pattern, flags, "REGEXP_MATCHES");
+    }
+    
+    public static KColumn regexpMatches(
+        final KValTextField kValTextField,
+        final String pattern
+    ) {
+        return regexpMatches(kValTextField, pattern, null);
+    }
+    
+    public static KColumn regexpMatches(
+        final KValTextField kValTextField,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kValTextField, pattern, flags, "REGEXP_MATCHES");
+    }
+    
     public static KColumn regexpReplace(
         final KColumn kColumn,
         final String pattern,
@@ -3589,7 +3667,7 @@ public class KFunction {
         return regexpReplaceKColumn;
     }
     
-    public static KValTextField regexpReplace(
+    public static KColumn regexpReplace(
         final KValTextField kValTextField,
         final String pattern,
         final String replacement
@@ -3597,7 +3675,7 @@ public class KFunction {
         return regexpReplace(kValTextField, pattern, replacement, null);
     }
     
-    public static KValTextField regexpReplace(
+    public static KColumn regexpReplace(
         final KValTextField kValTextField,
         final String pattern,
         final String replacement,
@@ -3607,20 +3685,80 @@ public class KFunction {
         KUtils.assertNotNull(pattern, "pattern");
         KUtils.assertNotNull(replacement, "replacement");
         
-        final KValTextField regexpReplaceKValTextField = new KValTextField(kValTextField.sb, kValTextField.params, true);
+        final KColumn regexpReplaceKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
         
-        regexpReplaceKValTextField.sb.insert(0, "REGEXP_REPLACE(").append(", ?, ?");
-        regexpReplaceKValTextField.params.add(pattern);
-        regexpReplaceKValTextField.params.add(replacement);
+        regexpReplaceKColumn.sb.insert(0, "REGEXP_REPLACE(").append(", ?, ?");
+        regexpReplaceKColumn.params.add(pattern);
+        regexpReplaceKColumn.params.add(replacement);
         
         if (flags != null) {
-            regexpReplaceKValTextField.sb.append(", ?");
-            regexpReplaceKValTextField.params.add(flags);
+            regexpReplaceKColumn.sb.append(", ?");
+            regexpReplaceKColumn.params.add(flags);
         }
         
-        regexpReplaceKValTextField.sb.append(")");
+        regexpReplaceKColumn.sb.append(")");
         
-        return regexpReplaceKValTextField;
+        return regexpReplaceKColumn;
+    }
+
+    public static KColumn regexpSplitToArray(
+        final KColumn kColumn,
+        final String pattern
+    ) {
+        return regexpSplitToArray(kColumn, pattern, null);
+    }
+    
+    public static KColumn regexpSplitToArray(
+        final KColumn kColumn,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kColumn, pattern, flags, "REGEXP_SPLIT_TO_ARRAY");
+    }
+    
+    public static KColumn regexpSplitToArray(
+        final KValTextField kValTextField,
+        final String pattern
+    ) {
+        return regexpSplitToArray(kValTextField, pattern, null);
+    }
+    
+    public static KColumn regexpSplitToArray(
+        final KValTextField kValTextField,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kValTextField, pattern, flags, "REGEXP_SPLIT_TO_ARRAY");
+    }
+    
+    public static KColumn regexpSplitToTable(
+        final KColumn kColumn,
+        final String pattern
+    ) {
+        return regexpSplitToTable(kColumn, pattern, null);
+    }
+    
+    public static KColumn regexpSplitToTable(
+        final KColumn kColumn,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kColumn, pattern, flags, "REGEXP_SPLIT_TO_TABLE");
+    }
+    
+    public static KColumn regexpSplitToTable(
+        final KValTextField kValTextField,
+        final String pattern
+    ) {
+        return regexpSplitToTable(kValTextField, pattern, null);
+    }
+    
+    public static KColumn regexpSplitToTable(
+        final KValTextField kValTextField,
+        final String pattern,
+        final String flags
+    ) {
+        return regexpGenericFunction(kValTextField, pattern, flags, "REGEXP_SPLIT_TO_TABLE");
     }
     
     public static KColumn replace(
