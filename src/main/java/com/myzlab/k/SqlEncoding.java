@@ -102,39 +102,39 @@ public class SqlEncoding {
         return new KKoi8u();
     }
     
-    public static KLatin1 KLatin1() {
+    public static KLatin1 latin1() {
         return new KLatin1();
     }
     
-    public static KLatin2 KLatin12() {
+    public static KLatin2 latin2() {
         return new KLatin2();
     }
     
-    public static KLatin3 KLatin3() {
+    public static KLatin3 latin3() {
         return new KLatin3();
     }
     
-    public static KLatin4 KLatin4() {
+    public static KLatin4 latin4() {
         return new KLatin4();
     }
     
-    public static KLatin5 KLatin5() {
+    public static KLatin5 latin5() {
         return new KLatin5();
     }
     
-    public static KLatin6 KLatin6() {
+    public static KLatin6 latin6() {
         return new KLatin6();
     }
     
-    public static KLatin7 KLatin7() {
+    public static KLatin7 latin7() {
         return new KLatin7();
     }
     
-    public static KLatin8 KLatin8() {
+    public static KLatin8 latin8() {
         return new KLatin8();
     }
     
-    public static KLatin9 KLatin9() {
+    public static KLatin9 latin9() {
         return new KLatin9();
     }
     

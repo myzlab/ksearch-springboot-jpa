@@ -4468,6 +4468,31 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "TANH");
     }
     
+    public static KColumn toAscii(
+        final KColumn kColumn
+    ) {
+        return toAscii(kColumn, null);
+    }
+    
+    public static KColumn toAscii(
+        final KColumn kColumn,
+        final KEncoding encoding
+    ) {
+        KUtils.assertNotNullNotEmpty(kColumn, "kColumn");
+
+        final KColumn convertKColumn = new KColumn(kColumn.sb, kColumn.params, true);
+        
+        convertKColumn.sb.insert(0, "TO_ASCII(");
+        
+        if (encoding != null) {
+            convertKColumn.sb.append(", '").append(encoding.toSql()).append("'");
+        }
+        
+        convertKColumn.sb.append(")");
+        
+        return convertKColumn;
+    }
+    
     public static KColumn toDate(
         final KColumn kColumn,
         final String format
