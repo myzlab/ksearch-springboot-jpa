@@ -2766,14 +2766,6 @@ public class KFunction {
         return applyOneParameterFunction(kValTextField, "LOWER");
     }
     
-    public static KValTextField lower(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "LOWER");
-    }
-    
     public static KColumn lowerInc(
         final KColumn kColumnRange
     ) {
@@ -4746,14 +4738,6 @@ public class KFunction {
         final KValTextField kValTextField
     ) {
         return applyOneParameterFunction(kValTextField, "UPPER");
-    }
-    
-    public static KValTextField upper(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "UPPER");
     }
     
     public static KColumn upperInc(
