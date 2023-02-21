@@ -1579,12 +1579,6 @@ public class KFunction {
         return applyOneParameterFunction(kColumn, "CHR");
     }
     
-    public static KValTextField chr(
-        final KValTextField kValTextField
-    ) {
-        return applyOneParameterFunction(kValTextField, "CHR");
-    }
-    
     public static KColumn coalesce(
         final KBaseColumnCastable... kBaseColumnCastables
     ) {
