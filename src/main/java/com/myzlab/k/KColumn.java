@@ -118,6 +118,10 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.arrayNdims(this);
     }
     
+    public KColumn ascii() {
+        return KFunction.ascii(this);
+    }
+    
     public KAggregateFunctionColumn avg() {
         return KFunction.avg(this);
     }
@@ -152,6 +156,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn cardinality() {
         return KFunction.cardinality(this);
+    }
+    
+    public KColumn chr() {
+        return KFunction.chr(this);
     }
     
     public KAggregateFunctionColumn count() {
@@ -1252,6 +1260,10 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.isolate(this);
     }
     
+    public KColumn length() {
+        return KFunction.length(this);
+    }
+    
     @Override
     public KCondition like(
         final KColumn kColumn
@@ -1682,6 +1694,10 @@ public class KColumn extends KBaseColumnCastable implements
         }
         
         return KCondition.lksw(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KColumn lower() {
+        return KFunction.lower(this);
     }
     
     public KAggregateFunctionColumn max() {
@@ -3230,6 +3246,10 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn sumDistinct() {
         return KFunction.sumDistinct(this);
+    }
+    
+    public KColumn upper() {
+        return KFunction.upper(this);
     }
     
     public KColumn unnest() {

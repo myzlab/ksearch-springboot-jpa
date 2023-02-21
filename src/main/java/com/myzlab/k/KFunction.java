@@ -950,14 +950,6 @@ public class KFunction {
         return applyOneParameterFunction(kValTextField, "ASCII");
     }
     
-    public static KValTextField ascii(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "ASCII");
-    }
-    
     public static KColumn asin(
         final KColumn kColumn
     ) {
@@ -1591,14 +1583,6 @@ public class KFunction {
         final KValTextField kValTextField
     ) {
         return applyOneParameterFunction(kValTextField, "CHR");
-    }
-    
-    public static KValTextField chr(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "CHR");
     }
     
     public static KColumn coalesce(
@@ -2658,14 +2642,6 @@ public class KFunction {
         final KValTextField kValTextField
     ) {
         return applyOneParameterFunction(kValTextField, "LENGTH");
-    }
-    
-    public static KValTextField length(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "LENGTH");
     }
     
     public static KColumn ln(
