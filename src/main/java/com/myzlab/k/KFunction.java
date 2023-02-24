@@ -2638,6 +2638,34 @@ public class KFunction {
         return applyOneParameterFunction(kValTextField, "LENGTH");
     }
     
+    public static KColumn length(
+        final KColumn kColumn,
+        final KEncoding encoding
+    ) {
+        KUtils.assertNotNullNotEmpty(kColumn, "kColumn");
+        KUtils.assertNotNullNotEmpty(encoding, "encoding");
+
+        final KColumn convertKColumn = new KColumn(kColumn.sb, kColumn.params, true);
+        
+        convertKColumn.sb.insert(0, "LENGTH(").append(", '").append(encoding.toSql()).append("'").append(")");
+        
+        return convertKColumn;
+    }
+    
+    public static KColumn length(
+        final KValTextField kValTextField,
+        final KEncoding encoding
+    ) {
+        KUtils.assertNotNullNotEmpty(kValTextField, "kColumn");
+        KUtils.assertNotNullNotEmpty(encoding, "encoding");
+
+        final KColumn convertKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
+        
+        convertKColumn.sb.insert(0, "LENGTH(").append(", '").append(encoding.toSql()).append("'").append(")");
+        
+        return convertKColumn;
+    }
+    
     public static KColumn ln(
         final KColumn kColumn
     ) {
@@ -2890,14 +2918,6 @@ public class KFunction {
         final KValTextField kValTextField
     ) {
         return applyOneParameterFunction(kValTextField, "MD5");
-    }
-    
-    public static KValTextField md5(
-        final String value
-    ) {
-        KUtils.assertNotNull(value, "value");
-        
-        return applyOneParameterFunction(val(value), "MD5");
     }
     
     public static KAggregateFunctionColumn min(
@@ -4495,14 +4515,6 @@ public class KFunction {
         final KValNumberField kValNumberField
     ) {
         return applyOneParameterFunction(kValNumberField, "TO_HEX");
-    }
-    
-    public static KValNumberField toHex(
-        final Number number
-    ) {
-        KUtils.assertNotNull(number, "number");
-        
-        return applyOneParameterFunction(val(number), "TO_HEX");
     }
     
     public static KTotalCount totalCount() {
