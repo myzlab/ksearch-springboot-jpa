@@ -3137,6 +3137,12 @@ public class KFunction {
         return applyOneParameterFunction(kColumn, "OCTET_LENGTH");
     }
     
+    public static KValTextField octetLength(
+        final KValTextField kValTextField
+    ) {
+        return applyOneParameterFunction(kValTextField, "OCTET_LENGTH");
+    }
+    
     public static KOptionalKColumn optional(
         final KColumn kColumn
     ) {
