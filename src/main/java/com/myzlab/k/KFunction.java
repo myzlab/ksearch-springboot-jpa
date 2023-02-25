@@ -4259,13 +4259,11 @@ public class KFunction {
         substringKColumn.sb.insert(0, "SUBSTRING(");
         
         if (from != null) {
-            substringKColumn.sb.append(" from ?");
-            substringKColumn.params.add(from);
+            substringKColumn.sb.append(" from ").append(from);
         }
         
         if (for_ != null) {
-            substringKColumn.sb.append(" for ?");
-            substringKColumn.params.add(for_);
+            substringKColumn.sb.append(" for ").append(for_);
         }
                 
         substringKColumn.sb.append(")");
@@ -4296,13 +4294,11 @@ public class KFunction {
         substringKColumn.sb.insert(0, "SUBSTRING(");
         
         if (from != null) {
-            substringKColumn.sb.append(" from ?");
-            substringKColumn.params.add(from);
+            substringKColumn.sb.append(" from ").append(from);
         }
         
         if (for_ != null) {
-            substringKColumn.sb.append(" for ?");
-            substringKColumn.params.add(for_);
+            substringKColumn.sb.append(" for ").append(for_);
         }
                 
         substringKColumn.sb.append(")");
@@ -4327,12 +4323,10 @@ public class KFunction {
         
         final KColumn substringKColumn = new KColumn(kColumn.sb, kColumn.params, true);
         
-        substringKColumn.sb.insert(0, "SUBSTRING(").append(" from ?");
-        substringKColumn.params.add(from);
+        substringKColumn.sb.insert(0, "SUBSTRING(").append(" from '").append(from).append("'");
         
         if (for_ != null) {
-            substringKColumn.sb.append(" for ?");
-            substringKColumn.params.add(for_);
+            substringKColumn.sb.append(" for '").append(for_).append("'");
         }
         
         substringKColumn.sb.append(")");
@@ -4357,12 +4351,10 @@ public class KFunction {
         
         final KColumn substringKColumn = new KColumn(kValTextField.sb, kValTextField.params, true);
         
-        substringKColumn.sb.insert(0, "SUBSTRING(").append(" from ?");
-        substringKColumn.params.add(from);
+        substringKColumn.sb.insert(0, "SUBSTRING(").append(" from '").append(from).append("'");
         
         if (for_ != null) {
-            substringKColumn.sb.append(" for ?");
-            substringKColumn.params.add(for_);
+            substringKColumn.sb.append(" for '").append(for_).append("'");
         }
         
         substringKColumn.sb.append(")");
