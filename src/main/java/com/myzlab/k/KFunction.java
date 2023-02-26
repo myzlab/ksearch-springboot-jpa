@@ -1787,12 +1787,12 @@ public class KFunction {
     
     public static KColumn convertTo(
         final KColumn kColumn,
-        final KEncoding srcEncoding
+        final KEncoding destEncoding
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
-        KUtils.assertNotNull(srcEncoding, "srcEncoding");
+        KUtils.assertNotNull(destEncoding, "destEncoding");
         
-        return applyTwoParameterFunction(kColumn, new KColumn(new StringBuilder("'" + srcEncoding.toSql() + "'"), true), "CONVERT_TO");
+        return applyTwoParameterFunction(kColumn, new KColumn(new StringBuilder("'" + destEncoding.toSql() + "'"), true), "CONVERT_TO");
     }
     
     public static KCommonTableExpressionNamed cte(
