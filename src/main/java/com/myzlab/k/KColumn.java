@@ -3266,6 +3266,16 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.toHex(this);
     }
     
+    public KColumn trim() {
+        return KFunction.trim(this);
+    }
+    
+    public KColumn trim(
+        final String characters
+    ) {
+        return KFunction.trim(this, characters);
+    }
+    
     public KColumn upper() {
         return KFunction.upper(this);
     }

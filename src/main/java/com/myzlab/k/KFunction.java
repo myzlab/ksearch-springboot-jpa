@@ -4178,7 +4178,7 @@ public class KFunction {
     
     public static KColumn substr(
         final KColumn kColumn,
-        final Integer from
+        final int from
     ) {
         return substr(kColumn, from, null);
     }
@@ -4208,7 +4208,7 @@ public class KFunction {
     
     public static KColumn substr(
         final KValTextField kValTextField,
-        final Integer from
+        final int from
     ) {
         return substr(kValTextField, from, null);
     }
@@ -4238,7 +4238,7 @@ public class KFunction {
     
     public static KColumn substring(
         final KColumn kColumn,
-        final Integer from
+        final int from
     ) {
         return substring(kColumn, from, null);
     }
@@ -4273,7 +4273,7 @@ public class KFunction {
     
     public static KColumn substring(
         final KValTextField kValTextField,
-        final Integer from
+        final int from
     ) {
         return substring(kValTextField, from, null);
     }
