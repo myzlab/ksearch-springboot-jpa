@@ -146,6 +146,16 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.boolOr(this);
     }
     
+    public KColumn btrim() {
+        return KFunction.btrim(this);
+    }
+    
+    public KColumn btrim(
+        final String characters
+    ) {
+        return KFunction.btrim(this, characters);
+    }
+    
     public KColumn characterLength() {
         return KFunction.characterLength(this);
     }
@@ -1706,6 +1716,16 @@ public class KColumn extends KBaseColumnCastable implements
         return KFunction.lower(this);
     }
     
+    public KColumn ltrim() {
+        return KFunction.ltrim(this);
+    }
+    
+    public KColumn ltrim(
+        final String characters
+    ) {
+        return KFunction.ltrim(this, characters);
+    }
+    
     public KAggregateFunctionColumn max() {
         return KFunction.max(this);
     }
@@ -3224,6 +3244,16 @@ public class KColumn extends KBaseColumnCastable implements
     
     public KColumn reverse() {
         return KFunction.reverse(this);
+    }
+    
+    public KColumn rtrim() {
+        return KFunction.rtrim(this);
+    }
+    
+    public KColumn rtrim(
+        final String characters
+    ) {
+        return KFunction.rtrim(this, characters);
     }
     
     public KColumn scale() {
