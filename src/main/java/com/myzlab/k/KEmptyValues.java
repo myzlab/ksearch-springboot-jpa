@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import com.myzlab.k.functions.KValuesFunction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +32,18 @@ public class KEmptyValues {
         }
         
         return KValues.getInstance(v);
+    }
+    
+    public KValues append(
+        final List<?> list,
+        final KValuesFunction kAppendValuesFunction
+    ) {
+        final List<Object> value = new ArrayList<>();
+                
+        for (final Object o : list) {
+            value.add(kAppendValuesFunction.run(o));
+        }
+        
+        return KValues.getInstance(value);
     }
 }

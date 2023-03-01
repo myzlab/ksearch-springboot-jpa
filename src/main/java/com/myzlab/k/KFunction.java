@@ -2614,7 +2614,11 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
         
-        return applyTwoParameterFunction(kColumn, val(n), "LEFT");
+        return applyTwoParameterFunction(
+            kColumn, 
+            new KColumn(new StringBuilder(String.valueOf(n)), new ArrayList<>(), true),
+            "LEFT"
+        );
     }
     
     public static KColumn left(
@@ -2623,7 +2627,11 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kValTextField, "kValTextField");
         
-        return applyTwoParameterFunction(kValTextField, val(n), "LEFT");
+        return applyTwoParameterFunction(
+            kValTextField, 
+            new KColumn(new StringBuilder(String.valueOf(n)), new ArrayList<>(), true),
+            "LEFT"
+        );
     }
     
     public static KColumn length(
@@ -3811,7 +3819,11 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kColumn, "kColumn");
         
-        return applyTwoParameterFunction(kColumn, val(n), "RIGHT");
+        return applyTwoParameterFunction(
+            kColumn,
+            new KColumn(new StringBuilder(String.valueOf(n)), new ArrayList<>(), true),
+            "RIGHT"
+        );
     }
     
     public static KColumn right(
@@ -3820,7 +3832,11 @@ public class KFunction {
     ) {
         KUtils.assertNotNull(kValTextField, "kValTextField");
         
-        return applyTwoParameterFunction(kValTextField, val(n), "RIGHT");
+        return applyTwoParameterFunction(
+            kValTextField,
+            new KColumn(new StringBuilder(String.valueOf(n)), new ArrayList<>(), true),
+            "RIGHT"
+        );
     }
     
     public static KColumn rollup(
