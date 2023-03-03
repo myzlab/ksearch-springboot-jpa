@@ -826,8 +826,12 @@ public class KCollection<T extends KRow> {
 //        return true;
 //    }
     
-    public KRow get(final int i) {
+    public T get(final int i) {
         return this.list.get(i);
+    }
+    
+    public T getFirst() {
+        return this.get(0);
     }
     
     public KCollection set(final String property, final KRowFunction kRowFunction) {
