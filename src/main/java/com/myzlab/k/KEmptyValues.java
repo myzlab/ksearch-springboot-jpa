@@ -38,12 +38,20 @@ public class KEmptyValues {
         final List<?> list,
         final KValuesFunction kAppendValuesFunction
     ) {
-        final List<Object> value = new ArrayList<>();
+        KUtils.assertNotNullNotEmpty(list, "list", false);
+        
+        final List<List<Object>> values = new ArrayList<>();
                 
         for (final Object o : list) {
-            value.add(kAppendValuesFunction.run(o));
+            values.add(kAppendValuesFunction.run(o));
         }
         
-        return KValues.getInstance(value);
+        final KValues kValues = KValues.getInstance(values.get(0));
+        
+        for (int i = 1; i < values.size(); i++) {
+            kValues.append(values.get(i));
+        }
+        
+        return kValues;
     }
 }
