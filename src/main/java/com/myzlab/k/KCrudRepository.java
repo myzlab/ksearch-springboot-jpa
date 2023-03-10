@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.annotations.Id;
 import com.myzlab.k.annotations.KMetadata;
 import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
@@ -243,8 +244,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .from(getMetadata())
             .single(Long.class);
     }
-    
-    public void insert(
+    //INSERT RETURNING
+    public int insert(
         final T entity
     ) {
         final List<KTableColumn> columns = new ArrayList<>();
@@ -255,20 +256,26 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             columns,
             values,
             entity,
-            null
+            null,
+            false
         );
+        
+        if (columns.isEmpty()) {
+            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        }
         
         final KValues kValues =
             values().append(values);
         
-        getK()
-        .insertInto(getMetadata())
-        .columns(columns.toArray(new KTableColumn[columns.size()]))
-        .values(kValues)
-        .execute();
+        return
+            getK()
+            .insertInto(getMetadata())
+            .columns(columns.toArray(new KTableColumn[columns.size()]))
+            .values(kValues)
+            .execute();
     }
     
-    public void insert(
+    public int insert(
         final List<T> entities
     ) {
         final List<KTableColumn> columns = new ArrayList<>();
@@ -279,8 +286,13 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             columns,
             null,
             null,
-            dirtyPropertiesOrdered
+            dirtyPropertiesOrdered,
+            false
         );
+        
+        if (columns.isEmpty()) {
+            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        }
         
         final KValues kValues = values().append(entities,
             (KValuesFunction<T>) (final T t) -> {
@@ -305,10 +317,48 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             }
         );
         
-        getK()
-        .insertInto(getMetadata())
-        .columns(columns.toArray(new KTableColumn[columns.size()]))
-        .values(kValues)
+        return
+            getK()
+            .insertInto(getMetadata())
+            .columns(columns.toArray(new KTableColumn[columns.size()]))
+            .values(kValues)
+            .execute();
+    }
+    
+    public void update(
+        final T entity
+    ) {
+        if (entity.getPrimaryKeyValue() == null) {
+            throw KExceptionHelper.internalServerError("Primary key value is required");
+        }
+        
+        final List<KTableColumn> columns = new ArrayList<>();
+        final List<Object> values = new ArrayList<>();
+        
+        getColumnsAndValues(
+            entity.getDirtyProperties(),
+            columns,
+            values,
+            entity,
+            null,
+            true
+        );
+        
+        if (columns.isEmpty()) {
+            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        }
+        
+        KSetUpdate kSetUpdate =
+            getK()
+            .update(getMetadata())
+            .set(columns.get(0), values.get(0));
+        
+        for (int i = 1; i < columns.size(); i++) {
+            kSetUpdate.set(columns.get(i), values.get(i));
+        }
+        
+        kSetUpdate
+        .where(getKTableColumnId().eq(entity.getPrimaryKeyValue()))
         .execute();
     }
     
@@ -351,7 +401,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<KTableColumn> columns,
         final List<Object> values,
         final T entity,
-        final List<String> dirtyPropertiesOrdered
+        final List<String> dirtyPropertiesOrdered,
+        final boolean skipPrimaryKey
     ) {
         final Map<String, KTableColumn> kTableColumns = getKTableColumns();
         
@@ -365,6 +416,14 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             }
             
             final String metadataName = metadata.name();
+            
+            if (skipPrimaryKey) {
+                final Id id = field.getAnnotation(Id.class);
+                
+                if (id != null) {
+                    continue;
+                }
+            }
             
             if (!dirtyProperties.contains(field.getName())) {
                 continue;

@@ -1231,4 +1231,8 @@ public class KRow {
     public List<String> getDirtyProperties() {
         return dirtyProperties;
     }
+    
+    public Object getPrimaryKeyValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
