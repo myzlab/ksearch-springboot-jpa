@@ -206,6 +206,30 @@ public class KCondition implements KColumnAllowedToSelect {
     }
     
     protected static KCondition eq(
+        final KBaseColumn kBaseColumn,
+        final Object o
+    ) {
+        final KCondition kCondition = new KCondition();
+        
+        kCondition.params.addAll(kBaseColumn.params);
+        kCondition.params.add(o);
+        
+        if (!kBaseColumn.closed) {
+            kCondition.sb.append("(");
+        }
+        
+        kCondition.sb.append(kBaseColumn.sb);
+        
+        if (!kBaseColumn.closed) {
+            kCondition.sb.append(")");
+        }
+        
+        kCondition.sb.append(" = ?");
+        
+        return kCondition;
+    }
+    
+    protected static KCondition eq(
         final KBaseColumn kBaseColumn1,
         final KQuery kQuery
     ) {

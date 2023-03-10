@@ -54,6 +54,10 @@ public class KExecutor {
         return KSelect.getDistinctInstance(this, new ArrayList<>(), kQuery, alias);
     }
     
+    public KSelect select1() {
+        return KSelect.getInstance(this, new ArrayList<>(), KFunction.val(1));
+    }
+    
     public KSelect select(
         final KColumnAllowedToSelect... kColumnsAllowedToSelect
     ) {

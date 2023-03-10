@@ -338,6 +338,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         return KCondition.eq(this, kQuery);
     }
     
+    public KCondition eq(
+        final Object o
+    ) {
+        return KCondition.eq(this, o);
+    }
+    
     public KCondition equal(
         final KColumn kColumn
     ) {

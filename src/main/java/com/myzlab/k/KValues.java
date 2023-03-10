@@ -12,7 +12,7 @@ public class KValues {
     ) {
         super();
         
-        KUtils.assertNotNullNotEmpty(value, "value", false);
+        KUtils.assertNotNullNotEmpty(value, "value");
         
         this.values = new ArrayList<>();
         this.values.add(value);
@@ -27,7 +27,7 @@ public class KValues {
     public KValues append(
         final List<Object> value
     ) {
-        KUtils.assertNotNullNotEmpty(value, "value", false);
+        KUtils.assertNotNullNotEmpty(value, "value");
         
         this.values.add(value);
         
@@ -37,7 +37,7 @@ public class KValues {
     public KValues append(
         final Object... value
     ) {
-        KUtils.assertNotNullNotEmpty(value, "value", false);
+        KUtils.assertNotNullNotEmpty(value, "value");
         
         final List<Object> v = new ArrayList<>();
         

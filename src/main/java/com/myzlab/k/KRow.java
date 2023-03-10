@@ -22,6 +22,7 @@ public class KRow {
     protected Object[] o;
     protected Map<String, Integer> ref;
     protected boolean isNull = false;
+    protected final List<String> dirtyProperties = new ArrayList<>();
     
     public KRow() {}
 
@@ -1225,5 +1226,9 @@ public class KRow {
         }
 
         throw KExceptionHelper.internalServerError("Value at position '" + n + "' is not casteable to \"" + type + "\"");
+    }
+    
+    public List<String> getDirtyProperties() {
+        return dirtyProperties;
     }
 }
