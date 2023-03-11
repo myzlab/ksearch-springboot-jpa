@@ -112,6 +112,7 @@ public class KCrudRepositoryUtils {
     }
     
     protected static <T extends KRow> KInsertIntoFilled getKQueryBaseToInsert(
+        final String jdbc,
         final KBuilder k,
         final Class<?> kMetadataClazz,
         final KTable kTableMetadata,
@@ -142,12 +143,14 @@ public class KCrudRepositoryUtils {
         
         return
             k
+            .jdbc(jdbc)
             .insertInto(kTableMetadata)
             .columns(columns.toArray(new KTableColumn[columns.size()]))
             .values(kValues);
     }
     
     protected static <T extends KRow> KInsertIntoFilled getKQueryBaseToInsert(
+        final String jdbc,
         final KBuilder k,
         final Class<?> kMetadataClazz,
         final KTable kTableMetadata,
@@ -198,12 +201,14 @@ public class KCrudRepositoryUtils {
         
         return
             k
+            .jdbc(jdbc)
             .insertInto(kTableMetadata)
             .columns(columns.toArray(new KTableColumn[columns.size()]))
             .values(kValues);
     }
     
     protected static <T extends KRow> KWhereUpdate getKQueryBaseToUpdate(
+        final String jdbc,
         final KBuilder k,
         final Class<?> kMetadataClazz,
         final KTable kTableMetadata,
@@ -234,8 +239,9 @@ public class KCrudRepositoryUtils {
             throw KExceptionHelper.internalServerError("At least one column must be manipulated");
         }
         
-        KSetUpdate kSetUpdate =
+        final KSetUpdate kSetUpdate =
             k
+            .jdbc(jdbc)
             .update(kTableMetadata)
             .set(columns.get(0), values.get(0));
         

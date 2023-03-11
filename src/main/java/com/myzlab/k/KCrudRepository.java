@@ -237,8 +237,16 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public int insert(
         final T entity
     ) {
+        return insert(getK().getEntityManagerDefaultName(), entity);
+    }
+    
+    public int insert(
+        final String jdbc,
+        final T entity
+    ) {
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
@@ -251,9 +259,18 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public T insert(
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return insert(getK().getEntityManagerDefaultName(), entity, kColumnsAllowedToReturning);
+    }
+    
+    public T insert(
+        final String jdbc,
+        final T entity,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) { 
         final KCollection<T> result =
             KCrudRepositoryUtils.getKQueryBaseToInsert(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
@@ -272,9 +289,17 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     
     public int insert(
         final List<T> entities
+    ) {
+        return insert(getK().getEntityManagerDefaultName(), entities);
+    }
+    
+    public int insert(
+        final String jdbc,
+        final List<T> entities
     ) { 
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
@@ -288,8 +313,17 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        return insert(getK().getEntityManagerDefaultName(), entities, kColumnsAllowedToReturning);
+    }
+    
+    public KCollection<T> insert(
+        final String jdbc,
+        final List<T> entities,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
@@ -303,8 +337,16 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public int update(
         final T entity
     ) {
+        return update(getK().getEntityManagerDefaultName(), entity);
+    }
+    
+    public int update(
+        final String jdbc,
+        final T entity
+    ) {
         return
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
@@ -319,8 +361,17 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        return update(getK().getEntityManagerDefaultName(), entity, kColumnsAllowedToReturning);
+    }
+    
+    public T update(
+        final String jdbc,
+        final T entity,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
         final KCollection<T> result =
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                jdbc,
                 getK(),
                 getKMetadataClass(),
                 getMetadata(),
