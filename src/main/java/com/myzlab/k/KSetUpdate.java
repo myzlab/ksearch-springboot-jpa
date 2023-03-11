@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class KSetUpdate extends KQueryUpdate {
 
@@ -102,11 +103,13 @@ public class KSetUpdate extends KQueryUpdate {
         final KTableColumn kTableColumn,
         final Object object
     ) {
-        KUtils.assertNotNull(object, "object");
+        final List<Object> params = new ArrayList();
         
-        final KColumn kColumnValue = new KColumn(new StringBuilder("?"), new ArrayList() {{
-            add(object);
-        }}, false);
+        if (object != null) {
+            params.add(object);
+        }
+        
+        final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
         
         this.process(kTableColumn, kColumnValue);
         

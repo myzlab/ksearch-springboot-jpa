@@ -78,11 +78,15 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                     this.kQueryInsertIntoData.sb.append(", ");
                 }
                 
-                if (values.get(j) instanceof KRaw) {
-                    this.kQueryInsertIntoData.sb.append(((KRaw) values.get(j)).content);
+                final Object value = values.get(j);
+                
+                if (value == null) {
+                    this.kQueryInsertIntoData.sb.append("NULL");
+                } else if (value instanceof KRaw) {
+                    this.kQueryInsertIntoData.sb.append(((KRaw) value).content);
                 } else {
                     this.kQueryInsertIntoData.sb.append("?");
-                    this.kQueryInsertIntoData.params.add(values.get(j));
+                    this.kQueryInsertIntoData.params.add(value);
                 }
             }
 
