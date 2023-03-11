@@ -202,4 +202,49 @@ public class KCrudRepositoryUtils {
             .columns(columns.toArray(new KTableColumn[columns.size()]))
             .values(kValues);
     }
+    
+    protected static <T extends KRow> KWhereUpdate getKQueryBaseToUpdate(
+        final KBuilder k,
+        final Class<?> kMetadataClazz,
+        final KTable kTableMetadata,
+        final Class<T> kRowClass,
+        final KTableColumn kTableColumnId,
+        final T entity
+    ) {
+        if (entity.getPrimaryKeyValue() == null) {
+            throw KExceptionHelper.internalServerError("Primary key value is required");
+        }
+        
+        final List<KTableColumn> columns = new ArrayList<>();
+        final List<Object> values = new ArrayList<>();
+        
+        KCrudRepositoryUtils.getColumnsAndValues(
+            kMetadataClazz,
+            kTableMetadata,
+            kRowClass,
+            entity.getDirtyProperties(),
+            columns,
+            values,
+            entity,
+            null,
+            true
+        );
+        
+        if (columns.isEmpty()) {
+            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        }
+        
+        KSetUpdate kSetUpdate =
+            k
+            .update(kTableMetadata)
+            .set(columns.get(0), values.get(0));
+        
+        for (int i = 1; i < columns.size(); i++) {
+            kSetUpdate.set(columns.get(i), values.get(i));
+        }
+        
+        return
+            kSetUpdate
+            .where(kTableColumnId.eq(entity.getPrimaryKeyValue()));
+    }
 }

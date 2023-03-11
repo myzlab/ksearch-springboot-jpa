@@ -3,8 +3,6 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
-import com.myzlab.k.helper.KExceptionHelper;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 
@@ -305,42 +303,38 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public int update(
         final T entity
     ) {
-        if (entity.getPrimaryKeyValue() == null) {
-            throw KExceptionHelper.internalServerError("Primary key value is required");
-        }
-        
-        final List<KTableColumn> columns = new ArrayList<>();
-        final List<Object> values = new ArrayList<>();
-        
-        KCrudRepositoryUtils.getColumnsAndValues(
-            getKMetadataClass(),
-            getMetadata(),
-            getKRowClass(),
-            entity.getDirtyProperties(),
-            columns,
-            values,
-            entity,
-            null,
-            true
-        );
-        
-        if (columns.isEmpty()) {
-            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
-        }
-        
-        KSetUpdate kSetUpdate =
-            getK()
-            .update(getMetadata())
-            .set(columns.get(0), values.get(0));
-        
-        for (int i = 1; i < columns.size(); i++) {
-            kSetUpdate.set(columns.get(i), values.get(i));
-        }
-        
         return
-            kSetUpdate
-            .where(getKTableColumnId().eq(entity.getPrimaryKeyValue()))
+            KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                getKTableColumnId(),
+                entity
+            )
             .execute();
     }
     
+    public T update(
+        final T entity,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        final KCollection<T> result =
+            KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                getKTableColumnId(),
+                entity
+            )
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+        
+        if (!result.isEmpty()) {
+            return result.get(0);
+        }
+        
+        return KQueryUtils.getKRowNull(getKRowClass());
+    }
 }
