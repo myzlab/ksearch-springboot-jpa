@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.KFunction.cte;
 import static com.myzlab.k.KFunction.values;
 import com.myzlab.k.annotations.Id;
 import com.myzlab.k.annotations.KMetadata;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class KCrudRepositoryUtils {
     
@@ -181,7 +183,6 @@ public class KCrudRepositoryUtils {
                 final List<Object> list = new ArrayList<>();
                 
                 for (final String property : dirtyPropertiesOrdered) {
-                    
                     try {
                         final Method methodGet = kRowClass.getMethod(
                             "get" + KSearchNameHelper.capitalize(property)
@@ -252,5 +253,92 @@ public class KCrudRepositoryUtils {
         return
             kSetUpdate
             .where(kTableColumnId.eq(entity.getPrimaryKeyValue()));
+    }
+    
+    protected static <T extends KRow> KWhereUpdate getKQueryBaseToUpdate(
+        final String jdbc,
+        final KBuilder k,
+        final Class<?> kMetadataClazz,
+        final KTable kTableMetadata,
+        final Class<T> kRowClass,
+        final KTableColumn kTableColumnId,
+        final List<T> entities
+    ) {
+        for (final T entity : entities) {
+            if (entity.getPrimaryKeyValue() == null) {
+                throw KExceptionHelper.internalServerError("Primary key value is required on all entities");
+            }
+        }
+        
+        final List<KTableColumn> columns = new ArrayList<>();
+        final List<String> dirtyPropertiesOrdered = new ArrayList<>();
+        
+        KCrudRepositoryUtils.getColumnsAndValues(
+            kMetadataClazz,
+            kTableMetadata,
+            kRowClass,
+            KCrudRepositoryUtils.getDirtyProperties(entities),
+            columns,
+            null,
+            null,
+            dirtyPropertiesOrdered,
+            false
+        );
+        
+        final List<KTableColumn> columnsWithoutPrimaryKey = 
+            columns.stream().filter(c -> !c.getName().equals(kTableColumnId.getName())).collect(Collectors.toList());
+        
+        if (columnsWithoutPrimaryKey.isEmpty()) {
+            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        }
+        
+        final KValues kValues = values().append(entities,
+            (KValuesFunction<T>) (final T t) -> {
+                final List<Object> list = new ArrayList<>();
+                
+                for (final String property : dirtyPropertiesOrdered) {
+                    try {
+                        final Method methodGet = kRowClass.getMethod(
+                            "get" + KSearchNameHelper.capitalize(property)
+                        );
+                        
+                        list.add(methodGet.invoke(t));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        
+                        throw KExceptionHelper.internalServerError(e.getMessage());
+                    }
+                }
+
+                return list;
+            }
+        );
+
+        final List<String> cteColumns = new ArrayList<>();
+        
+        for (final KTableColumn column : columns) {
+            cteColumns.add(column.getName());
+        }
+        
+        final KCommonTableExpressionFilled cte =
+            cte("language_cte")
+            .columns(cteColumns.toArray(new String[cteColumns.size()]))
+            .as(kValues, "lct");
+        
+        final KSetUpdate kSetUpdate =
+            k
+            .jdbc(jdbc)
+            .with(cte)
+            .update(kTableMetadata)
+            .set(columnsWithoutPrimaryKey.get(0), cte.c(columnsWithoutPrimaryKey.get(0).getName()));
+        
+        for (int i = 1; i < columnsWithoutPrimaryKey.size(); i++) {
+            kSetUpdate.set(columnsWithoutPrimaryKey.get(i), cte.c(columnsWithoutPrimaryKey.get(i).getName()));
+        }
+        
+        return
+            kSetUpdate
+            .from(cte)
+            .where(kTableColumnId.eq(cte.c(kTableColumnId.getName())));
     }
 }

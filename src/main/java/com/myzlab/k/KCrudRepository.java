@@ -388,4 +388,53 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         
         return KQueryUtils.getKRowNull(getKRowClass());
     }
+    
+    public int update(
+        final List<T> entities
+    ) {
+        return update(getK().getJdbcTemplateDefaultName(), entities);
+    }
+    
+    public int update(
+        final String jdbc,
+        final List<T> entities
+    ) {
+        return
+            KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                jdbc,
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                getKTableColumnId(),
+                entities
+            )
+            .execute();
+    }
+    
+    public KCollection<T> update(
+        final List<T> entities,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return update(getK().getJdbcTemplateDefaultName(), entities, kColumnsAllowedToReturning);
+    }
+    
+    public KCollection<T> update(
+        final String jdbc,
+        final List<T> entities,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return
+            KCrudRepositoryUtils.getKQueryBaseToUpdate(
+                jdbc,
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                getKTableColumnId(),
+                entities
+            )
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+    }
 }
