@@ -392,7 +392,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public int update(
         final List<T> entities
     ) {
-        return update(getK().getJdbcTemplateDefaultName(), entities);
+        return update(getK().getEntityManagerDefaultName(), entities);
     }
     
     public int update(
@@ -416,7 +416,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return update(getK().getJdbcTemplateDefaultName(), entities, kColumnsAllowedToReturning);
+        return update(getK().getEntityManagerDefaultName(), entities, kColumnsAllowedToReturning);
     }
     
     public KCollection<T> update(
