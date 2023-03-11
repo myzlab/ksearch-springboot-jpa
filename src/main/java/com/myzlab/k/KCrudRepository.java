@@ -3,18 +3,9 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
-import com.myzlab.k.annotations.Id;
-import com.myzlab.k.annotations.KMetadata;
-import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.springframework.http.HttpStatus;
 
 public abstract class KCrudRepository<T extends KRow, Y> {
@@ -244,88 +235,74 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .from(getMetadata())
             .single(Long.class);
     }
-    //INSERT RETURNING
+    
     public int insert(
         final T entity
     ) {
-        final List<KTableColumn> columns = new ArrayList<>();
-        final List<Object> values = new ArrayList<>();
+        return
+            KCrudRepositoryUtils.getKQueryBaseToInsert(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                entity
+            )
+            .execute();
+    }
+    
+    public T insert(
+        final T entity,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) { 
+        final KCollection<T> result =
+            KCrudRepositoryUtils.getKQueryBaseToInsert(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                entity
+            )
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
         
-        getColumnsAndValues(
-            entity.getDirtyProperties(),
-            columns,
-            values,
-            entity,
-            null,
-            false
-        );
-        
-        if (columns.isEmpty()) {
-            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
+        if (!result.isEmpty()) {
+            return result.get(0);
         }
         
-        final KValues kValues =
-            values().append(values);
-        
-        return
-            getK()
-            .insertInto(getMetadata())
-            .columns(columns.toArray(new KTableColumn[columns.size()]))
-            .values(kValues)
-            .execute();
+        return KQueryUtils.getKRowNull(getKRowClass());
     }
     
     public int insert(
         final List<T> entities
-    ) {
-        final List<KTableColumn> columns = new ArrayList<>();
-        final List<String> dirtyPropertiesOrdered = new ArrayList<>();
-        
-        getColumnsAndValues(
-            getDirtyProperties(entities),
-            columns,
-            null,
-            null,
-            dirtyPropertiesOrdered,
-            false
-        );
-        
-        if (columns.isEmpty()) {
-            throw KExceptionHelper.internalServerError("At least one column must be manipulated");
-        }
-        
-        final KValues kValues = values().append(entities,
-            (KValuesFunction<T>) (final T t) -> {
-                final List<Object> list = new ArrayList<>();
-                
-                for (final String property : dirtyPropertiesOrdered) {
-                    
-                    try {
-                        final Method methodGet = getKRowClass().getMethod(
-                            "get" + KSearchNameHelper.capitalize(property)
-                        );
-                        
-                        list.add(methodGet.invoke(t));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        
-                        throw KExceptionHelper.internalServerError(e.getMessage());
-                    }
-                }
-
-                return list;
-            }
-        );
-        
+    ) { 
         return
-            getK()
-            .insertInto(getMetadata())
-            .columns(columns.toArray(new KTableColumn[columns.size()]))
-            .values(kValues)
+            KCrudRepositoryUtils.getKQueryBaseToInsert(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                entities
+            )
             .execute();
     }
     
-    public void update(
+    public KCollection<T> insert(
+        final List<T> entities,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return
+            KCrudRepositoryUtils.getKQueryBaseToInsert(
+                getK(),
+                getKMetadataClass(),
+                getMetadata(),
+                getKRowClass(),
+                entities
+            )
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+    }
+    
+    public int update(
         final T entity
     ) {
         if (entity.getPrimaryKeyValue() == null) {
@@ -335,7 +312,10 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<KTableColumn> columns = new ArrayList<>();
         final List<Object> values = new ArrayList<>();
         
-        getColumnsAndValues(
+        KCrudRepositoryUtils.getColumnsAndValues(
+            getKMetadataClass(),
+            getMetadata(),
+            getKRowClass(),
             entity.getDirtyProperties(),
             columns,
             values,
@@ -357,98 +337,10 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             kSetUpdate.set(columns.get(i), values.get(i));
         }
         
-        kSetUpdate
-        .where(getKTableColumnId().eq(entity.getPrimaryKeyValue()))
-        .execute();
-    }
-    
-    private Map<String, KTableColumn> getKTableColumns() {
-        final Map<String, KTableColumn> kTableColumns = new HashMap<>();
-        
-        final Field[] fieldsMetadata = getKMetadataClass().getDeclaredFields();
-        
-        try {
-            for (final Field field : fieldsMetadata) {
-                if (!field.getType().getSimpleName().equals("KTableColumn")) {
-                    continue;
-                }
-
-                kTableColumns.put(field.getName(), (KTableColumn) field.get(getMetadata()));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            
-            throw KExceptionHelper.internalServerError(e.getMessage());
-        }
-        
-        return kTableColumns;
-    }
-    
-    private List<String> getDirtyProperties(
-        final List<T> entities
-    ) {
-        final Set<String> dirtyProperties = new HashSet<>();
-        
-        for (final T entity : entities) {
-            dirtyProperties.addAll(entity.getDirtyProperties());
-        }
-        
-        return new ArrayList<>(dirtyProperties);
-    }
-    
-    private void getColumnsAndValues(
-        final List<String> dirtyProperties,
-        final List<KTableColumn> columns,
-        final List<Object> values,
-        final T entity,
-        final List<String> dirtyPropertiesOrdered,
-        final boolean skipPrimaryKey
-    ) {
-        final Map<String, KTableColumn> kTableColumns = getKTableColumns();
-        
-        final Field[] fieldsKRow = getKRowClass().getDeclaredFields();
-        
-        for (final Field field : fieldsKRow) {
-            final KMetadata metadata = field.getAnnotation(KMetadata.class);
-            
-            if (metadata == null) {
-                continue;
-            }
-            
-            final String metadataName = metadata.name();
-            
-            if (skipPrimaryKey) {
-                final Id id = field.getAnnotation(Id.class);
-                
-                if (id != null) {
-                    continue;
-                }
-            }
-            
-            if (!dirtyProperties.contains(field.getName())) {
-                continue;
-            }
-            
-            if (dirtyPropertiesOrdered != null) {
-                dirtyPropertiesOrdered.add(field.getName());
-            }
-            
-            field.setAccessible(true);
-            
-            if (values != null && entity != null) {
-                try {
-                    final Object o = field.get(entity);
-
-                    values.add(o);
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                    throw KExceptionHelper.internalServerError(e.getMessage());
-                }
-            }
-            
-            columns.add(kTableColumns.get(metadataName));
-        }
+        return
+            kSetUpdate
+            .where(getKTableColumnId().eq(entity.getPrimaryKeyValue()))
+            .execute();
     }
     
 }

@@ -836,4 +836,21 @@ public class KQueryUtils {
         
         return (T) v;
     }
+    
+    protected static <T extends KRow> T getKRowNull(
+        final Class<T> clazz
+    ) {
+        
+        final T t;
+        
+        try {
+            t = (T) clazz.newInstance();  
+        } catch (Exception e) {
+            throw KExceptionHelper.internalServerError(e.getMessage());
+        }
+        
+        t.isNull = true;
+
+        return t;
+    }
 }

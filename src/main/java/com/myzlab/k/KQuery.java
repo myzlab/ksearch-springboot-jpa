@@ -56,12 +56,12 @@ public abstract class KQuery extends KGenericQuery {
             object = query.getSingleResult();
             
             if (object == null) {
-                return this.getKRowNull(clazz);
+                return KQueryUtils.getKRowNull(clazz);
             }
 
             return KQueryUtils.mapObject(this.kQueryData, (Object[]) object, paths, clazz);
         } catch (NoResultException | NonUniqueResultException e) {
-            return this.getKRowNull(clazz);
+            return KQueryUtils.getKRowNull(clazz);
         } catch (ClassCastException e) {
             return KQueryUtils.mapObject(this.kQueryData, new Object[]{
                 object
@@ -150,23 +150,6 @@ public abstract class KQuery extends KGenericQuery {
 //
 //        return new KRow(o, ref);
 //    }
-    
-    private <T extends KRow> T getKRowNull(
-        final Class<T> clazz
-    ) {
-        
-        final T t;
-        
-        try {
-            t = (T) clazz.newInstance();  
-        } catch (Exception e) {
-            throw KExceptionHelper.internalServerError(e.getMessage());
-        }
-        
-        t.isNull = true;
-
-        return t;
-    }
     
     @Override
     protected KQueryGenericData generateSubQueryData() {
