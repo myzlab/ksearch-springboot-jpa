@@ -105,6 +105,41 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute(getKRowClass());
     }
     
+    public int deleteAll() {
+        return deleteAll(
+            getK().getEntityManagerDefaultName()
+        );
+    }
+    
+    public int deleteAll(
+        final String jdbc
+    ) {
+        return 
+            getK()
+            .deleteFrom(getMetadata())
+            .execute();
+    }
+    
+    public KCollection<T> deleteAll(
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return deleteAll(
+            getK().getEntityManagerDefaultName(),
+            kColumnsAllowedToReturning
+        );
+    }
+    
+    public KCollection<T> deleteAll(
+        final String jdbc,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return 
+            getK()
+            .deleteFrom(getMetadata())
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+    }
+    
     public boolean existsById(
         final Y id
     ) {
