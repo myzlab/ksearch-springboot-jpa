@@ -20,22 +20,27 @@ public class KCollection<T extends KRow> {
 
     final List<T> list;
     private final Map<String, Object> metadata;
+    private final Class<T> type;
 
     protected KCollection(
+        final Class<T> type,
         final List<T> list
     ) {
         super();
         
+        this.type = type;
         this.list = list;
         this.metadata = new HashMap<>();
     }
     
     private KCollection(
+        final Class<T> type,
         final List<T> list,
         final Map<String, Object> metadata
     ) {
         super();
         
+        this.type = type;
         this.list = list;
         this.metadata = new HashMap<>(metadata);
     }
@@ -831,7 +836,11 @@ public class KCollection<T extends KRow> {
     }
     
     public T getFirst() {
-        return this.get(0);
+        if (!isEmpty()) {
+            return this.get(0);
+        }
+        
+        return KQueryUtils.getKRowNull(this.type);
     }
     
     public KCollection set(final String property, final KRowFunction kRowFunction) {
@@ -851,7 +860,7 @@ public class KCollection<T extends KRow> {
     }
     
     public KCollection filter(final KRowFunction<KRow, Boolean> kRowFunction) {
-        final KCollection kCollectionCloned = new KCollection(new ArrayList<>(), this.metadata);//new HashMap(this.ref), new HashMap(this.extra), table, new ArrayList<>(this.exclude)
+        final KCollection kCollectionCloned = new KCollection(this.type, new ArrayList<>(), this.metadata);//new HashMap(this.ref), new HashMap(this.extra), table, new ArrayList<>(this.exclude)
         
         for (final KRow kRow : this.list) {
             if (kRowFunction.run(kRow)) {
@@ -863,7 +872,7 @@ public class KCollection<T extends KRow> {
     }
     
     public KCollection cloneMe() {
-        return new KCollection(new ArrayList<>(this.list), this.metadata);
+        return new KCollection(this.type, new ArrayList<>(this.list), this.metadata);
     }
     
     public KCollection addProperty(final String property, final KRowFunction<KRow, Object> kRowFunction) {
@@ -917,7 +926,7 @@ public class KCollection<T extends KRow> {
 
                 map.put(key, kCollection);
             } else {
-                map.put(key, new KCollection(new ArrayList() {{
+                map.put(key, new KCollection(this.type, new ArrayList() {{
                     add((removeProperty) ? kRow.cloneMe().removeProperty(property) : kRow.cloneMe());
                 }}, this.metadata));
             }

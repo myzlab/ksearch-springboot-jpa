@@ -320,7 +320,7 @@ public class KQueryUtils {
         final List<T> list = new ArrayList<>();
         
         if (objects == null || objects.isEmpty()) {
-            return new KCollection(list);
+            return new KCollection(clazz, list);
         }
         
         final boolean isArrayObject = objects.get(0) instanceof Object[];
@@ -337,7 +337,7 @@ public class KQueryUtils {
             }
         }
         
-        final KCollection kCollection = new KCollection<>(list);
+        final KCollection kCollection = new KCollection<>(clazz, list);
         
         for (KSpecialFunction kSpecialFunction : kSpecialFunctions) {
             kSpecialFunction.executeOnMultipleMapping(k, kCollection);

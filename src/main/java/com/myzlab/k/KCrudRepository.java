@@ -303,7 +303,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) { 
-        final KCollection<T> result =
+        return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
                 jdbc,
                 getK(),
@@ -313,13 +313,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
                 entity
             )
             .returning(kColumnsAllowedToReturning)
-            .execute(getKRowClass());
-        
-        if (!result.isEmpty()) {
-            return result.get(0);
-        }
-        
-        return KQueryUtils.getKRowNull(getKRowClass());
+            .execute(getKRowClass())
+            .getFirst();
     }
     
     public int insert(
@@ -404,7 +399,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        final KCollection<T> result =
+        return
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
                 jdbc,
                 getK(),
@@ -415,13 +410,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
                 entity
             )
             .returning(kColumnsAllowedToReturning)
-            .execute(getKRowClass());
-        
-        if (!result.isEmpty()) {
-            return result.get(0);
-        }
-        
-        return KQueryUtils.getKRowNull(getKRowClass());
+            .execute(getKRowClass())
+            .getFirst();
     }
     
     public int update(
