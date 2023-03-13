@@ -302,7 +302,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
-    ) { 
+    ) {
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
                 jdbc,
@@ -326,7 +326,9 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public int insert(
         final String jdbc,
         final List<T> entities
-    ) { 
+    ) {
+        KUtils.assertNotNullNotEmpty(entities, "entities", false);
+        
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
                 jdbc,
@@ -424,6 +426,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final List<T> entities
     ) {
+        KUtils.assertNotNullNotEmpty(entities, "entities", false);
+        
         return
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
                 jdbc,
