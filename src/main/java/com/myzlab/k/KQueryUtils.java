@@ -23,8 +23,12 @@ import javax.persistence.Query;
 import org.postgresql.jdbc.PgArray;
 import org.postgresql.jdbc.PgSQLXML;
 import org.postgresql.util.PGobject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class KQueryUtils {
+    
+    final static Logger logger = LoggerFactory.getLogger(KQueryUtils.class);
     
     protected static void fillRef(
         final Map<String, Integer> ref,
@@ -183,6 +187,8 @@ public class KQueryUtils {
                     
                     methodSet.invoke(current, getValueByClass(v, methodSet.getParameterTypes()[0]));
                 } catch (Exception e) {
+                    logger.error("An error occurred while getting value from KRow object", e);
+                    
                     throw KExceptionHelper.internalServerError(e.getMessage());
                 }
             } else {
@@ -204,12 +210,16 @@ public class KQueryUtils {
 
                             methodSet.invoke(current, internalObject);
                         } catch (Exception e) {
+                            logger.error("An error occurred while getting value from KRow object", e);
+                            
                             throw KExceptionHelper.internalServerError(e.getMessage());
                         }
                     }
 
                     current = internalObject;
                 } catch (Exception e) {
+                    logger.error("An error occurred while getting value from KRow object", e);
+                    
                     throw KExceptionHelper.internalServerError(e.getMessage());
                 }
             }
@@ -238,7 +248,7 @@ public class KQueryUtils {
 
             return v;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("An error occurred while casting custom value", e);
             
             return v;
         }
@@ -256,6 +266,8 @@ public class KQueryUtils {
         try {
             t = (T) clazz.newInstance();  
         } catch (Exception e) {
+            logger.error("An error occurred while trying create a new instance of a KRow", e);
+            
             throw KExceptionHelper.internalServerError(e.getMessage());
         }
         
@@ -846,6 +858,8 @@ public class KQueryUtils {
         try {
             t = (T) clazz.newInstance();  
         } catch (Exception e) {
+            logger.error("An error occurred while trying create a new instance of a KRow", e);
+            
             throw KExceptionHelper.internalServerError(e.getMessage());
         }
         

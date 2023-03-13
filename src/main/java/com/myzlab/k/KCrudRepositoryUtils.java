@@ -15,8 +15,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class KCrudRepositoryUtils {
+    
+    final static Logger logger = LoggerFactory.getLogger(KCrudRepositoryUtils.class);
     
     protected static Map<String, KTableColumn> getKTableColumns(
         final Class<?> kMetadataClazz,
@@ -35,7 +39,7 @@ public class KCrudRepositoryUtils {
                 kTableColumns.put(field.getName(), (KTableColumn) field.get(metadata));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("An error ocurred while getting value from metadata object", e);
             
             throw KExceptionHelper.internalServerError(e.getMessage());
         }
@@ -103,7 +107,7 @@ public class KCrudRepositoryUtils {
 
                     values.add(o);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("An error ocurred while getting value from KRow object", e);
 
                     throw KExceptionHelper.internalServerError(e.getMessage());
                 }
@@ -190,7 +194,7 @@ public class KCrudRepositoryUtils {
                         
                         list.add(methodGet.invoke(t));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error("An error ocurred while invoking method from KRow object", e);
                         
                         throw KExceptionHelper.internalServerError(e.getMessage());
                     }
@@ -304,7 +308,7 @@ public class KCrudRepositoryUtils {
                         
                         list.add(methodGet.invoke(t));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error("An error ocurred while invoking method from KRow object", e);
                         
                         throw KExceptionHelper.internalServerError(e.getMessage());
                     }

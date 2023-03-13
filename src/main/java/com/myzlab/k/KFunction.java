@@ -2194,27 +2194,27 @@ public class KFunction {
         return genericTrimKValTextField;
     }
     
-    public static KOptionalKColumnOrdered getKColumnOrderedByName(
-        final String orderBy,
-        final Integer order,
-        final KTable... kTables
-    ) {
-        KUtils.assertNotNull(kTables, "kTables");
-        
-        if (orderBy == null || order == null) {
-            return KOptionalKColumnOrdered.getNullInstance();
-        }
-        
-        for (final KTable kTable : kTables) {
-            final KOptionalKColumnOrdered kOptionalKColumnOrdered = kTable.getOrderBy(orderBy, order);
-            
-            if (kOptionalKColumnOrdered.isPresent()) {
-                return kOptionalKColumnOrdered;
-            }
-        }
-        
-        return KOptionalKColumnOrdered.getNullInstance();
-    }
+//    public static KOptionalKColumnOrdered getKColumnOrderedByName(
+//        final String orderBy,
+//        final Integer order,
+//        final KTable... kTables
+//    ) {
+//        KUtils.assertNotNull(kTables, "kTables");
+//        
+//        if (orderBy == null || order == null) {
+//            return KOptionalKColumnOrdered.getNullInstance();
+//        }
+//        
+//        for (final KTable kTable : kTables) {
+//            final KOptionalKColumnOrdered kOptionalKColumnOrdered = kTable.getOrderBy(orderBy, order);
+//            
+//            if (kOptionalKColumnOrdered.isPresent()) {
+//                return kOptionalKColumnOrdered;
+//            }
+//        }
+//        
+//        return KOptionalKColumnOrdered.getNullInstance();
+//    }
     
     public static KColumn getJsonArray(
         final KColumn kColumn,

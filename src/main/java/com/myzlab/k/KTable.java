@@ -145,31 +145,31 @@ public class KTable {
         return null;
     }
     
-    public KOptionalKColumnOrdered getOrderBy(
-        final String orderBy,
-        final Integer order
-    ) {
-        final Field[] publicFields = getClass().getFields();
-        
-        for (final Field publicField : publicFields) {
-            if (publicField.getType().equals(KTableColumn.class)) {
-                try {
-                    final KTableColumn kTableColumn = (KTableColumn) publicField.get(this);
-                    
-                    if (kTableColumn.sb.toString().equals(orderBy)) {
-                        if (order > 0) {
-                            return KOptionalKColumnOrdered.getInstance(kTableColumn.asc());
-                        }
-                        
-                        return KOptionalKColumnOrdered.getInstance(kTableColumn.desc());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    throw KExceptionHelper.internalServerError(e.getMessage());
-                }
-            }
-        }
-        
-        return KOptionalKColumnOrdered.getNullInstance();
-    }
+//    public KOptionalKColumnOrdered getOrderBy(
+//        final String orderBy,
+//        final Integer order
+//    ) {
+//        final Field[] publicFields = getClass().getFields();
+//        
+//        for (final Field publicField : publicFields) {
+//            if (publicField.getType().equals(KTableColumn.class)) {
+//                try {
+//                    final KTableColumn kTableColumn = (KTableColumn) publicField.get(this);
+//                    
+//                    if (kTableColumn.sb.toString().equals(orderBy)) {
+//                        if (order > 0) {
+//                            return KOptionalKColumnOrdered.getInstance(kTableColumn.asc());
+//                        }
+//                        
+//                        return KOptionalKColumnOrdered.getInstance(kTableColumn.desc());
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    throw KExceptionHelper.internalServerError(e.getMessage());
+//                }
+//            }
+//        }
+//        
+//        return KOptionalKColumnOrdered.getNullInstance();
+//    }
 }
