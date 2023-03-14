@@ -62,7 +62,7 @@ public class KSetUpdate extends KQueryUpdate {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KFromUpdate.getInstance(this.k, this.kQueryUpdateData, new KTable(null, kRaw.content, null));
+        return KFromUpdate.getInstance(this.k, this.kQueryUpdateData, new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public KFromUpdate from(
@@ -127,7 +127,7 @@ public class KSetUpdate extends KQueryUpdate {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, kCondition);
     }

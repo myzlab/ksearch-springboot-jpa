@@ -36,7 +36,7 @@ public class KCaseFilled {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return new KCaseFilled(sb, params, new KColumn(new StringBuilder(kRaw.content), false));
+        return new KCaseFilled(sb, params, new KColumn(new StringBuilder(kRaw.content), kRaw.params, false));
     }
     
     public KCaseAliased as(

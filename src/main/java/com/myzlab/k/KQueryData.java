@@ -16,6 +16,14 @@ public class KQueryData extends KQueryGenericData {
         this.tablesAdded = 0;
         this.distinctOn = false;
     }
+    
+    public KQueryData(
+        final List<Object> params
+    ) {
+        this();
+        
+        this.params.addAll(params);
+    }
 
     public KQueryData(
         final List<KBaseColumn> kBaseColumns, 

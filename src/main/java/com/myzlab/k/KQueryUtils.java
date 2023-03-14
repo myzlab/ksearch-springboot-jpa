@@ -607,6 +607,7 @@ public class KQueryUtils {
         KUtils.assertNotNull(kRaw, "kRaw");
         
         kQueryData.sb.append(" ").append(joinName).append(" ").append(kRaw.content);
+        kQueryData.params.addAll(kRaw.params);
     }
     
     protected static void processCrossJoinFrom(
@@ -629,6 +630,7 @@ public class KQueryUtils {
         KUtils.assertNotNull(kRaw, "kRaw");
         
         kQueryData.sb.append(" CROSS JOIN ").append(kRaw.content);
+        kQueryData.params.addAll(kRaw.params);
     }
     
     protected static void buildWhere(

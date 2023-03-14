@@ -41,7 +41,7 @@ public class KWith extends KQuery {
         return KDeleteFrom.getInstance(
             this.k,
             new KQueryDeleteData(new StringBuilder(this.kQueryData.sb), new ArrayList<>(this.kQueryData.params), new ArrayList<>(), new ArrayList<>(), 0, new ArrayList()),
-            new KTable(null, kRaw.content, null)
+            new KTable(kRaw.content, new KQueryData(kRaw.params))
         );
     }
     
@@ -121,7 +121,7 @@ public class KWith extends KQuery {
         return KUpdate.getInstance(
             this.k,
             new KQueryUpdateData(new StringBuilder(this.kQueryData.sb), new ArrayList<>(this.kQueryData.params), new ArrayList<>(), new ArrayList<>(), 0, 0, new ArrayList()),
-            new KTable(null, kRaw.content, null)
+            new KTable(kRaw.content, new KQueryData(kRaw.params))
         );
     }
     

@@ -17,6 +17,7 @@ public class KRaw implements
 {
 
     protected String content;
+    protected final List<Object> params = new ArrayList<>();
 
     public KRaw(
         final String content,
@@ -27,6 +28,14 @@ public class KRaw implements
         } else {
             this.content = content;
         }
+    }
+    
+    public KRaw addParam(
+        final Object param
+    ) {
+        this.params.add(param);
+        
+        return this;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class KRaw implements
 
     @Override
     public List<Object> getParams() {
-        return new ArrayList<>();
+        return this.params;
     }
 
     @Override
@@ -56,6 +65,6 @@ public class KRaw implements
     
     @Override
     public KBaseColumn getKBaseColumn() {
-        return new KColumn(new StringBuilder(content), false);
+        return new KColumn(new StringBuilder(content), this.params, false);
     }
 }

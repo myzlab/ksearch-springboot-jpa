@@ -38,6 +38,17 @@ public class KCondition implements KColumnAllowedToSelect {
     }
     
     protected KCondition(
+        final String content,
+        final List<Object> params
+    ) {
+        super();
+        
+        this.sb = new StringBuilder(content);
+        this.params = params;
+        this.operator = 1;
+    }
+    
+    protected KCondition(
         final int operator
     ) {
         super();
@@ -71,7 +82,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return applyLogicOperator(kCondition, "AND", AND_TYPE);
     }
@@ -87,7 +98,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return applyLogicOperator(KFunction.not(kCondition), "AND", AND_TYPE);
     }
@@ -374,7 +385,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return applyLogicOperator(kCondition, "OR", OR_TYPE);
     }
@@ -390,7 +401,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return applyLogicOperator(KFunction.not(kCondition), "OR", OR_TYPE);
     }

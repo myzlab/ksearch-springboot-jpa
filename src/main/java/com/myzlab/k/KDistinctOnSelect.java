@@ -61,7 +61,7 @@ public class KDistinctOnSelect {
         
         final KDistinctOnSelect kDistinctOnSelect = new KDistinctOnSelect(kExecutor, kSpecialFunctions);
         
-        kDistinctOnSelect.process(new KColumn(new StringBuilder(kRaw.content), false));
+        kDistinctOnSelect.process(new KColumn(new StringBuilder(kRaw.content), kRaw.params, false));
         
         return kDistinctOnSelect;
     }
@@ -102,7 +102,7 @@ public class KDistinctOnSelect {
         
         final KDistinctOnSelect kDistinctOnSelect = new KDistinctOnSelect(kQueryData, kExecutor, kSpecialFunctions);
         
-        kDistinctOnSelect.process(new KColumn(new StringBuilder(kRaw.content), false));
+        kDistinctOnSelect.process(new KColumn(new StringBuilder(kRaw.content), kRaw.params, false));
         
         return kDistinctOnSelect;
     }

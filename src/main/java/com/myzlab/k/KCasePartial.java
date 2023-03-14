@@ -36,7 +36,7 @@ public class KCasePartial {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return new KCasePartial(sb, params, new KColumn(new StringBuilder(kRaw.content), false));
+        return new KCasePartial(sb, params, new KColumn(new StringBuilder(kRaw.content), kRaw.params, false));
     }
     
     public KCaseWhen when(

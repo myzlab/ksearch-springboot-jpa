@@ -65,7 +65,7 @@ public class KCommonTableExpressionFilled extends KCommonTableExpression {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KJoinDefinition.getInstance(new KTable(null, this.name, this.alias).toSql(true), new KCondition(kRaw.content));
+        return KJoinDefinition.getInstance(new KTable(null, this.name, this.alias).toSql(true), new KCondition(kRaw.content, kRaw.params));
     }
     
     private KColumn processColumn(

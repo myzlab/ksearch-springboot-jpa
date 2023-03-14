@@ -1,8 +1,5 @@
 package com.myzlab.k;
 
-import com.myzlab.k.helper.KExceptionHelper;
-import com.myzlab.k.optional.KOptionalKColumnOrdered;
-import java.lang.reflect.Field;
 import lombok.Data;
 
 @Data
@@ -36,6 +33,19 @@ public class KTable {
         this.alias = alias;
         this.kQueryData = null;
         this.isRoot = schema != null && name != null && alias != null;
+    }
+    
+    public KTable(
+        final String name,
+        final KQueryGenericData kQueryData
+    ) {
+        super();
+        
+        this.schema = null;
+        this.name = name;
+        this.alias = null;
+        this.kQueryData = kQueryData;
+        this.isRoot = false;
     }
     
     public KTable(
@@ -89,7 +99,7 @@ public class KTable {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return on(new KCondition(kRaw.content));
+        return on(new KCondition(kRaw.content, kRaw.params));
     }
     
     public KJoinDefinition on(
@@ -98,7 +108,7 @@ public class KTable {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return on(new KCondition(kRaw.content), kEdge);
+        return on(new KCondition(kRaw.content, kRaw.params), kEdge);
     }
     
     public String toSql(

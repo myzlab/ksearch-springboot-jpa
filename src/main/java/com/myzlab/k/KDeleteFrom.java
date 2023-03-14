@@ -62,7 +62,7 @@ public class KDeleteFrom extends KQueryDelete {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KUsing.getInstance(this.k, this.kQueryDeleteData, new KTable(null, kRaw.content, null));
+        return KUsing.getInstance(this.k, this.kQueryDeleteData, new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public KUsing using(
@@ -82,7 +82,7 @@ public class KDeleteFrom extends KQueryDelete {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return KWhereDelete.getInstance(this.k, this.kQueryDeleteData, kCondition);
     }

@@ -70,7 +70,7 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        this.process(new KTable(null, kRaw.content, null));
+        this.process(new KTable(kRaw.content, new KQueryData(kRaw.params)));
         
         return this;
     }
@@ -206,7 +206,7 @@ public class KFrom extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return KWhere.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
     }

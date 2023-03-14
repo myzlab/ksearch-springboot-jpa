@@ -59,7 +59,7 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.andNot(kRawCondition);
         
@@ -79,7 +79,7 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.orNot(kRawCondition);
         
@@ -99,7 +99,7 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.and(kRawCondition);
         
@@ -119,7 +119,7 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.or(kRawCondition);
         

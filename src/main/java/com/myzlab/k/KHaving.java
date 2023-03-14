@@ -58,7 +58,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.andNot(kRawCondition);
         
@@ -78,7 +78,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.orNot(kRawCondition);
         
@@ -98,7 +98,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.and(kRawCondition);
         
@@ -119,7 +119,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kRawCondition = new KCondition(kRaw.content);
+        final KCondition kRawCondition = new KCondition(kRaw.content, kRaw.params);
         
         this.kCondition.or(kRawCondition);
         

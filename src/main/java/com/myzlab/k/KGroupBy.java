@@ -49,7 +49,7 @@ public class KGroupBy extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        final KCondition kCondition = new KCondition(kRaw.content);
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
         
         return KHaving.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
     }

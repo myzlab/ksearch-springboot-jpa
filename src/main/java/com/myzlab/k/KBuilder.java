@@ -101,7 +101,7 @@ public abstract class KBuilder {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KDeleteFrom.getInstance(jdbc(), new KTable(null, kRaw.content, null));
+        return KDeleteFrom.getInstance(jdbc(), new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public KInsertInto insertInto(
@@ -121,7 +121,7 @@ public abstract class KBuilder {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KUpdate.getInstance(jdbc(), new KTable(null, kRaw.content, null));
+        return KUpdate.getInstance(jdbc(), new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public abstract Map<String, EntityManager> getEntityManagers();

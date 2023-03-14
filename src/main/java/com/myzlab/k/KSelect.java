@@ -225,7 +225,7 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
     ) {
         KUtils.assertNotNullNotEmpty(kRaw, "kRaw", false);
         
-        return KFrom.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, new KTable(null, kRaw.content, null));
+        return KFrom.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public KFrom from(
@@ -351,6 +351,16 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
     public KWhere where(
         final KCondition kCondition
     ) {
+        return KWhere.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
+    }
+    
+    public KWhere where(
+        final KRaw kRaw
+    ) {
+        KUtils.assertNotNull(kRaw, "kRaw");
+        
+        final KCondition kCondition = new KCondition(kRaw.content, kRaw.params);
+        
         return KWhere.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
     }
     

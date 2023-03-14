@@ -99,7 +99,7 @@ public class KExecutor {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KDeleteFrom.getInstance(this, new KTable(null, kRaw.content, null));
+        return KDeleteFrom.getInstance(this, new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
     public KInsertInto insertInto(
@@ -119,7 +119,7 @@ public class KExecutor {
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
         
-        return KUpdate.getInstance(this, new KTable(null, kRaw.content, null));
+        return KUpdate.getInstance(this, new KTable(kRaw.content, new KQueryData(kRaw.params)));
     }
     
 }
