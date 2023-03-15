@@ -1023,6 +1023,8 @@ public class KRow {
 //            }
             
             if (o[entry.getValue()] == null) {
+                map.put(key, null);
+                    
                 continue;
             }
             
