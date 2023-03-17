@@ -22,7 +22,7 @@ public class KCollection<T extends KRow> {
     private final Map<String, Object> metadata;
     private final Class<T> type;
 
-    protected KCollection(
+    public KCollection(
         final Class<T> type,
         final List<T> list
     ) {
@@ -33,7 +33,7 @@ public class KCollection<T extends KRow> {
         this.metadata = new HashMap<>();
     }
     
-    private KCollection(
+    public KCollection(
         final Class<T> type,
         final List<T> list,
         final Map<String, Object> metadata
@@ -758,6 +758,10 @@ public class KCollection<T extends KRow> {
         
         for (final KRow kRow : list) {
             items.add(kRow.toMap());
+        }
+        
+        if (nameItems == null) {
+            return ResponseEntity.ok(items);
         }
         
         final DynamicObject response = DynamicObject.create().add(nameItems, items);

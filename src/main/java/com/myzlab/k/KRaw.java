@@ -37,6 +37,12 @@ public class KRaw implements
         
         return this;
     }
+    
+    public KAliasedColumn as(
+        final String alias
+    ) {
+        return KFunction.as(new KColumn(new StringBuilder(this.content), this.params, false), alias);
+    }
 
     @Override
     public String getSqlToOrderBy() {

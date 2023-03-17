@@ -212,12 +212,7 @@ public class KTotalCount extends KSpecialFunction {
         
         sb.insert(0, "SELECT COUNT(*) FROM (").append(") AS GOD_BLESS_YOU");
         
-//        System.out.println(sb.toString());
-//        System.out.println(this.kQueryData.params);
-//        System.out.println(kQueryGenericData.kEdges);
-//        System.out.println(kQueryGenericData.kNodes);
-        
-        final Query query = k.getEntityManager().createNativeQuery(this.kQueryData.sb.toString());
+        final Query query = k.getEntityManager().createNativeQuery(sb.toString());
         
         int i = 1;
         
@@ -225,6 +220,7 @@ public class KTotalCount extends KSpecialFunction {
             query.setParameter(i++, param);
         }
         
-        kCollection.addMetadata("totalCount", (Long) query.getSingleResult());
+        
+        kCollection.addMetadata("totalCount", Long.valueOf(query.getSingleResult().toString()));
     }
 }
