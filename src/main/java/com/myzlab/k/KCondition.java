@@ -2385,6 +2385,22 @@ public class KCondition implements KColumnAllowedToSelect {
         return kCondition;
     }
     
+    protected static KCondition notIn(
+        final KBaseColumn kBaseColumn,
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KCondition kCondition = new KCondition();
+        
+        kCondition.params.addAll(kBaseColumn.params);
+        kCondition.params.addAll(kColumn.params);
+        
+        kCondition.sb.append(kBaseColumn.sb).append(" NOT IN ").append(kColumn.sb);
+
+        return kCondition;
+    }
+    
     protected String toSql() {
         return sb.toString();
     }

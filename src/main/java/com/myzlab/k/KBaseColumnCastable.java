@@ -2731,6 +2731,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition notIn(
+        final KColumn kColumn
+    ) {
+        return KCondition.notIn(this, kColumn);
+    }
+    
+    public KCondition notIn(
         final KOptionalCollection kOptionalCollection
     ) {
         if (!kOptionalCollection.isPresent()) {
