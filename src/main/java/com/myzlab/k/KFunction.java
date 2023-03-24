@@ -1386,11 +1386,11 @@ public class KFunction {
         return genericTrim(kValTextField, characters, "BTRIM");
     }
     
-    public static KOptionalLong calculateOffset(
+    public static Long calculateOffset(
         final Long page,
         final Long limit
     ) {
-        return KOptionalLong.getInstance((page - 1) * limit);
+        return (page - 1) * limit;
     }
     
     public static KOptionalLong calculateOffset(
