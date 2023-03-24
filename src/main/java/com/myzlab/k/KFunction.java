@@ -1,12 +1,12 @@
 package com.myzlab.k;
 
+import com.myzlab.k.functions.KTupleFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
 import com.myzlab.k.optional.KOptionalCollection;
 import com.myzlab.k.optional.KOptionalKAliasedColumn;
 import com.myzlab.k.optional.KOptionalKJoinDefinition;
 import com.myzlab.k.optional.KOptionalKColumn;
-import com.myzlab.k.optional.KOptionalKColumnOrdered;
 import com.myzlab.k.optional.KOptionalKValNumberField;
 import com.myzlab.k.optional.KOptionalKValTextField;
 import com.myzlab.k.optional.KOptionalLocalDate;
@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
@@ -4625,6 +4626,100 @@ public class KFunction {
         final String characters
     ) {
         return genericTrim(kValTextField, characters, "TRIM");
+    }
+    
+    public static KColumn tuple(
+        final KBaseColumn... KBaseColumns
+    ) {
+        KUtils.assertNotNull(KBaseColumns, "KBaseColumns");
+        
+        if (KBaseColumns.length < 2) {
+            throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two KBaseColumns");
+        }
+        
+        final KColumn tuplekColumn = new KColumn();
+        
+        boolean first = true;
+        
+        tuplekColumn.sb.append("(");
+        
+        for (final KBaseColumn kBaseColumn : KBaseColumns) {
+            if (kBaseColumn == null) {
+                continue;
+            }
+            
+            if (!first) {
+                tuplekColumn.sb.append(", ");
+            }
+            
+            if (first) {
+                first = false;
+            }
+            
+            tuplekColumn.sb.append(kBaseColumn.sb);
+            tuplekColumn.params.addAll(kBaseColumn.params);
+        }
+        
+        tuplekColumn.sb.append(")");
+        
+        return tuplekColumn;
+    }
+    
+    public static KColumn tuple(
+        final List<?> list,
+        final KTupleFunction kTupleFunction
+    ) {
+        KUtils.assertNotNullNotEmpty(list, "list", false);
+        
+        if (list.size() < 2) {
+            throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two elements in list");
+        }
+        
+        final KColumn tuplekColumn = new KColumn();
+        
+        boolean firstTuple = true;
+        
+        tuplekColumn.sb.append("(");
+        
+        for (final Object object : list) {
+            if (!firstTuple) {
+                tuplekColumn.sb.append(", ");
+            }
+            
+            if (firstTuple) {
+                firstTuple = false;
+            }
+
+            tuplekColumn.sb.append("(");
+            
+            boolean firstValue = true;
+            
+            for (final Object o : kTupleFunction.run(object)) {
+                if (!firstValue) {
+                    tuplekColumn.sb.append(", ");
+                }
+
+                if (firstValue) {
+                    firstValue = false;
+                }
+                
+                if (o == null) {
+                    tuplekColumn.sb.append("NULL");
+                } else if (o instanceof KRaw) {
+                    tuplekColumn.sb.append(((KRaw) o).content);
+                    tuplekColumn.params.addAll(((KRaw) o).params);
+                } else {
+                    tuplekColumn.sb.append("?");
+                    tuplekColumn.params.add(o);
+                }
+            }
+            
+            tuplekColumn.sb.append(")");
+        }
+        
+        tuplekColumn.sb.append(")");
+        
+        return tuplekColumn;
     }
     
     public static KColumn sub(

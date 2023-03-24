@@ -62,10 +62,10 @@ public class KInsertIntoFilled extends KQueryInsertInto {
     ) {
         this.kQueryInsertIntoData.sb.append(" VALUES ");
         
-        final List<List<Object>> AllValues = kValues.values;
+        final List<List<Object>> allValues = kValues.values;
             
-        for (int i = 0; i < AllValues.size(); i++) {
-            final List<Object> values = AllValues.get(i);
+        for (int i = 0; i < allValues.size(); i++) {
+            final List<Object> values = allValues.get(i);
             
             if (i > 0) {
                 this.kQueryInsertIntoData.sb.append(", ");
@@ -84,6 +84,7 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                     this.kQueryInsertIntoData.sb.append("NULL");
                 } else if (value instanceof KRaw) {
                     this.kQueryInsertIntoData.sb.append(((KRaw) value).content);
+                    this.kQueryInsertIntoData.params.addAll(((KRaw) value).params);
                 } else {
                     this.kQueryInsertIntoData.sb.append("?");
                     this.kQueryInsertIntoData.params.add(value);

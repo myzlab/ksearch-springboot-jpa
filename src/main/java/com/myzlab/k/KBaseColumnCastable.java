@@ -1023,6 +1023,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition in(
+        final KColumn kColumn
+    ) {
+        return KCondition.in(this, kColumn);
+    }
+    
+    public KCondition in(
         final KOptionalCollection kOptionalCollection
     ) {
         if (!kOptionalCollection.isPresent()) {

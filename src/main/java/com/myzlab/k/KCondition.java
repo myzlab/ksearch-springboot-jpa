@@ -972,9 +972,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KBaseColumn kBaseColumn,
         final Collection values
     ) {
-        if (values == null) {
-            throw KExceptionHelper.internalServerError("The 'values' param cannot be null");
-        }
+        KUtils.assertNotNull(values, "values");
         
         final KCondition kCondition = new KCondition();
         
@@ -998,6 +996,22 @@ public class KCondition implements KColumnAllowedToSelect {
         }
         
         kCondition.sb.append(")");
+
+        return kCondition;
+    }
+    
+    protected static KCondition in(
+        final KBaseColumn kBaseColumn,
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KCondition kCondition = new KCondition();
+        
+        kCondition.params.addAll(kBaseColumn.params);
+        kCondition.params.addAll(kColumn.params);
+        
+        kCondition.sb.append(kBaseColumn.sb).append(" IN ").append(kColumn.sb);
 
         return kCondition;
     }

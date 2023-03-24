@@ -450,6 +450,7 @@ public class KQueryUtils {
                 
                 if (values.get(j) instanceof KRaw) {
                     kQueryData.sb.append(((KRaw) values.get(j)).content);
+                    kQueryData.params.addAll(((KRaw) values.get(j)).params);
                 } else {
                     kQueryData.sb.append("?");
                     kQueryData.params.add(values.get(j));
