@@ -313,7 +313,7 @@ public class KQueryUtils {
 //        System.out.println(kQueryGenericData.kNodes);
         
         if (k == null || k.getEntityManager() == null) {
-             System.err.println("EntityManager no provided to KSearch!");
+            System.err.println("EntityManager no provided to KSearch!");
             
             return null;
         }

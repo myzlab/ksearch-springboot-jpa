@@ -8,7 +8,23 @@ import java.util.List;
 import javax.persistence.Query;
 
 public class KTotalCount extends KSpecialFunction {
+    
+    private static final String ATTRIBUTE_NAME = "attributeName";
 
+    public KTotalCount() {
+        super();
+        
+        this.extra.put(ATTRIBUTE_NAME, "totalCount");
+    }
+    
+    public KTotalCount(
+        final String attributeName
+    ) {
+        super();
+        
+        this.extra.put(ATTRIBUTE_NAME, attributeName);
+    }
+    
     @Override
     protected void onProcessWith(
         final boolean recursive,
@@ -221,6 +237,6 @@ public class KTotalCount extends KSpecialFunction {
         }
         
         
-        kCollection.addMetadata("totalCount", Long.valueOf(query.getSingleResult().toString()));
+        kCollection.addMetadata(this.extra.get(ATTRIBUTE_NAME).toString(), Long.valueOf(query.getSingleResult().toString()));
     }
 }

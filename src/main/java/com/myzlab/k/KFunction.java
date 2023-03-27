@@ -4536,6 +4536,12 @@ public class KFunction {
         return new KTotalCount();
     }
     
+    public static KTotalCount totalCount(
+        final String attributeName
+    ) {
+        return new KTotalCount(attributeName);
+    }
+    
     public static KColumn toTimestamp(
         final KColumn kColumn,
         final String format

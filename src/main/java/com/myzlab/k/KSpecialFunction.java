@@ -4,16 +4,20 @@ import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class KSpecialFunction {
     
     protected KQueryData kQueryData;
+    protected Map<String, Object> extra;
     
     public KSpecialFunction() {
         super();
         
         this.kQueryData = new KQueryData();
+        this.extra = new HashMap<>();
     }
     
     protected abstract void onProcessWith(
