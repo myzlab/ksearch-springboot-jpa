@@ -753,7 +753,10 @@ public class KCollection<T extends KRow> {
         }
     }
     
-    public ResponseEntity buildResponse(final String nameItems) {
+    public ResponseEntity buildResponse(
+        final String nameItems,
+        final String nameMetadata
+    ) {
         final List<Map<String, Object>> items = new ArrayList<>();
         
         for (final KRow kRow : list) {
@@ -767,7 +770,7 @@ public class KCollection<T extends KRow> {
         final DynamicObject response = DynamicObject.create().add(nameItems, items);
         
         if (!metadata.isEmpty()) {
-            response.add("metadata", metadata);
+            response.add(nameMetadata, metadata);
         }
         
         return response.buildResponse();
@@ -785,6 +788,12 @@ public class KCollection<T extends KRow> {
     
     public ResponseEntity buildResponse() {
         return buildResponse("items");
+    }
+    
+    public ResponseEntity buildResponse(
+        final String nameItems
+    ) {
+        return buildResponse(nameItems, "metadata");
     }
     
     public int size() {
