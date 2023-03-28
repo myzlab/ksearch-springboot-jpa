@@ -95,5 +95,10 @@ public class KUsing extends KQueryDelete {
         }
             
         this.kQueryDeleteData.sb.append(kTable.toSql(true));
+        
+        if (kTable.kTuple != null) {
+            kQueryDeleteData.sb.append(" ").append(kTable.kTuple.sb);
+            kQueryDeleteData.params.addAll(kTable.kTuple.params);
+        }
     }
 }
