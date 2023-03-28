@@ -4634,7 +4634,7 @@ public class KFunction {
         return genericTrim(kValTextField, characters, "TRIM");
     }
     
-    public static KColumn tuple(
+    public static KTuple tuple(
         final KBaseColumn... KBaseColumns
     ) {
         KUtils.assertNotNull(KBaseColumns, "KBaseColumns");
@@ -4643,11 +4643,11 @@ public class KFunction {
             throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two KBaseColumns");
         }
         
-        final KColumn tuplekColumn = new KColumn();
+        final KTuple tuple = new KTuple();
         
         boolean first = true;
         
-        tuplekColumn.sb.append("(");
+        tuple.sb.append("(");
         
         for (final KBaseColumn kBaseColumn : KBaseColumns) {
             if (kBaseColumn == null) {
@@ -4655,23 +4655,23 @@ public class KFunction {
             }
             
             if (!first) {
-                tuplekColumn.sb.append(", ");
+                tuple.sb.append(", ");
             }
             
             if (first) {
                 first = false;
             }
             
-            tuplekColumn.sb.append(kBaseColumn.sb);
-            tuplekColumn.params.addAll(kBaseColumn.params);
+            tuple.sb.append(kBaseColumn.sb);
+            tuple.params.addAll(kBaseColumn.params);
         }
         
-        tuplekColumn.sb.append(")");
+        tuple.sb.append(")");
         
-        return tuplekColumn;
+        return tuple;
     }
     
-    public static KColumn tuple(
+    public static KTuple tuple(
         final List<?> list,
         final KTupleFunction kTupleFunction
     ) {
@@ -4681,28 +4681,28 @@ public class KFunction {
             throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two elements in list");
         }
         
-        final KColumn tuplekColumn = new KColumn();
+        final KTuple tuple = new KTuple();
         
         boolean firstTuple = true;
         
-        tuplekColumn.sb.append("(");
+        tuple.sb.append("(");
         
         for (final Object object : list) {
             if (!firstTuple) {
-                tuplekColumn.sb.append(", ");
+                tuple.sb.append(", ");
             }
             
             if (firstTuple) {
                 firstTuple = false;
             }
 
-            tuplekColumn.sb.append("(");
+            tuple.sb.append("(");
             
             boolean firstValue = true;
             
             for (final Object o : kTupleFunction.run(object)) {
                 if (!firstValue) {
-                    tuplekColumn.sb.append(", ");
+                    tuple.sb.append(", ");
                 }
 
                 if (firstValue) {
@@ -4710,22 +4710,54 @@ public class KFunction {
                 }
                 
                 if (o == null) {
-                    tuplekColumn.sb.append("NULL");
+                    tuple.sb.append("NULL");
                 } else if (o instanceof KRaw) {
-                    tuplekColumn.sb.append(((KRaw) o).content);
-                    tuplekColumn.params.addAll(((KRaw) o).params);
+                    tuple.sb.append(((KRaw) o).content);
+                    tuple.params.addAll(((KRaw) o).params);
                 } else {
-                    tuplekColumn.sb.append("?");
-                    tuplekColumn.params.add(o);
+                    tuple.sb.append("?");
+                    tuple.params.add(o);
                 }
             }
             
-            tuplekColumn.sb.append(")");
+            tuple.sb.append(")");
         }
         
-        tuplekColumn.sb.append(")");
+        tuple.sb.append(")");
         
-        return tuplekColumn;
+        return tuple;
+    }
+    
+    protected static KTuple tuple(
+        final String... names
+    ) {
+        KUtils.assertNotNullNotEmpty(names, "names", false);
+        
+        final KTuple tuple = new KTuple();
+        
+        boolean first = true;
+        
+        tuple.sb.append("(");
+        
+        for (final String name : names) {
+            if (name == null) {
+                continue;
+            }
+            
+            if (!first) {
+                tuple.sb.append(", ");
+            }
+            
+            if (first) {
+                first = false;
+            }
+            
+            tuple.sb.append(name);
+        }
+        
+        tuple.sb.append(")");
+        
+        return tuple;
     }
     
     public static KColumn sub(
@@ -4789,6 +4821,14 @@ public class KFunction {
         final String alias
     ) {
         return new KTable(kQuery, alias);
+    }
+    
+    protected static KTable table(
+        final KQuery kQuery,
+        final String alias,
+        final KTuple kTuple
+    ) {
+        return new KTable(kQuery, alias, kTuple);
     }
     
     public static KColumn toChar(

@@ -46,6 +46,13 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
         return table(this, alias);
     }
     
+    public KTable as(
+        final String alias,
+        final String... names
+    ) {
+        return table(this, alias, tuple(names));
+    }
+    
     public KWhere andNot(
         final KCondition kCondition
     ) {

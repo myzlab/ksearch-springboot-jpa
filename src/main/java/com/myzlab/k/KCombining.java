@@ -37,6 +37,13 @@ public class KCombining extends KQuery {
     ) {
         return table(this, alias);
     }
+    
+    public KTable as(
+        final String alias,
+        final String... names
+    ) {
+        return table(this, alias, tuple(names));
+    }
 
     public KCombining union(
         final KQueryAllowedToCombining kQueryAllowedToCombining

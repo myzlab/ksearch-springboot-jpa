@@ -51,6 +51,13 @@ public class KFetch extends KQuery {
         return table(this, alias);
     }
     
+    public KTable as(
+        final String alias,
+        final String... names
+    ) {
+        return table(this, alias, tuple(names));
+    }
+    
     private void process(
         final long rowCount
     ) {

@@ -579,6 +579,11 @@ public class KQueryUtils {
         }
             
         kQueryData.sb.append(kTable.toSql(true));
+        
+        if (kTable.kTuple != null) {
+            kQueryData.sb.append(" ").append(kTable.kTuple.sb);
+            kQueryData.params.addAll(kTable.kTuple.params);
+        }
     }
     
     protected static void processGeneralJoinFrom(

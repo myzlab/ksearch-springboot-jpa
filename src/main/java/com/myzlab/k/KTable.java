@@ -10,6 +10,7 @@ public class KTable {
     protected String alias;
     protected final KQueryGenericData kQueryData;
     protected final boolean isRoot;
+    protected final KTuple kTuple;
     
     private KTable() {
         super();
@@ -19,6 +20,7 @@ public class KTable {
         this.alias = null;
         this.kQueryData = null;
         this.isRoot = false;
+        this.kTuple = null;
     }
     
     public KTable(
@@ -33,6 +35,7 @@ public class KTable {
         this.alias = alias;
         this.kQueryData = null;
         this.isRoot = schema != null && name != null && alias != null;
+        this.kTuple = null;
     }
     
     public KTable(
@@ -46,6 +49,7 @@ public class KTable {
         this.alias = null;
         this.kQueryData = kQueryData;
         this.isRoot = false;
+        this.kTuple = null;
     }
     
     public KTable(
@@ -59,6 +63,22 @@ public class KTable {
         this.alias = alias;
         this.kQueryData = kQuery.generateSubQueryData();
         this.isRoot = false;
+        this.kTuple = null;
+    }
+    
+    public KTable(
+        final KQuery kQuery,
+        final String alias,
+        final KTuple kTuple
+    ) {
+        super();
+        
+        this.schema = null;
+        this.name = null;
+        this.alias = alias;
+        this.kQueryData = kQuery.generateSubQueryData();
+        this.isRoot = false;
+        this.kTuple = kTuple;
     }
     
     public KColumn c(
