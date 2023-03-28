@@ -7,6 +7,7 @@ import com.myzlab.k.optional.KOptionalCollection;
 import com.myzlab.k.optional.KOptionalKAliasedColumn;
 import com.myzlab.k.optional.KOptionalKJoinDefinition;
 import com.myzlab.k.optional.KOptionalKColumn;
+import com.myzlab.k.optional.KOptionalKColumnOrdered;
 import com.myzlab.k.optional.KOptionalKValNumberField;
 import com.myzlab.k.optional.KOptionalKValTextField;
 import com.myzlab.k.optional.KOptionalLocalDate;
@@ -2195,27 +2196,30 @@ public class KFunction {
         return genericTrimKValTextField;
     }
     
-//    public static KOptionalKColumnOrdered getKColumnOrderedByName(
-//        final String orderBy,
-//        final Integer order,
-//        final KTable... kTables
-//    ) {
-//        KUtils.assertNotNull(kTables, "kTables");
-//        
-//        if (orderBy == null || order == null) {
-//            return KOptionalKColumnOrdered.getNullInstance();
-//        }
-//        
-//        for (final KTable kTable : kTables) {
-//            final KOptionalKColumnOrdered kOptionalKColumnOrdered = kTable.getOrderBy(orderBy, order);
-//            
-//            if (kOptionalKColumnOrdered.isPresent()) {
-//                return kOptionalKColumnOrdered;
-//            }
-//        }
-//        
-//        return KOptionalKColumnOrdered.getNullInstance();
-//    }
+    /*
+     * This method allows obtaining a KOptionalKColumnOrdered from a String value (orderBy), very useful for generic cases such as DTO methods.
+     */
+    public static KOptionalKColumnOrdered getKColumnOrderedByName(
+        final String orderBy,
+        final Integer order,
+        final KTable... kTables
+    ) {
+        KUtils.assertNotNull(kTables, "kTables");
+        
+        if (orderBy == null || order == null) {
+            return KOptionalKColumnOrdered.getNullInstance();
+        }
+        
+        for (final KTable kTable : kTables) {
+            final KOptionalKColumnOrdered kOptionalKColumnOrdered = kTable.getOrderBy(orderBy, order);
+            
+            if (kOptionalKColumnOrdered.isPresent()) {
+                return kOptionalKColumnOrdered;
+            }
+        }
+        
+        return KOptionalKColumnOrdered.getNullInstance();
+    }
     
     public static KColumn getJsonArray(
         final KColumn kColumn,

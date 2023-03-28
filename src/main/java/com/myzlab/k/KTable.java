@@ -1,9 +1,16 @@
 package com.myzlab.k;
 
+import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.optional.KOptionalKColumnOrdered;
+import java.lang.reflect.Field;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Data
 public class KTable {
+    
+    final static Logger logger = LoggerFactory.getLogger(KCrudRepositoryUtils.class);
     
     protected final String schema;
     protected final String name;
@@ -175,31 +182,32 @@ public class KTable {
         return null;
     }
     
-//    public KOptionalKColumnOrdered getOrderBy(
-//        final String orderBy,
-//        final Integer order
-//    ) {
-//        final Field[] publicFields = getClass().getFields();
-//        
-//        for (final Field publicField : publicFields) {
-//            if (publicField.getType().equals(KTableColumn.class)) {
-//                try {
-//                    final KTableColumn kTableColumn = (KTableColumn) publicField.get(this);
-//                    
-//                    if (kTableColumn.sb.toString().equals(orderBy)) {
-//                        if (order > 0) {
-//                            return KOptionalKColumnOrdered.getInstance(kTableColumn.asc());
-//                        }
-//                        
-//                        return KOptionalKColumnOrdered.getInstance(kTableColumn.desc());
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    throw KExceptionHelper.internalServerError(e.getMessage());
-//                }
-//            }
-//        }
-//        
-//        return KOptionalKColumnOrdered.getNullInstance();
-//    }
+    public KOptionalKColumnOrdered getOrderBy(
+        final String orderBy,
+        final Integer order
+    ) {
+        final Field[] publicFields = getClass().getFields();
+        
+        for (final Field publicField : publicFields) {
+            if (publicField.getType().equals(KTableColumn.class)) {
+                try {
+                    final KTableColumn kTableColumn = (KTableColumn) publicField.get(this);
+                    
+                    if (kTableColumn.sb.toString().equals(orderBy)) {
+                        if (order > 0) {
+                            return KOptionalKColumnOrdered.getInstance(kTableColumn.asc());
+                        }
+                        
+                        return KOptionalKColumnOrdered.getInstance(kTableColumn.desc());
+                    }
+                } catch (Exception e) {
+                    logger.error("An error ocurred while getting KOptionalKColumnOrdered in KTable", e);
+                    
+                    throw KExceptionHelper.internalServerError(e.getMessage());
+                }
+            }
+        }
+        
+        return KOptionalKColumnOrdered.getNullInstance();
+    }
 }
