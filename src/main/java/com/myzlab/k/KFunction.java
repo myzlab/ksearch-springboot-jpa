@@ -4635,12 +4635,12 @@ public class KFunction {
     }
     
     public static KTuple tuple(
-        final KBaseColumn... KBaseColumns
+        final KBaseColumnCastable... KBaseColumnCastables
     ) {
-        KUtils.assertNotNull(KBaseColumns, "KBaseColumns");
+        KUtils.assertNotNull(KBaseColumnCastables, "KBaseColumnCastables");
         
-        if (KBaseColumns.length < 2) {
-            throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two KBaseColumns");
+        if (KBaseColumnCastables.length < 2) {
+            throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two KBaseColumnCastables");
         }
         
         final KTuple tuple = new KTuple();
@@ -4649,8 +4649,8 @@ public class KFunction {
         
         tuple.sb.append("(");
         
-        for (final KBaseColumn kBaseColumn : KBaseColumns) {
-            if (kBaseColumn == null) {
+        for (final KBaseColumnCastable kBaseColumnCastable : KBaseColumnCastables) {
+            if (kBaseColumnCastable == null) {
                 continue;
             }
             
@@ -4662,8 +4662,8 @@ public class KFunction {
                 first = false;
             }
             
-            tuple.sb.append(kBaseColumn.sb);
-            tuple.params.addAll(kBaseColumn.params);
+            tuple.sb.append(kBaseColumnCastable.sb);
+            tuple.params.addAll(kBaseColumnCastable.params);
         }
         
         tuple.sb.append(")");
@@ -4672,7 +4672,7 @@ public class KFunction {
     }
     
     public static KTuple tuple(
-        final List<?> list,
+        final List<Object> list,
         final KTupleFunction kTupleFunction
     ) {
         KUtils.assertNotNullNotEmpty(list, "list", false);
