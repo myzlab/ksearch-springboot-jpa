@@ -88,5 +88,10 @@ public class KFromUpdate extends KQueryUpdate {
         }
             
         this.kQueryUpdateData.sb.append(kTable.toSql(true));
+        
+        if (kTable.kTuple != null) {
+            kQueryUpdateData.sb.append(" ").append(kTable.kTuple.sb);
+            kQueryUpdateData.params.addAll(kTable.kTuple.params);
+        }
     }
 }
