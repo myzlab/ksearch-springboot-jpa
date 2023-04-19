@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 
 public class KCollection<T extends KRow> {
@@ -784,6 +785,12 @@ public class KCollection<T extends KRow> {
         }
         
         return items;
+    }
+    
+    public String toJson() {
+        final List<Map<String, Object>> items = this.toList();
+        
+        return new JSONArray(items).toString();
     }
     
     public ResponseEntity buildResponse() {

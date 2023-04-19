@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -990,15 +991,15 @@ public class KRow {
 //        return toMap(new ArrayList<>());
 //    }
     
-    public Map<String, Object> toMap(
-        final String property
-    ) {
-        if (property == null) {
-            return toMap();
-        }
-        
-        return toMap();//new ArrayList() {{ add(property); }}
-    }
+//    public Map<String, Object> toMap(
+//        final String property
+//    ) {
+//        if (property == null) {
+//            return toMap();
+//        }
+//        
+//        return toMap();//new ArrayList() {{ add(property); }}
+//    }
     
     public Map<String, Object> toMap(
         //final List<String> exclude
@@ -1058,6 +1059,12 @@ public class KRow {
         }
         
         return map;
+    }
+    
+    public String toJson() {
+        final Map<String, Object> item = this.toMap();
+        
+        return new JSONObject(item).toString();
     }
     
     private Map<String, Object> toResponse() {
