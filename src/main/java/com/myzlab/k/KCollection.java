@@ -787,7 +787,7 @@ public class KCollection<T extends KRow> {
         return items;
     }
     
-    public String toJson() {
+    public String toJSON() {
         final List<Map<String, Object>> items = this.toList();
         
         return new JSONArray(items).toString();

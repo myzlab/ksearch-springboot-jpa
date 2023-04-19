@@ -1061,7 +1061,7 @@ public class KRow {
         return map;
     }
     
-    public String toJson() {
+    public String toJSON() {
         final Map<String, Object> item = this.toMap();
         
         return new JSONObject(item).toString();
