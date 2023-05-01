@@ -35,7 +35,7 @@ public class KEmptyValues {
     }
     
     public KValues append(
-        final List<Object> list,
+        final List<?> list,
         final KValuesFunction kAppendValuesFunction
     ) {
         KUtils.assertNotNullNotEmpty(list, "list", false);
