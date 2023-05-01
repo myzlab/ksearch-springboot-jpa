@@ -39,10 +39,8 @@ public class KCaseFilled {
         return new KCaseFilled(sb, params, new KColumn(new StringBuilder(kRaw.content), kRaw.params, false));
     }
     
-    public KCaseAliased as(
-        final String alias
-    ) {
-        return KCaseAliased.getInstance(this.sb, this.params, alias);
+    public KCaseEnded end() {
+        return KCaseEnded.getInstance(this.sb, this.params);
     }
     
     private void process(

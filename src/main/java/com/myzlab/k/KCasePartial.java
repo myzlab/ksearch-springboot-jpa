@@ -57,10 +57,8 @@ public class KCasePartial {
         return KCaseFilled.getInstance(this.sb, this.params, kRaw);
     }
     
-    public KCaseAliased as(
-        final String alias
-    ) {
-        return KCaseAliased.getInstance(this.sb, this.params, alias);
+    public KCaseEnded end() {
+        return KCaseEnded.getInstance(this.sb, this.params);
     }
     
     private void process(
