@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.optional.KOptionalKCondition;
 
 public class KFromUpdate extends KQueryUpdate {
 
@@ -56,6 +57,12 @@ public class KFromUpdate extends KQueryUpdate {
         final KCondition kCondition
     ) {
         return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, kCondition);
+    }
+    
+    public KWhereUpdate where(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, !kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
     }
     
     public KWhereUpdate where(

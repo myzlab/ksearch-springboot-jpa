@@ -5,6 +5,7 @@ import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import com.myzlab.k.optional.KOptionalKCondition;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -62,6 +63,14 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KWhere andNot(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.andNot(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
+        
+        return this;
+    }
+    
+    public KWhere andNot(
         final KRaw kRaw
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
@@ -77,6 +86,14 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         this.kCondition.orNot(kCondition);
+        
+        return this;
+    }
+    
+    public KWhere orNot(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.orNot(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
         
         return this;
     }
@@ -102,6 +119,14 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
     }
     
     public KWhere and(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.and(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
+        
+        return this;
+    }
+    
+    public KWhere and(
         final KRaw kRaw
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
@@ -117,6 +142,14 @@ public class KWhere extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         this.kCondition.or(kCondition);
+        
+        return this;
+    }
+    
+    public KWhere or(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.or(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
         
         return this;
     }

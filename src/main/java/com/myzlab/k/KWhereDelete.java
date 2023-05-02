@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.optional.KOptionalKCondition;
 
 public class KWhereDelete extends KQueryDelete {
     
@@ -42,6 +43,14 @@ public class KWhereDelete extends KQueryDelete {
     }
     
     public KWhereDelete andNot(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.andNot(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
+        
+        return this;
+    }
+    
+    public KWhereDelete andNot(
         final KRaw kRaw
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
@@ -57,6 +66,14 @@ public class KWhereDelete extends KQueryDelete {
         final KCondition kCondition
     ) {
         this.kCondition.orNot(kCondition);
+        
+        return this;
+    }
+    
+    public KWhereDelete orNot(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.orNot(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
         
         return this;
     }
@@ -82,6 +99,14 @@ public class KWhereDelete extends KQueryDelete {
     }
     
     public KWhereDelete and(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.and(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
+        
+        return this;
+    }
+    
+    public KWhereDelete and(
         final KRaw kRaw
     ) {
         KUtils.assertNotNull(kRaw, "kRaw");
@@ -97,6 +122,14 @@ public class KWhereDelete extends KQueryDelete {
         final KCondition kCondition
     ) {
         this.kCondition.or(kCondition);
+        
+        return this;
+    }
+    
+    public KWhereDelete or(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        this.kCondition.or(!kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
         
         return this;
     }

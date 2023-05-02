@@ -6,6 +6,7 @@ import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import com.myzlab.k.optional.KOptionalKCondition;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.ArrayList;
 import java.util.List;
@@ -359,6 +360,12 @@ public class KSelect extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         return KWhere.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
+    }
+    
+    public KWhere where(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        return KWhere.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, !kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
     }
     
     public KWhere where(

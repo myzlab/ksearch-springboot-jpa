@@ -8,6 +8,7 @@ import com.myzlab.k.optional.KOptionalKAliasedColumn;
 import com.myzlab.k.optional.KOptionalKJoinDefinition;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKColumnOrdered;
+import com.myzlab.k.optional.KOptionalKCondition;
 import com.myzlab.k.optional.KOptionalKValNumberField;
 import com.myzlab.k.optional.KOptionalKValTextField;
 import com.myzlab.k.optional.KOptionalLocalDate;
@@ -3240,6 +3241,12 @@ public class KFunction {
         final KJoinDefinition kJoinDefinition
     ) {
         return KOptionalKJoinDefinition.getInstance(kJoinDefinition);
+    }
+    
+    public static KOptionalKCondition optional(
+        final KCondition kCondition
+    ) {
+        return KOptionalKCondition.getInstance(kCondition);
     }
     
     public static KColumn overlay(

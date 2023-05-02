@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.optional.KOptionalKCondition;
 
 public class KDeleteFrom extends KQueryDelete {
 
@@ -75,6 +76,12 @@ public class KDeleteFrom extends KQueryDelete {
         final KCondition kCondition
     ) {
         return KWhereDelete.getInstance(this.k, this.kQueryDeleteData, kCondition);
+    }
+    
+    public KWhereDelete where(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        return KWhereDelete.getInstance(this.k, this.kQueryDeleteData, !kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
     }
     
     public KWhereDelete where(

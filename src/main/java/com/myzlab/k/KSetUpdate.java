@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
+import com.myzlab.k.optional.KOptionalKCondition;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,6 +121,12 @@ public class KSetUpdate extends KQueryUpdate {
         final KCondition kCondition
     ) {
         return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, kCondition);
+    }
+    
+    public KWhereUpdate where(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        return KWhereUpdate.getInstance(this.k, this.kQueryUpdateData, !kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
     }
     
     public KWhereUpdate where(

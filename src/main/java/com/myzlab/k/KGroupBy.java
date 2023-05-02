@@ -5,6 +5,7 @@ import com.myzlab.k.allowed.KColumnAllowedToGroupBy;
 import com.myzlab.k.allowed.KColumnAllowedToOrderBy;
 import com.myzlab.k.allowed.KQueryAllowedToCombining;
 import com.myzlab.k.allowed.KWindowDefinitionAllowedToWindow;
+import com.myzlab.k.optional.KOptionalKCondition;
 import com.myzlab.k.optional.KOptionalLong;
 import java.util.List;
 
@@ -49,6 +50,12 @@ public class KGroupBy extends KQuery implements KQueryAllowedToCombining {
         final KCondition kCondition
     ) {
         return KHaving.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kCondition);
+    }
+    
+    public KHaving having(
+        final KOptionalKCondition kOptionalKCondition
+    ) {
+        return KHaving.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, !kOptionalKCondition.isPresent() ? KCondition.getEmptyInstance() : kOptionalKCondition.get());
     }
     
     public KHaving having(
