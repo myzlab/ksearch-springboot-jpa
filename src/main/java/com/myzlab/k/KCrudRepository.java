@@ -366,13 +366,13 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute(getKRowClass());
     }
     
-    public int update(
+    public int updateById(
         final T entity
     ) {
-        return update(getK().getEntityManagerDefaultName(), entity);
+        return updateById(getK().getEntityManagerDefaultName(), entity);
     }
     
-    public int update(
+    public int updateById(
         final String jdbc,
         final T entity
     ) {
@@ -389,14 +389,14 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute();
     }
     
-    public T update(
+    public T updateById(
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return update(getK().getEntityManagerDefaultName(), entity, kColumnsAllowedToReturning);
+        return updateById(getK().getEntityManagerDefaultName(), entity, kColumnsAllowedToReturning);
     }
     
-    public T update(
+    public T updateById(
         final String jdbc,
         final T entity,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
@@ -416,13 +416,13 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .getFirst();
     }
     
-    public int update(
+    public int updateById(
         final List<T> entities
     ) {
-        return update(getK().getEntityManagerDefaultName(), entities);
+        return updateById(getK().getEntityManagerDefaultName(), entities);
     }
     
-    public int update(
+    public int updateById(
         final String jdbc,
         final List<T> entities
     ) {
@@ -441,14 +441,14 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute();
     }
     
-    public KCollection<T> update(
+    public KCollection<T> updateById(
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return update(getK().getEntityManagerDefaultName(), entities, kColumnsAllowedToReturning);
+        return updateById(getK().getEntityManagerDefaultName(), entities, kColumnsAllowedToReturning);
     }
     
-    public KCollection<T> update(
+    public KCollection<T> updateById(
         final String jdbc,
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning

@@ -37,6 +37,10 @@ public class KExceptionHelper {
         return new KException(HttpStatus.I_AM_A_TEAPOT, message);
     }
     
+    public static KException createByHttpStatus(final HttpStatus httpStatus, final String message) {
+        return new KException(httpStatus, message);
+    }
+    
     public static KException createByStatusCode(final int statusCode, final String message) {
         switch (statusCode) {
             case 200:
