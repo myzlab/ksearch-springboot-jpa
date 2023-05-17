@@ -807,7 +807,11 @@ public class KQueryUtils {
                 return (T) UUID.fromString((String) v);
             }
             
-            return (T) v;
+            if (v instanceof UUID) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         if (clazz == Long.class) {
@@ -815,7 +819,11 @@ public class KQueryUtils {
                 return (T) new Long(((BigInteger) v).longValue());
             }
 
-            return (T) v;
+            if (v instanceof Long) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         if (clazz == Integer.class) {
@@ -827,7 +835,11 @@ public class KQueryUtils {
                 return (T) new Long(((BigInteger) v).longValue());
             }
         
-            return (T) v;
+            if (v instanceof Integer) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         if (clazz == Double.class) {
@@ -835,7 +847,11 @@ public class KQueryUtils {
                 return (T) new Double(((BigDecimal) v).doubleValue());
             }
             
-            return (T) v;
+            if (v instanceof Double) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         if (clazz == LocalDateTime.class) {
@@ -843,7 +859,11 @@ public class KQueryUtils {
                 return (T) ((Timestamp) v).toLocalDateTime();
             }
             
-            return (T) v;
+            if (v instanceof LocalDateTime) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         if (clazz == LocalDate.class) {
@@ -851,7 +871,11 @@ public class KQueryUtils {
                 return (T) ((Date) v).toLocalDate();
             }
             
-            return (T) v;
+            if (v instanceof LocalDate) {
+                return (T) v;
+            }
+            
+            return null;
         }
         
         return (T) v;
