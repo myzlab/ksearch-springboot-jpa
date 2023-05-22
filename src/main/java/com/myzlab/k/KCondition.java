@@ -744,7 +744,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processIBinaryOperator(kColumn1, kColumn2, "LIKE");
+        kCondition.processBinaryOperator(kColumn1, kColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -755,7 +755,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processIBinaryOperator(kColumn, kValTextField, "LIKE");
+        kCondition.processBinaryOperator(kColumn, kValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -766,7 +766,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processIBinaryOperator(kValTextField, kColumn, "LIKE");
+        kCondition.processBinaryOperator(kValTextField, kColumn, "ILIKE");
         
         return kCondition;
     }
@@ -777,7 +777,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processIBinaryOperator(kValTextField1, kValTextField2, "LIKE");
+        kCondition.processBinaryOperator(kValTextField1, kValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -790,7 +790,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT('%', ").append(", '%')");
         
-        kCondition.processIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -808,7 +808,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT('%', ").append(", '%')");
         }
         
-        kCondition.processIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -821,7 +821,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT('%', ").append(", '%')");
         
-        kCondition.processIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -839,7 +839,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT('%', ").append(", '%')");
         }
         
-        kCondition.processIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -852,7 +852,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT('%', ").append("')");
         
-        kCondition.processIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -870,7 +870,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT('%', ").append(")");
         }
         
-        kCondition.processIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -883,7 +883,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT('%', ").append(")");
         
-        kCondition.processIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -901,7 +901,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT('%', ").append(")");
         }
         
-        kCondition.processIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -914,7 +914,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT(").append(", '%')");
         
-        kCondition.processIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -932,7 +932,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT(").append(", '%')");
         }
         
-        kCondition.processIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -945,7 +945,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT(").append(", '%')");
         
-        kCondition.processIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -963,7 +963,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT(").append(", '%')");
         }
         
-        kCondition.processIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -1916,7 +1916,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processNotIBinaryOperator(kColumn1, kColumn2, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn1, kColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -1927,7 +1927,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processNotIBinaryOperator(kColumn, kValTextField, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn, kValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -1938,7 +1938,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processNotIBinaryOperator(kValTextField, kColumn, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField, kColumn, "ILIKE");
         
         return kCondition;
     }
@@ -1949,7 +1949,7 @@ public class KCondition implements KColumnAllowedToSelect {
     ) {
         final KCondition kCondition = new KCondition();
         
-        kCondition.processNotIBinaryOperator(kValTextField1, kValTextField2, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField1, kValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -1962,7 +1962,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT('%', ").append(", '%')");
         
-        kCondition.processNotIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -1980,7 +1980,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT('%', ").append(", '%')");
         }
         
-        kCondition.processNotIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -1993,7 +1993,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT('%', ").append(", '%')");
         
-        kCondition.processNotIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -2011,7 +2011,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT('%', ").append(", '%')");
         }
         
-        kCondition.processNotIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -2024,7 +2024,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT('%', ").append("')");
         
-        kCondition.processNotIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -2042,7 +2042,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT('%', ").append(")");
         }
         
-        kCondition.processNotIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -2055,7 +2055,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT('%', ").append(")");
         
-        kCondition.processNotIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -2073,7 +2073,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT('%', ").append(")");
         }
         
-        kCondition.processNotIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
@@ -2086,7 +2086,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn2 = kColumn2.cloneMe();
         newKColumn2.sb.insert(0, "CONCAT(").append(", '%')");
         
-        kCondition.processNotIBinaryOperator(kColumn1, newKColumn2, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn1, newKColumn2, "ILIKE");
         
         return kCondition;
     }
@@ -2104,7 +2104,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField.sb.insert(0, "CONCAT(").append(", '%')");
         }
         
-        kCondition.processNotIBinaryOperator(kColumn, newValTextField, "LIKE");
+        kCondition.processNotBinaryOperator(kColumn, newValTextField, "ILIKE");
         
         return kCondition;
     }
@@ -2117,7 +2117,7 @@ public class KCondition implements KColumnAllowedToSelect {
         final KColumn newKColumn = kColumn.cloneMe();
         newKColumn.sb.insert(0, "CONCAT(").append(", '%')");
         
-        kCondition.processNotIBinaryOperator(kValTextField, newKColumn, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField, newKColumn, "ILIKE");
         
         return kCondition;
     }
@@ -2135,7 +2135,7 @@ public class KCondition implements KColumnAllowedToSelect {
             newValTextField2.sb.insert(0, "CONCAT(").append(", '%')");
         }
         
-        kCondition.processNotIBinaryOperator(kValTextField1, newValTextField2, "LIKE");
+        kCondition.processNotBinaryOperator(kValTextField1, newValTextField2, "ILIKE");
         
         return kCondition;
     }
