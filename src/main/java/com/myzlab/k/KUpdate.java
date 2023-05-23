@@ -58,6 +58,16 @@ public class KUpdate extends KQueryUpdate {
     
     public KSetUpdate set(
         final KTableColumn kTableColumn,
+        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
+        final String castRule
+    ) {
+        KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
+        
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, castRule);
+    }
+    
+    public KSetUpdate set(
+        final KTableColumn kTableColumn,
         final KQuery kQuery
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
@@ -78,6 +88,22 @@ public class KUpdate extends KQueryUpdate {
         final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
         
         return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue);
+    }
+    
+    public KSetUpdate set(
+        final KTableColumn kTableColumn,
+        final Object object,
+        final String castRule
+    ) {
+        final List<Object> params = new ArrayList();
+        
+        if (object != null) {
+            params.add(object);
+        }
+        
+        final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
+        
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue, castRule);
     }
     
     private void process(

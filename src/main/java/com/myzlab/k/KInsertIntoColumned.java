@@ -1,5 +1,7 @@
 package com.myzlab.k;
 
+import java.util.Map;
+
 public class KInsertIntoColumned extends KQueryInsertInto {
 
     private KInsertIntoColumned(
@@ -30,6 +32,13 @@ public class KInsertIntoColumned extends KQueryInsertInto {
         final KValues kValues
     ) {
         return KInsertIntoFilled.getInstance(this.k, this.kQueryInsertIntoData, kValues);
+    }
+    
+    public KInsertIntoFilled values(
+        final KValues kValues,
+        final Map<Integer, String> castRules
+    ) {
+        return KInsertIntoFilled.getInstance(this.k, this.kQueryInsertIntoData, kValues, castRules);
     }
     
     public KInsertIntoFilled select(

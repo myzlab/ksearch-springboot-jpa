@@ -1,7 +1,9 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class KInsertIntoFilled extends KQueryInsertInto {
 
@@ -28,7 +30,18 @@ public class KInsertIntoFilled extends KQueryInsertInto {
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        this.process(kValues);
+        this.process(kValues, new HashMap<>());
+    }
+    
+    private KInsertIntoFilled(
+        final KExecutor kExecutor,
+        final KQueryInsertIntoData kQueryInsertIntoData,
+        final KValues kValues,
+        final Map<Integer, String> castRules
+    ) {
+        super(kQueryInsertIntoData, kExecutor);
+        
+        this.process(kValues, castRules);
     }
     
     protected static KInsertIntoFilled getInstance(
@@ -47,6 +60,15 @@ public class KInsertIntoFilled extends KQueryInsertInto {
         return new KInsertIntoFilled(kExecutor, kQueryInsertIntoData, kValues);
     }
     
+    protected static KInsertIntoFilled getInstance(
+        final KExecutor kExecutor,
+        final KQueryInsertIntoData kQueryInsertIntoData,
+        final KValues kValues,
+        final Map<Integer, String> castRules
+    ) {
+        return new KInsertIntoFilled(kExecutor, kQueryInsertIntoData, kValues, castRules);
+    }
+    
     public KInsertIntoOnConflict onConflict() {
         return KInsertIntoOnConflict.getInstance(this.k, this.kQueryInsertIntoData);
     }
@@ -58,7 +80,8 @@ public class KInsertIntoFilled extends KQueryInsertInto {
     }
     
     private void process(
-        final KValues kValues
+        final KValues kValues,
+        final Map<Integer, String> castRules
     ) {
         this.kQueryInsertIntoData.sb.append(" VALUES ");
         
@@ -86,7 +109,12 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                     this.kQueryInsertIntoData.sb.append(((KRaw) value).content);
                     this.kQueryInsertIntoData.params.addAll(((KRaw) value).params);
                 } else {
-                    this.kQueryInsertIntoData.sb.append("?");
+                    if (castRules.containsKey(j)) {
+                        this.kQueryInsertIntoData.sb.append("CAST(? AS ").append(castRules.get(j)).append(")");
+                    } else {
+                        this.kQueryInsertIntoData.sb.append("?");
+                    }
+                    
                     this.kQueryInsertIntoData.params.add(value);
                 }
             }

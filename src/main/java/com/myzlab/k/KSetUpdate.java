@@ -20,7 +20,19 @@ public class KSetUpdate extends KQueryUpdate {
     ) {
         super(kQueryUpdateData, kExecutor);
         
-        this.process(kTableColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, null);
+    }
+    
+    private KSetUpdate(
+        final KExecutor kExecutor,
+        final KQueryUpdateData kQueryUpdateData,
+        final KTableColumn kTableColumn,
+        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
+        final String castRule
+    ) {
+        super(kQueryUpdateData, kExecutor);
+        
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, castRule);
     }
     
     private KSetUpdate(
@@ -41,6 +53,16 @@ public class KSetUpdate extends KQueryUpdate {
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
     ) {
         return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate);
+    }
+    
+    protected static KSetUpdate getInstance(
+        final KExecutor kExecutor,
+        final KQueryUpdateData kQueryUpdateData,
+        final KTableColumn kTableColumn,
+        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
+        final String castRule
+    ) {
+        return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, castRule);
     }
     
     protected static KSetUpdate getInstance(
@@ -84,7 +106,19 @@ public class KSetUpdate extends KQueryUpdate {
     ) {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
-        this.process(kTableColumn, kColumnAllowedToSetUpdate);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, null);
+        
+        return this;
+    }
+    
+    public KSetUpdate set(
+        final KTableColumn kTableColumn,
+        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
+        final String castRule
+    ) {
+        KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
+        
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, castRule);
         
         return this;
     }
@@ -112,7 +146,25 @@ public class KSetUpdate extends KQueryUpdate {
         
         final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
         
-        this.process(kTableColumn, kColumnValue);
+        this.process(kTableColumn, kColumnValue, null);
+        
+        return this;
+    }
+    
+    public KSetUpdate set(
+        final KTableColumn kTableColumn,
+        final Object object,
+        final String castRule
+    ) {
+        final List<Object> params = new ArrayList();
+        
+        if (object != null) {
+            params.add(object);
+        }
+        
+        final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
+        
+        this.process(kTableColumn, kColumnValue, object != null ? castRule : null);
         
         return this;
     }
@@ -145,7 +197,8 @@ public class KSetUpdate extends KQueryUpdate {
     
     private void process(
         final KTableColumn kTableColumn,
-        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate
+        final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
+        final String castRule
     ) {
         KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
@@ -158,8 +211,16 @@ public class KSetUpdate extends KQueryUpdate {
         
         this.kQueryUpdateData.setValuesAdded++;
         
+        final String v;
+        
+        if (castRule != null && !castRule.isEmpty()) {
+            v = "CAST(" + kColumnAllowedToSetUpdate.getSqlToSet() + " AS " + castRule + ")";
+        } else {
+            v = kColumnAllowedToSetUpdate.getSqlToSet();
+        }
+        
         this.kQueryUpdateData.params.addAll(kColumnAllowedToSetUpdate.getParams());
-        this.kQueryUpdateData.sb.append(kTableColumn.name).append(" = ").append(kColumnAllowedToSetUpdate.getSqlToSet());
+        this.kQueryUpdateData.sb.append(kTableColumn.name).append(" = ").append(v);
     }
     
     private void process(

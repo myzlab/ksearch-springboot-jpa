@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface KMetadata {
     public String name() default "";
+    public String castRule() default "";
 }
