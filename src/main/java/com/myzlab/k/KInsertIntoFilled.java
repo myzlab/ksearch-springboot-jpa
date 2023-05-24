@@ -37,11 +37,11 @@ public class KInsertIntoFilled extends KQueryInsertInto {
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
         final KValues kValues,
-        final Map<Integer, String> castRules
+        final Map<Integer, String> columnsDataType
     ) {
         super(kQueryInsertIntoData, kExecutor);
         
-        this.process(kValues, castRules);
+        this.process(kValues, columnsDataType);
     }
     
     protected static KInsertIntoFilled getInstance(
@@ -64,9 +64,9 @@ public class KInsertIntoFilled extends KQueryInsertInto {
         final KExecutor kExecutor,
         final KQueryInsertIntoData kQueryInsertIntoData,
         final KValues kValues,
-        final Map<Integer, String> castRules
+        final Map<Integer, String> columnsDataType
     ) {
-        return new KInsertIntoFilled(kExecutor, kQueryInsertIntoData, kValues, castRules);
+        return new KInsertIntoFilled(kExecutor, kQueryInsertIntoData, kValues, columnsDataType);
     }
     
     public KInsertIntoOnConflict onConflict() {
@@ -81,7 +81,7 @@ public class KInsertIntoFilled extends KQueryInsertInto {
     
     private void process(
         final KValues kValues,
-        final Map<Integer, String> castRules
+        final Map<Integer, String> columnsDataType
     ) {
         this.kQueryInsertIntoData.sb.append(" VALUES ");
         
@@ -109,8 +109,8 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                     this.kQueryInsertIntoData.sb.append(((KRaw) value).content);
                     this.kQueryInsertIntoData.params.addAll(((KRaw) value).params);
                 } else {
-                    if (castRules.containsKey(j)) {
-                        this.kQueryInsertIntoData.sb.append("CAST(? AS ").append(castRules.get(j)).append(")");
+                    if (columnsDataType.containsKey(j)) {
+                        this.kQueryInsertIntoData.sb.append("CAST(? AS ").append(columnsDataType.get(j)).append(")");
                     } else {
                         this.kQueryInsertIntoData.sb.append("?");
                     }

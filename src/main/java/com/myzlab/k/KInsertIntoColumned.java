@@ -36,9 +36,9 @@ public class KInsertIntoColumned extends KQueryInsertInto {
     
     public KInsertIntoFilled values(
         final KValues kValues,
-        final Map<Integer, String> castRules
+        final Map<Integer, String> columnsDataType
     ) {
-        return KInsertIntoFilled.getInstance(this.k, this.kQueryInsertIntoData, kValues, castRules);
+        return KInsertIntoFilled.getInstance(this.k, this.kQueryInsertIntoData, kValues, columnsDataType);
     }
     
     public KInsertIntoFilled select(

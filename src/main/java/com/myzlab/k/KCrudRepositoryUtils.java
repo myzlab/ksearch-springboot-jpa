@@ -66,7 +66,7 @@ public class KCrudRepositoryUtils {
         final List<String> dirtyProperties,
         final List<KTableColumn> columns,
         final List<Object> values,
-        final Map<Integer, String> castRules,
+        final Map<Integer, String> columnsDataType,
         final T entity,
         final List<String> dirtyPropertiesOrdered,
         final boolean skipPrimaryKey
@@ -85,7 +85,7 @@ public class KCrudRepositoryUtils {
             }
             
             final String metadataName = metadata.name();
-            final String castRule = metadata.castRule();
+            final String columnDataType = metadata.columnDataType();
             
             if (skipPrimaryKey) {
                 final Id id = field.getAnnotation(Id.class);
@@ -103,8 +103,8 @@ public class KCrudRepositoryUtils {
                 dirtyPropertiesOrdered.add(field.getName());
             }
             
-            if (castRule != null && !castRule.isEmpty()) {
-                castRules.put(i, castRule);
+            if (columnDataType != null && !columnDataType.isEmpty()) {
+                columnsDataType.put(i, columnDataType);
             }
             
             i++;
@@ -137,7 +137,7 @@ public class KCrudRepositoryUtils {
     ) {
         final List<KTableColumn> columns = new ArrayList<>();
         final List<Object> values = new ArrayList<>();
-        final Map<Integer, String> castRules = new HashMap<>();
+        final Map<Integer, String> columnsDataType = new HashMap<>();
         
         KCrudRepositoryUtils.getColumnsAndValues(
             kMetadataClazz,
@@ -146,7 +146,7 @@ public class KCrudRepositoryUtils {
             entity.getDirtyProperties(),
             columns,
             values,
-            castRules,
+            columnsDataType,
             entity,
             null,
             false
@@ -164,7 +164,7 @@ public class KCrudRepositoryUtils {
             .jdbc(jdbc)
             .insertInto(kTableMetadata)
             .columns(columns.toArray(new KTableColumn[columns.size()]))
-            .values(kValues, castRules);
+            .values(kValues, columnsDataType);
     }
     
     protected static <T extends KRow> KInsertIntoFilled getKQueryBaseToInsert(
@@ -177,7 +177,7 @@ public class KCrudRepositoryUtils {
     ) {
         final List<KTableColumn> columns = new ArrayList<>();
         final List<String> dirtyPropertiesOrdered = new ArrayList<>();
-        final Map<Integer, String> castRules = new HashMap<>();
+        final Map<Integer, String> columnsDataType = new HashMap<>();
         
         KCrudRepositoryUtils.getColumnsAndValues(
             kMetadataClazz,
@@ -186,7 +186,7 @@ public class KCrudRepositoryUtils {
             KCrudRepositoryUtils.getDirtyProperties(entities),
             columns,
             null,
-            castRules,
+            columnsDataType,
             null,
             dirtyPropertiesOrdered,
             false
@@ -223,7 +223,7 @@ public class KCrudRepositoryUtils {
             .jdbc(jdbc)
             .insertInto(kTableMetadata)
             .columns(columns.toArray(new KTableColumn[columns.size()]))
-            .values(kValues, castRules);
+            .values(kValues, columnsDataType);
     }
     
     protected static <T extends KRow> KWhereUpdate getKQueryBaseToUpdate(
@@ -241,7 +241,7 @@ public class KCrudRepositoryUtils {
         
         final List<KTableColumn> columns = new ArrayList<>();
         final List<Object> values = new ArrayList<>();
-        final Map<Integer, String> castRules = new HashMap<>();
+        final Map<Integer, String> columnsDataType = new HashMap<>();
         
         KCrudRepositoryUtils.getColumnsAndValues(
             kMetadataClazz,
@@ -250,7 +250,7 @@ public class KCrudRepositoryUtils {
             entity.getDirtyProperties(),
             columns,
             values,
-            castRules,
+            columnsDataType,
             entity,
             null,
             true
@@ -264,10 +264,10 @@ public class KCrudRepositoryUtils {
             k
             .jdbc(jdbc)
             .update(kTableMetadata)
-            .set(columns.get(0), values.get(0), castRules.get(0));
+            .set(columns.get(0), values.get(0), columnsDataType.get(0));
         
         for (int i = 1; i < columns.size(); i++) {
-            kSetUpdate.set(columns.get(i), values.get(i), castRules.get(i));
+            kSetUpdate.set(columns.get(i), values.get(i), columnsDataType.get(i));
         }
         
         return
@@ -292,7 +292,7 @@ public class KCrudRepositoryUtils {
         
         final List<KTableColumn> columns = new ArrayList<>();
         final List<String> dirtyPropertiesOrdered = new ArrayList<>();
-        final Map<Integer, String> castRules = new HashMap<>();
+        final Map<Integer, String> columnsDataType = new HashMap<>();
         
         KCrudRepositoryUtils.getColumnsAndValues(
             kMetadataClazz,
@@ -301,7 +301,7 @@ public class KCrudRepositoryUtils {
             KCrudRepositoryUtils.getDirtyProperties(entities),
             columns,
             null,
-            castRules,
+            columnsDataType,
             null,
             dirtyPropertiesOrdered,
             false
@@ -363,14 +363,14 @@ public class KCrudRepositoryUtils {
             .set(
                 columnsWithoutPrimaryKey.get(0),
                 cte.c(columnsWithoutPrimaryKey.get(0).getName()),
-                castRules.get(indexId <= 0 ? 1 : 0)
+                columnsDataType.get(indexId <= 0 ? 1 : 0)
             );
         
         for (int i = 1; i < columnsWithoutPrimaryKey.size(); i++) {
             kSetUpdate.set(
                 columnsWithoutPrimaryKey.get(i),
                 cte.c(columnsWithoutPrimaryKey.get(i).getName()),
-                castRules.get(indexId <= i ? i + 1 : 0)
+                columnsDataType.get(indexId <= i ? i + 1 : 0)
             );
         }
         

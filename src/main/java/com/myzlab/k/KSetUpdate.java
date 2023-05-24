@@ -28,11 +28,11 @@ public class KSetUpdate extends KQueryUpdate {
         final KQueryUpdateData kQueryUpdateData,
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
-        final String castRule
+        final String columnDataType
     ) {
         super(kQueryUpdateData, kExecutor);
         
-        this.process(kTableColumn, kColumnAllowedToSetUpdate, castRule);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, columnDataType);
     }
     
     private KSetUpdate(
@@ -60,9 +60,9 @@ public class KSetUpdate extends KQueryUpdate {
         final KQueryUpdateData kQueryUpdateData,
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
-        final String castRule
+        final String columnDataType
     ) {
-        return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, castRule);
+        return new KSetUpdate(kExecutor, kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, columnDataType);
     }
     
     protected static KSetUpdate getInstance(
@@ -114,11 +114,11 @@ public class KSetUpdate extends KQueryUpdate {
     public KSetUpdate set(
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
-        final String castRule
+        final String columnDataType
     ) {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
-        this.process(kTableColumn, kColumnAllowedToSetUpdate, castRule);
+        this.process(kTableColumn, kColumnAllowedToSetUpdate, columnDataType);
         
         return this;
     }
@@ -154,7 +154,7 @@ public class KSetUpdate extends KQueryUpdate {
     public KSetUpdate set(
         final KTableColumn kTableColumn,
         final Object object,
-        final String castRule
+        final String columnDataType
     ) {
         final List<Object> params = new ArrayList();
         
@@ -164,7 +164,7 @@ public class KSetUpdate extends KQueryUpdate {
         
         final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
         
-        this.process(kTableColumn, kColumnValue, object != null ? castRule : null);
+        this.process(kTableColumn, kColumnValue, object != null ? columnDataType : null);
         
         return this;
     }
@@ -198,7 +198,7 @@ public class KSetUpdate extends KQueryUpdate {
     private void process(
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
-        final String castRule
+        final String columnDataType
     ) {
         KUtils.assertNotNull(kTableColumn, "kTableColumn");
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
@@ -213,8 +213,8 @@ public class KSetUpdate extends KQueryUpdate {
         
         final String v;
         
-        if (castRule != null && !castRule.isEmpty()) {
-            v = "CAST(" + kColumnAllowedToSetUpdate.getSqlToSet() + " AS " + castRule + ")";
+        if (columnDataType != null && !columnDataType.isEmpty()) {
+            v = "CAST(" + kColumnAllowedToSetUpdate.getSqlToSet() + " AS " + columnDataType + ")";
         } else {
             v = kColumnAllowedToSetUpdate.getSqlToSet();
         }

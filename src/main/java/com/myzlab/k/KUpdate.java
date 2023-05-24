@@ -59,11 +59,11 @@ public class KUpdate extends KQueryUpdate {
     public KSetUpdate set(
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
-        final String castRule
+        final String columnDataType
     ) {
         KUtils.assertNotNull(kColumnAllowedToSetUpdate, "kColumnAllowedToSetUpdate");
         
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, castRule);
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate, columnDataType);
     }
     
     public KSetUpdate set(
@@ -93,7 +93,7 @@ public class KUpdate extends KQueryUpdate {
     public KSetUpdate set(
         final KTableColumn kTableColumn,
         final Object object,
-        final String castRule
+        final String columnDataType
     ) {
         final List<Object> params = new ArrayList();
         
@@ -103,7 +103,7 @@ public class KUpdate extends KQueryUpdate {
         
         final KColumn kColumnValue = new KColumn(new StringBuilder(object == null ? "NULL" : "?"), params, false);
         
-        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue, castRule);
+        return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue, columnDataType);
     }
     
     private void process(
