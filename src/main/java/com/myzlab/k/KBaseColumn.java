@@ -15,7 +15,7 @@ public abstract class KBaseColumn {
     protected final String name;
     protected final Class type;
     protected final KTable kTable;
-    protected final String columnDataType;
+    protected final KColumnDataType columnDataType;
     
     protected KBaseColumn() {
         super();
@@ -58,7 +58,7 @@ public abstract class KBaseColumn {
         final String name,
         final Class type,
         final KTable kTable,
-        final String columnDataType
+        final KColumnDataType columnDataType
     ) {
         super();
         

@@ -44,7 +44,7 @@ public class KColumn extends KBaseColumnCastable implements
         final KTable kTable,
         final String name,
         final Class type,
-        final String columnDataType
+        final KColumnDataType columnDataType
     ) {
         super(true, name, type, kTable, columnDataType);
         

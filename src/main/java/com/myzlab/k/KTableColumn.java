@@ -33,7 +33,7 @@ public class KTableColumn extends KColumn implements
         final KTable kTable,
         final String name,
         final Class type,
-        final String columnDataType
+        final KColumnDataType columnDataType
     ) {
         super(kTable, name, type, columnDataType);
     }

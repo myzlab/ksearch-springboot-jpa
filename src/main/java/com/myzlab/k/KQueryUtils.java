@@ -519,8 +519,8 @@ public class KQueryUtils {
             kQueryData.columnsAdded++;
             kQueryData.params.addAll(kBaseColumn.params);
             
-            if (kBaseColumn instanceof KTableColumn && kBaseColumn.columnDataType != null && !kBaseColumn.columnDataType.isEmpty()) {
-                kQueryData.sb.append("CAST(").append(kBaseColumn.sb).append(" AS ").append(kBaseColumn.columnDataType).append(")");
+            if (kBaseColumn instanceof KTableColumn && kBaseColumn.columnDataType != null) {
+                kQueryData.sb.append("CAST(").append(kBaseColumn.sb).append(" AS ").append(kBaseColumn.columnDataType.castTo).append(")");
             } else {
                 kQueryData.sb.append(kBaseColumn.sb);
             }

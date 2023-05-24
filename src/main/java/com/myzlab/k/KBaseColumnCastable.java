@@ -44,7 +44,7 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         final String name,
         final Class type,
         final KTable kTable,
-        final String columnDataType
+        final KColumnDataType columnDataType
     ) {
         super(closed, name, type, kTable, columnDataType);
     }
