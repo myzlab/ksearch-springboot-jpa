@@ -29,6 +29,15 @@ public class KTableColumn extends KColumn implements
         super(kTable, name, type);
     }
     
+    public KTableColumn(
+        final KTable kTable,
+        final String name,
+        final Class type,
+        final String columnDataType
+    ) {
+        super(kTable, name, type, columnDataType);
+    }
+    
     private KTableColumn(
         final StringBuilder sb,
         final List<Object> params,

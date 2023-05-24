@@ -40,6 +40,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     protected KBaseColumnCastable(
+        final boolean closed,
+        final String name,
+        final Class type,
+        final KTable kTable,
+        final String columnDataType
+    ) {
+        super(closed, name, type, kTable, columnDataType);
+    }
+    
+    protected KBaseColumnCastable(
         final StringBuilder sb,
         final List<Object> params,
         final boolean closed

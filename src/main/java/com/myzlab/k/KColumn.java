@@ -41,6 +41,17 @@ public class KColumn extends KBaseColumnCastable implements
     }
     
     protected KColumn(
+        final KTable kTable,
+        final String name,
+        final Class type,
+        final String columnDataType
+    ) {
+        super(true, name, type, kTable, columnDataType);
+        
+        this.sb.append(kTable.alias).append(".").append(name);
+    }
+    
+    protected KColumn(
         final StringBuilder sb,
         final List<Object> params,
         final boolean closed

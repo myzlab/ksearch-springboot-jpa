@@ -15,6 +15,7 @@ public abstract class KBaseColumn {
     protected final String name;
     protected final Class type;
     protected final KTable kTable;
+    protected final String columnDataType;
     
     protected KBaseColumn() {
         super();
@@ -22,6 +23,7 @@ public abstract class KBaseColumn {
         this.name = null;
         this.type = null;
         this.kTable = null;
+        this.columnDataType = null;
     }
     
     protected KBaseColumn(
@@ -33,6 +35,7 @@ public abstract class KBaseColumn {
         this.name = null;
         this.type = null;
         this.kTable = null;
+        this.columnDataType = null;
     }
     
     protected KBaseColumn(
@@ -47,6 +50,23 @@ public abstract class KBaseColumn {
         this.name = name;
         this.type = type;
         this.kTable = kTable;
+        this.columnDataType = null;
+    }
+    
+    protected KBaseColumn(
+        final boolean closed,
+        final String name,
+        final Class type,
+        final KTable kTable,
+        final String columnDataType
+    ) {
+        super();
+        
+        this.closed = closed;
+        this.name = name;
+        this.type = type;
+        this.kTable = kTable;
+        this.columnDataType = columnDataType;
     }
     
     protected KBaseColumn(
