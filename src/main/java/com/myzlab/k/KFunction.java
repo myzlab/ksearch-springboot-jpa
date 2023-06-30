@@ -1,5 +1,6 @@
 package com.myzlab.k;
 
+import static com.myzlab.k.SqlGenSaltType.bf;
 import com.myzlab.k.functions.KTupleFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
@@ -1798,6 +1799,46 @@ public class KFunction {
         return applyTwoParameterFunction(kColumn, new KColumn(new StringBuilder("'" + destEncoding.toSql() + "'"), true), "CONVERT_TO");
     }
     
+    public static KColumn crypt(
+        final String password
+    ) {
+        return crypt(password, genSalt(bf()));
+    }
+    
+    public static KColumn crypt(
+        final String password,
+        final KColumn kColumn
+    ) {
+        KUtils.assertNotNull(password, "password");
+        KUtils.assertNotNull(kColumn, "kColumn");
+        
+        final KColumn crypKColumn = new KColumn();
+        
+        crypKColumn.sb.append("CRYPT(?, ").append(kColumn.sb).append(")");
+        
+        crypKColumn.params.add(password);
+        crypKColumn.params.addAll(kColumn.params);
+        
+        return crypKColumn;
+    }
+    
+    public static KColumn crypt(
+        final String password,
+        final String salt
+    ) {
+        KUtils.assertNotNull(password, "password");
+        KUtils.assertNotNull(salt, "salt");
+        
+        final KColumn crypKColumn = new KColumn();
+        
+        crypKColumn.sb.append("CRYPT(?, ?)");
+        
+        crypKColumn.params.add(password);
+        crypKColumn.params.add(salt);
+        
+        return crypKColumn;
+    }
+    
     public static KCommonTableExpressionNamed cte(
         final String name
     ) {
@@ -2195,6 +2236,32 @@ public class KFunction {
         genericTrimKValTextField.sb.append(")");
         
         return genericTrimKValTextField;
+    }
+    
+    public static KColumn genSalt(
+        final KGenSaltType kGenSaltType
+    ) {
+        return genSalt(kGenSaltType, null);
+    }
+    
+    public static KColumn genSalt(
+        final KGenSaltType kGenSaltType,
+        final Integer iterCount
+    ) {
+        KUtils.assertNotNull(kGenSaltType, "kGenSaltType");
+        
+        final KColumn genSaltKColumn = new KColumn();
+        
+        genSaltKColumn.sb.append("GEN_SALT(?");
+        genSaltKColumn.params.add(kGenSaltType.toSql());
+        
+        if (iterCount != null) {
+            genSaltKColumn.sb.append(", ").append(iterCount);
+        }
+        
+        genSaltKColumn.sb.append(")");
+        
+        return genSaltKColumn;
     }
     
     /*
