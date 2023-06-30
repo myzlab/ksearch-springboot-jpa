@@ -1,6 +1,6 @@
 package com.myzlab.k;
 
-import static com.myzlab.k.SqlGenSaltType.bf;
+import static com.myzlab.k.SQLAlgorithm.bf;
 import com.myzlab.k.functions.KTupleFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
@@ -2239,21 +2239,21 @@ public class KFunction {
     }
     
     public static KColumn genSalt(
-        final KGenSaltType kGenSaltType
+        final KAlgorithm kAlgorithm
     ) {
-        return genSalt(kGenSaltType, null);
+        return genSalt(kAlgorithm, null);
     }
     
     public static KColumn genSalt(
-        final KGenSaltType kGenSaltType,
+        final KAlgorithm kAlgorithm,
         final Integer iterCount
     ) {
-        KUtils.assertNotNull(kGenSaltType, "kGenSaltType");
+        KUtils.assertNotNull(kAlgorithm, "kGenSaltType");
         
         final KColumn genSaltKColumn = new KColumn();
         
         genSaltKColumn.sb.append("GEN_SALT(?");
-        genSaltKColumn.params.add(kGenSaltType.toSql());
+        genSaltKColumn.params.add(kAlgorithm.toSql());
         
         if (iterCount != null) {
             genSaltKColumn.sb.append(", ").append(iterCount);

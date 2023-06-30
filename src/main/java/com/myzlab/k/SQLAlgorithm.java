@@ -1,11 +1,11 @@
 package com.myzlab.k;
 
-import com.myzlab.k.sql.gen.salt.type.KBf;
-import com.myzlab.k.sql.gen.salt.type.KDes;
-import com.myzlab.k.sql.gen.salt.type.KMd5;
-import com.myzlab.k.sql.gen.salt.type.KXdes;
+import com.myzlab.k.sql.algorithms.KBf;
+import com.myzlab.k.sql.algorithms.KDes;
+import com.myzlab.k.sql.algorithms.KMd5;
+import com.myzlab.k.sql.algorithms.KXdes;
 
-public class SqlGenSaltType {
+public class SQLAlgorithm {
     
     public static KDes des() {
         return new KDes();
