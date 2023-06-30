@@ -1418,7 +1418,13 @@ public class KFunction {
         KUtils.assertNotNull(kBaseColumnCastable, "kBaseColumnCastable");
         KUtils.assertNotNull(kDataType, "kDataType");
         
-        final KColumn castkColumn = new KColumn(kBaseColumnCastable.sb, kBaseColumnCastable.params, true, kBaseColumnCastable.name, kBaseColumnCastable.type, kBaseColumnCastable.kTable);
+        final KColumn castkColumn;
+        
+        if (kBaseColumnCastable.kTable != null) {
+            castkColumn = new KColumn(kBaseColumnCastable.sb, kBaseColumnCastable.params, true, kBaseColumnCastable.name, kBaseColumnCastable.type, kBaseColumnCastable.kTable);
+        } else {
+            castkColumn = new KColumn(kBaseColumnCastable.sb, kBaseColumnCastable.params, true);
+        }
         
         if (!kBaseColumnCastable.closed) {
             castkColumn.sb.insert(0, "(").append(")");
