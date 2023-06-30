@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
+import com.myzlab.k.helper.KExceptionHelper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +109,9 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                 } else if (value instanceof KRaw) {
                     this.kQueryInsertIntoData.sb.append(((KRaw) value).content);
                     this.kQueryInsertIntoData.params.addAll(((KRaw) value).params);
+                } else if (value instanceof KColumn) {
+                    this.kQueryInsertIntoData.sb.append(((KColumn) value).sb);
+                    this.kQueryInsertIntoData.params.addAll(((KColumn) value).params);
                 } else {
                     if (columnsDataType.containsKey(j)) {
                         this.kQueryInsertIntoData.sb.append("CAST(? AS ").append(columnsDataType.get(j)).append(")");
