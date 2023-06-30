@@ -3,7 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 public class KUtils {
 
@@ -22,7 +22,7 @@ public class KUtils {
 
             final String quote = o instanceof String ? "'" : "";
 
-            newValue = newValue.replaceFirst(Pattern.quote("?"), quote + o.toString() + quote);
+            newValue = StringUtils.replaceOnce(newValue, "?", quote + o.toString() + quote);
         }
 
         return newValue;
