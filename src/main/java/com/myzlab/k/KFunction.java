@@ -3218,6 +3218,16 @@ public class KFunction {
         return kCondition;
     }
     
+    public static KCondition not(
+        final KColumn kColumn
+    ) {
+        final KCondition kCondition = new KCondition(kColumn.sb.toString(), kColumn.params);
+        
+        kCondition.sb.insert(0, "NOT (").append(")");
+        
+        return kCondition;
+    }
+    
     public static KColumn octetLength(
         final KColumn kColumn
     ) {
