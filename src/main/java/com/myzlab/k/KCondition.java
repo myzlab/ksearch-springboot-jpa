@@ -1,12 +1,13 @@
 package com.myzlab.k;
 
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
+import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class KCondition implements KColumnAllowedToSelect {
+public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUpdate {
     
     public final static int AND_TYPE = 1;
     public final static int OR_TYPE = 2;
@@ -2618,5 +2619,15 @@ public class KCondition implements KColumnAllowedToSelect {
     @Override
     public KBaseColumn getKBaseColumn() {
         return new KColumn(new StringBuilder(this.sb), this.params, false);
+    }
+
+    @Override
+    public String getSqlToSet() {
+        return this.sb.toString();
+    }
+
+    @Override
+    public List<Object> getParams() {
+        return this.params;
     }
 }
