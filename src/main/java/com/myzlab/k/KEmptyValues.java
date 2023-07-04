@@ -23,7 +23,7 @@ public class KEmptyValues {
     public KValues append(
         final Object... value
     ) {
-        KUtils.assertNotNullNotEmpty(value, "value", false);
+        KUtils.assertNotNullNotEmpty(value, "value");
         
         final List<Object> v = new ArrayList<>();
         
@@ -38,7 +38,7 @@ public class KEmptyValues {
         final List<?> list,
         final KValuesFunction kAppendValuesFunction
     ) {
-        KUtils.assertNotNullNotEmpty(list, "list", false);
+        KUtils.assertNotNullNotEmpty(list, "list");
         
         final List<List<Object>> values = new ArrayList<>();
                 

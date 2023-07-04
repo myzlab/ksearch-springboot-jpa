@@ -59,6 +59,10 @@ public class KUtils {
             }
             
             for (final Object o_ : (Object[]) o) {
+                if (canContainNullvalues) {
+                    continue;
+                }
+                
                 if (o_ == null) {
                     throw KExceptionHelper.internalServerError("The '" + name + "' param cannot contain null values"); 
                 }
