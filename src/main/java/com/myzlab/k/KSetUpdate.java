@@ -111,7 +111,7 @@ public class KSetUpdate extends KQueryUpdate {
         return this;
     }
     
-    public KSetUpdate set(
+    protected KSetUpdate set(
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
         final String columnDataType
@@ -151,7 +151,7 @@ public class KSetUpdate extends KQueryUpdate {
         return this;
     }
     
-    public KSetUpdate set(
+    protected KSetUpdate set(
         final KTableColumn kTableColumn,
         final Object object,
         final String columnDataType

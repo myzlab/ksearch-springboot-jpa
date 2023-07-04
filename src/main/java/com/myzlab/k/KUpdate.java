@@ -56,7 +56,7 @@ public class KUpdate extends KQueryUpdate {
         return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnAllowedToSetUpdate);
     }
     
-    public KSetUpdate set(
+    protected KSetUpdate set(
         final KTableColumn kTableColumn,
         final KColumnAllowedToSetUpdate kColumnAllowedToSetUpdate,
         final String columnDataType
@@ -90,7 +90,7 @@ public class KUpdate extends KQueryUpdate {
         return KSetUpdate.getInstance(this.k, this.kQueryUpdateData, kTableColumn, kColumnValue);
     }
     
-    public KSetUpdate set(
+    protected KSetUpdate set(
         final KTableColumn kTableColumn,
         final Object object,
         final String columnDataType
