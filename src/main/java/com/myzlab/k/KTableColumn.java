@@ -57,8 +57,8 @@ public class KTableColumn extends KColumn implements
         return KFunction.noAlias(this);
     }
     
-    public KColumn tableNameAlias() {
-        return KFunction.tableNameAlias(this);
+    public KColumn useTableNameAsAlias() {
+        return KFunction.useTableNameAsAlias(this);
     }
  
     public String getName() {

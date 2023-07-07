@@ -4633,7 +4633,7 @@ public class KFunction {
         return applyOneParameterFunction(kColumnCloned, "SUM");
     }
     
-    public static KColumn tableNameAlias(
+    public static KColumn useTableNameAsAlias(
         final KTableColumn kTableColumn
     ) {
         final KTableColumn newKTableColumn = kTableColumn.cloneMe();
