@@ -3194,7 +3194,7 @@ public class KFunction {
         return nullifkColumn;
     }
     
-    public static KColumn noUseAlias(
+    public static KColumn useNoAlias(
         final KTableColumn kTableColumn
     ) {
         final KColumn newKTableColumn = kTableColumn.cloneMe();
