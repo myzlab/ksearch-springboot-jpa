@@ -53,8 +53,8 @@ public class KTableColumn extends KColumn implements
         return KFunction.excluded(this);
     }
     
-    public KColumn noAlias() {
-        return KFunction.noAlias(this);
+    public KColumn noUseAlias() {
+        return KFunction.noUseAlias(this);
     }
     
     public KColumn useTableNameAsAlias() {
