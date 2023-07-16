@@ -292,6 +292,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition eq(
+        final Boolean value
+    ) {
+        return KCondition.eq(this, KFunction.val(value));
+    }
+    
+    public KCondition eq(
         final KOptionalBoolean kOptionalBoolean
     ) {
         if (!kOptionalBoolean.isPresent()) {
@@ -449,6 +455,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         }
         
         return KCondition.eq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KCondition equal(
+        final Boolean value
+    ) {
+        return KCondition.eq(this, KFunction.val(value));
     }
     
     public KCondition equal(
@@ -1735,6 +1747,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition neq(
+        final Boolean value
+    ) {
+        return KCondition.neq(this, KFunction.val(value));
+    }
+    
+    public KCondition neq(
         final KOptionalBoolean kOptionalBoolean
     ) {
         if (!kOptionalBoolean.isPresent()) {
@@ -2433,6 +2451,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         }
         
         return KCondition.neq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KCondition notEqual(
+        final Boolean value
+    ) {
+        return KCondition.neq(this, KFunction.val(value));
     }
     
     public KCondition notEqual(
