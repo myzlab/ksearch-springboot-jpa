@@ -1,6 +1,7 @@
 package com.myzlab.k;
 
 import com.myzlab.k.optional.KOptionalArrayObject;
+import com.myzlab.k.optional.KOptionalBoolean;
 import com.myzlab.k.optional.KOptionalCollection;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKValNumberField;
@@ -80,6 +81,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     
     protected KBaseColumnCastable(
         final String val
+    ) {
+        super(val);
+    }
+    
+    protected KBaseColumnCastable(
+        final Boolean val
     ) {
         super(val);
     }
@@ -285,6 +292,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition eq(
+        final KOptionalBoolean kOptionalBoolean
+    ) {
+        if (!kOptionalBoolean.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.eq(kOptionalBoolean.get());
+    }
+    
+    public KCondition eq(
         final LocalDate localDate
     ) {
         return KCondition.eq(this, KFunction.val(localDate));
@@ -432,6 +449,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         }
         
         return KCondition.eq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KCondition equal(
+        final KOptionalBoolean kOptionalBoolean
+    ) {
+        if (!kOptionalBoolean.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.eq(this, KFunction.val(kOptionalBoolean.get()));
     }
     
     public KCondition equal(
@@ -1708,6 +1735,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     public KCondition neq(
+        final KOptionalBoolean kOptionalBoolean
+    ) {
+        if (!kOptionalBoolean.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.neq(this, KFunction.val(kOptionalBoolean.get()));
+    }
+    
+    public KCondition neq(
         final LocalDate localDate
     ) {
         return KCondition.neq(this, KFunction.val(localDate));
@@ -2396,6 +2433,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         }
         
         return KCondition.neq(this, KFunction.val(kOptionalString.get()));
+    }
+    
+    public KCondition notEqual(
+        final KOptionalBoolean kOptionalBoolean
+    ) {
+        if (!kOptionalBoolean.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return KCondition.neq(this, KFunction.val(kOptionalBoolean.get()));
     }
     
     public KCondition notEqual(

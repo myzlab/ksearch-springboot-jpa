@@ -4,6 +4,7 @@ import static com.myzlab.k.SQLAlgorithm.bf;
 import com.myzlab.k.functions.KTupleFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
+import com.myzlab.k.optional.KOptionalBoolean;
 import com.myzlab.k.optional.KOptionalCollection;
 import com.myzlab.k.optional.KOptionalKAliasedColumn;
 import com.myzlab.k.optional.KOptionalKJoinDefinition;
@@ -3332,6 +3333,12 @@ public class KFunction {
         return KOptionalKCondition.getInstance(kCondition);
     }
     
+    public static KOptionalBoolean optional(
+        final Boolean value
+    ) {
+        return KOptionalBoolean.getInstance(value);
+    }
+    
     public static KColumn overlay(
         final KColumn kColumn,
         final String value,
@@ -5147,6 +5154,12 @@ public class KFunction {
         final String val
     ) {
         return new KValTextField(val);
+    }
+    
+    public static KValBooleanField val(
+        final Boolean val
+    ) {
+        return new KValBooleanField(val);
     }
     
     public static KValNumberField val(

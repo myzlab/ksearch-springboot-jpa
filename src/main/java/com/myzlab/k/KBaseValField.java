@@ -26,6 +26,12 @@ public abstract class KBaseValField extends KBaseColumnCastable {
     }
     
     protected KBaseValField(
+        final Boolean val
+    ) {
+        super(val);
+    }
+    
+    protected KBaseValField(
         final Number val
     ) {
         super(val);
