@@ -100,6 +100,33 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
+    public List<Object> take(
+        final KTableColumn kTableColumn
+    ) {
+        final List<Object> taked = new ArrayList<>();
+        
+        for (final KRow kRow : list) {
+            taked.add(kRow.get(kTableColumn));
+        }
+        
+        return taked;
+    }
+    
+    public List<Object> take(
+        final KTableColumn kTableColumn,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Object> taked = new ArrayList<>();
+        
+        for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.get(kTableColumn));
+            }
+        }
+        
+        return taked;
+    }
+    
     public List<String> takeString(
         final String c
     ) {
@@ -148,6 +175,33 @@ public class KCollection<T extends KRow> {
        for (final KRow kRow : list) {
             if (kRowFunction.run(kRow)) {
                 taked.add(kRow.getString(n));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<String> takeString(
+        final KTableColumn kTableColumn
+    ) {
+        final List<String> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getString(kTableColumn));
+        }
+        
+        return taked;
+    }
+    
+    public List<String> takeString(
+        final KTableColumn kTableColumn,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<String> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getString(kTableColumn));
             }
         }
         
@@ -208,6 +262,33 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
+    public List<Character> takeCharacter(
+        final KTableColumn kTableColumn
+    ) {
+        final List<Character> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getCharacter(kTableColumn));
+        }
+        
+        return taked;
+    }
+    
+    public List<Character> takeCharacter(
+        final KTableColumn kTableColumn,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Character> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getCharacter(kTableColumn));
+            }
+        }
+        
+        return taked;
+    }
+    
     public List<BigDecimal> takeBigDecimal(
         final String c
     ) {
@@ -247,7 +328,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<BigDecimal> takeBigDecimal(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<BigDecimal> takeBigDecimal(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<BigDecimal> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -259,7 +343,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<BigInteger> takeBigInteger(final String c) {
+    public List<BigDecimal> takeBigDecimal(
+       final KTableColumn kTableColum
+    ) {
+        final List<BigDecimal> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getBigDecimal(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<BigDecimal> takeBigDecimal(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<BigDecimal> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getBigDecimal(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<BigInteger> takeBigInteger(
+        final String c
+    ) {
         final List<BigInteger> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -269,7 +382,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<BigInteger> takeBigInteger(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<BigInteger> takeBigInteger(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<BigInteger> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -281,7 +397,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<BigInteger> takeBigInteger(final int n) {
+    public List<BigInteger> takeBigInteger(
+        final int n
+    ) {
         final List<BigInteger> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -291,7 +409,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<BigInteger> takeBigInteger(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<BigInteger> takeBigInteger(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<BigInteger> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -303,7 +424,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Long> takeLong(final String c) {
+    public List<BigInteger> takeBigInteger(
+        final KTableColumn kTableColum
+    ) {
+        final List<BigInteger> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getBigInteger(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<BigInteger> takeBigInteger(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<BigInteger> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getBigInteger(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Long> takeLong(
+        final String c
+    ) {
         final List<Long> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -313,7 +463,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<Long> takeLong(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Long> takeLong(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Long> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -325,7 +478,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Long> takeLong(final int n) {
+    public List<Long> takeLong(
+        final int n
+    ) {
         final List<Long> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -335,7 +490,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Long> takeLong(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Long> takeLong(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Long> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -347,7 +505,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Integer> takeInteger(final String c) {
+    public List<Long> takeLong(
+        final KTableColumn kTableColum
+    ) {
+        final List<Long> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getLong(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Long> takeLong(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Long> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getLong(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Integer> takeInteger(
+        final String c
+    ) {
         final List<Integer> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -357,7 +544,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Integer> takeInteger(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Integer> takeInteger(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Integer> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -369,7 +559,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Integer> takeInteger(final int n) {
+    public List<Integer> takeInteger(
+        final int n
+    ) {
         final List<Integer> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -379,7 +571,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Integer> takeInteger(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Integer> takeInteger(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Integer> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -391,7 +586,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Boolean> takeBoolean(final String c) {
+    public List<Integer> takeInteger(
+        final KTableColumn kTableColum
+    ) {
+        final List<Integer> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getInteger(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Integer> takeInteger(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Integer> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getInteger(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Boolean> takeBoolean(
+        final String c
+    ) {
         final List<Boolean> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -401,7 +625,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Boolean> takeBoolean(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Boolean> takeBoolean(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Boolean> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -413,7 +640,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Boolean> takeBoolean(final int n) {
+    public List<Boolean> takeBoolean(
+        final int n
+    ) {
         final List<Boolean> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -423,7 +652,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Boolean> takeBoolean(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Boolean> takeBoolean(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Boolean> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -435,7 +667,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Double> takeDouble(final String c) {
+    public List<Boolean> takeBoolean(
+        final KTableColumn kTableColum
+    ) {
+        final List<Boolean> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getBoolean(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Boolean> takeBoolean(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Boolean> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getBoolean(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Double> takeDouble(
+        final String c
+    ) {
         final List<Double> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -445,7 +706,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Double> takeDouble(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Double> takeDouble(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Double> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -457,7 +721,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Double> takeDouble(final int n) {
+    public List<Double> takeDouble(
+        final int n
+    ) {
         final List<Double> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -467,7 +733,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Double> takeDouble(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Double> takeDouble(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Double> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -479,7 +748,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<UUID> takeUUID(final String c) {
+    public List<Double> takeDouble(
+        final KTableColumn kTableColum
+    ) {
+        final List<Double> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getDouble(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Double> takeDouble(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Double> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getDouble(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<UUID> takeUUID(
+        final String c
+    ) {
         final List<UUID> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -489,7 +787,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<UUID> takeUUID(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<UUID> takeUUID(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<UUID> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -501,7 +802,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<UUID> takeUUID(final int n) {
+    public List<UUID> takeUUID(
+        final int n
+    ) {
         final List<UUID> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -511,7 +814,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<UUID> takeUUID(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<UUID> takeUUID(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<UUID> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -523,7 +829,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDateTime> takeLocalDateTime(final String c) {
+    public List<UUID> takeUUID(
+        final KTableColumn kTableColum
+    ) {
+        final List<UUID> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getUUID(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<UUID> takeUUID(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<UUID> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getUUID(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<LocalDateTime> takeLocalDateTime(
+        final String c
+    ) {
         final List<LocalDateTime> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -533,7 +868,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<LocalDateTime> takeLocalDateTime(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<LocalDateTime> takeLocalDateTime(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<LocalDateTime> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -545,7 +883,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDateTime> takeLocalDateTime(final int n) {
+    public List<LocalDateTime> takeLocalDateTime(
+        final int n
+    ) {
         final List<LocalDateTime> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -555,7 +895,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDateTime> takeLocalDateTime(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<LocalDateTime> takeLocalDateTime(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<LocalDateTime> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -567,7 +910,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDate> takeLocalDate(final String c) {
+    public List<LocalDateTime> takeLocalDateTime(
+        final KTableColumn kTableColum
+    ) {
+        final List<LocalDateTime> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getLocalDateTime(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<LocalDateTime> takeLocalDateTime(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<LocalDateTime> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getLocalDateTime(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<LocalDate> takeLocalDate(
+        final String c
+    ) {
         final List<LocalDate> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -577,7 +949,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<LocalDate> takeLocalDate(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<LocalDate> takeLocalDate(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<LocalDate> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -589,7 +964,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDate> takeLocalDate(final int n) {
+    public List<LocalDate> takeLocalDate(
+        final int n
+    ) {
         final List<LocalDate> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -599,7 +976,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<LocalDate> takeLocalDate(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<LocalDate> takeLocalDate(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<LocalDate> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -611,7 +991,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Date> takeDate(final String c) {
+    public List<LocalDate> takeLocalDate(
+        final KTableColumn kTableColum
+    ) {
+        final List<LocalDate> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getLocalDate(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<LocalDate> takeLocalDate(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<LocalDate> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getLocalDate(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Date> takeDate(
+        final String c
+    ) {
         final List<Date> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -621,7 +1030,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<Date> takeDate(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Date> takeDate(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Date> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -633,7 +1045,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Date> takeDate(final int n) {
+    public List<Date> takeDate(
+        final int n
+    ) {
         final List<Date> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -643,7 +1057,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Date> takeDate(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Date> takeDate(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Date> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -655,7 +1072,36 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Timestamp> takeTimestamp(final String c) {
+    public List<Date> takeDate(
+        final KTableColumn kTableColum
+    ) {
+        final List<Date> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getDate(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Date> takeDate(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Date> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getDate(kTableColum));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Timestamp> takeTimestamp(
+        final String c
+    ) {
         final List<Timestamp> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -665,7 +1111,10 @@ public class KCollection<T extends KRow> {
         return taked;
     }
 
-    public List<Timestamp> takeTimestamp(final String c, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Timestamp> takeTimestamp(
+        final String c,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Timestamp> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -677,7 +1126,9 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Timestamp> takeTimestamp(final int n) {
+    public List<Timestamp> takeTimestamp(
+        final int n
+    ) {
         final List<Timestamp> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
@@ -687,12 +1138,42 @@ public class KCollection<T extends KRow> {
         return taked;
     }
     
-    public List<Timestamp> takeTimestamp(final int n, final KRowFunction<KRow, Boolean> kRowFunction) {
+    public List<Timestamp> takeTimestamp(
+        final int n,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
         final List<Timestamp> taked = new ArrayList<>();
         
        for (final KRow kRow : list) {
             if (kRowFunction.run(kRow)) {
                 taked.add(kRow.getTimestamp(n));
+            }
+        }
+        
+        return taked;
+    }
+    
+    public List<Timestamp> takeTimestamp(
+        final KTableColumn kTableColum
+    ) {
+        final List<Timestamp> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            taked.add(kRow.getTimestamp(kTableColum));
+        }
+        
+        return taked;
+    }
+    
+    public List<Timestamp> takeTimestamp(
+        final KTableColumn kTableColum,
+        final KRowFunction<KRow, Boolean> kRowFunction
+    ) {
+        final List<Timestamp> taked = new ArrayList<>();
+        
+       for (final KRow kRow : list) {
+            if (kRowFunction.run(kRow)) {
+                taked.add(kRow.getTimestamp(kTableColum));
             }
         }
         
