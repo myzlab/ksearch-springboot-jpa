@@ -76,6 +76,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     ) {
         return 
             getK()
+            .jdbc(jdbc)
             .deleteFrom(getMetadata())
             .where(getKTableColumnId().eq(id))
             .execute();
@@ -99,8 +100,55 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     ) {
         return 
             getK()
+            .jdbc(jdbc)
             .deleteFrom(getMetadata())
             .where(getKTableColumnId().eq(id))
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+    }
+    
+    public int deleteById(
+        final List<Y> ids
+    ) {
+        return deleteById(
+            getK().getEntityManagerDefaultName(),
+            ids
+        );
+    }
+    
+    public int deleteById(
+        final String jdbc,
+        final List<Y> ids
+    ) {
+        return 
+            getK()
+            .jdbc(jdbc)
+            .deleteFrom(getMetadata())
+            .where(getKTableColumnId().in(ids))
+            .execute();
+    }
+    
+    public KCollection<T> deleteById(
+        final List<Y> ids,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return deleteById(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            kColumnsAllowedToReturning
+        );
+    }
+    
+    public KCollection<T> deleteById(
+        final String jdbc,
+        final List<Y> ids,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return 
+            getK()
+            .jdbc(jdbc)
+            .deleteFrom(getMetadata())
+            .where(getKTableColumnId().in(ids))
             .returning(kColumnsAllowedToReturning)
             .execute(getKRowClass());
     }
@@ -116,6 +164,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     ) {
         return 
             getK()
+            .jdbc(jdbc)
             .deleteFrom(getMetadata())
             .execute();
     }
@@ -135,6 +184,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     ) {
         return 
             getK()
+            .jdbc(jdbc)
             .deleteFrom(getMetadata())
             .returning(kColumnsAllowedToReturning)
             .execute(getKRowClass());
