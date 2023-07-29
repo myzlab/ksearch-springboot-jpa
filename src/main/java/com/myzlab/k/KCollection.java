@@ -22,6 +22,16 @@ public class KCollection<T extends KRow> {
     final List<T> list;
     private final Map<String, Object> metadata;
     private final Class<T> type;
+    
+    public KCollection(
+        final Class<T> type
+    ) {
+        super();
+        
+        this.type = type;
+        this.list = new ArrayList<>();
+        this.metadata = new HashMap<>();
+    }
 
     public KCollection(
         final Class<T> type,
