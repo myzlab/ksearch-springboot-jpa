@@ -1296,41 +1296,33 @@ public class KCollection<T extends KRow> {
         this.list.remove(i);
     }
     
-    public void removeProperty(final String property) {
-//        if (!this.isPresent(property)) {
-//            throw KExceptionHelper.internalServerError("The column in KCollection [" + property + "] to be removed does not exist. Ref? [" + ref + "]");
-//        }
-        
+    public KCollection<T> removeProperty(final String... properties) {
         for (final KRow kRow : list) {
-            if (!kRow.isPresent(property)) {
-                throw KExceptionHelper.internalServerError("The column in KCollection [" + property + "] to be removed does not exist. Ref? [" + kRow.ref + "]");
-            }
+            for (final String property : properties) {
+                if (!kRow.isPresent(property)) {
+                    throw KExceptionHelper.internalServerError("The column in KCollection [" + property + "] to be removed does not exist. Ref? [" + kRow.ref + "]");
+                }
 
-            kRow.removeProperty(property);
+                kRow.removeProperty(property);
+            }
         }
-        
-//        final Integer deleted = this.ref.get(column);
-//        
-//        this.ref.remove(column);
-//        
-//        for (final Map.Entry<String, Integer> entry : this.ref.entrySet()) {
-//            final Integer currentValue = entry.getValue();
-//            
-//            if (currentValue > deleted) {
-//                this.ref.put(entry.getKey(), currentValue - 1);
-//            }
-//        }
+
+        return this;
     }
     
-//    public Boolean isPresent(final String c) {
-//        final Integer n = ref.get(c);
-//        
-//        if (n == null) {
-//            return false;
-//        }
-//        
-//        return true;
-//    }
+    public KCollection<T> removeProperty(final KTableColumn... kTableColumns) {
+        for (final KRow kRow : list) {
+            for (final KTableColumn kTableColumn : kTableColumns) {
+                if (!kRow.isPresent(kTableColumn)) {
+                    throw KExceptionHelper.internalServerError("The column in KCollection [" + kTableColumn.getName() + "] to be removed does not exist. Ref? [" + kRow.ref + "]");
+                }
+
+                kRow.removeProperty(kTableColumn);
+            }
+        }
+
+        return this;
+    }
     
     public T get(final int i) {
         return this.list.get(i);
