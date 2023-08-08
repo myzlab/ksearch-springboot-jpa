@@ -88,7 +88,7 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     protected KBaseColumnCastable(
         final Boolean val
     ) {
-        super(val);
+        super(val, true);
     }
     
     protected KBaseColumnCastable(

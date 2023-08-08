@@ -116,6 +116,20 @@ public abstract class KBaseColumn {
     }
     
     protected KBaseColumn(
+        final Boolean val,
+        final boolean closed
+    ) {
+        this(closed);
+        
+        if (val == null) {
+            throw KExceptionHelper.internalServerError("The 'val' param cannot be null");
+        }
+        
+        this.sb.append("?");
+        this.params.add(val);
+    }
+    
+    protected KBaseColumn(
         final Number val
     ) {
         this();
