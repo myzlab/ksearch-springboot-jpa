@@ -768,14 +768,16 @@ public class KQueryUtils {
         final KQueryData kQueryData,
         final long count
     ) {
-        kQueryData.sb.append(" LIMIT ").append(count);
+        kQueryData.sb.append(" LIMIT ").append("?");
+        kQueryData.params.add(count);
     }
     
     protected static void processOffset(
         final KQueryData kQueryData,
         final long start
     ) {
-        kQueryData.sb.append(" OFFSET ").append(start);
+        kQueryData.sb.append(" OFFSET ").append("?");
+        kQueryData.params.add(start);
     }
     
     protected static void processFetch(
@@ -786,7 +788,8 @@ public class KQueryUtils {
         kQueryData.sb.append(" FETCH FIRST ");
         
         if (rowCount > 1L) {
-            kQueryData.sb.append(rowCount).append(" ");
+            kQueryData.sb.append("?").append(" ");
+            kQueryData.params.add(rowCount);
         }
         
         kQueryData.sb.append("ROW");
