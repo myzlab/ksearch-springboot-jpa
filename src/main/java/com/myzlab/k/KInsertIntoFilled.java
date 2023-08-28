@@ -111,6 +111,9 @@ public class KInsertIntoFilled extends KQueryInsertInto {
                 } else if (value instanceof KColumn) {
                     this.kQueryInsertIntoData.sb.append(((KColumn) value).sb);
                     this.kQueryInsertIntoData.params.addAll(((KColumn) value).params);
+                } else if (value instanceof KBaseValField) {
+                    this.kQueryInsertIntoData.sb.append(((KBaseValField) value).sb);
+                    this.kQueryInsertIntoData.params.addAll(((KBaseValField) value).params);
                 } else {
                     if (columnsDataType.containsKey(j)) {
                         this.kQueryInsertIntoData.sb.append("CAST(? AS ").append(columnsDataType.get(j)).append(")");
