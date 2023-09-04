@@ -82,7 +82,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute();
     }
     
-    public KCollection<T> deleteById(
+    public T deleteById(
         final Y id,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
@@ -93,7 +93,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         );
     }
     
-    public KCollection<T> deleteById(
+    public T deleteById(
         final String jdbc,
         final Y id,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
@@ -104,7 +104,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .deleteFrom(getMetadata())
             .where(getKTableColumnId().eq(id))
             .returning(kColumnsAllowedToReturning)
-            .execute(getKRowClass());
+            .execute(getKRowClass())
+            .getFirst();
     }
     
     public int deleteById(
