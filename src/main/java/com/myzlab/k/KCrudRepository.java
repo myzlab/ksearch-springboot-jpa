@@ -40,7 +40,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .single(getKRowClass());
     }
     
-    public T findByIds(
+    public KCollection<T> findByIds(
         final List<Y> ids,
         final KColumnAllowedToSelect... selects
     ) {
@@ -51,19 +51,18 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         );
     }
     
-    public T findByIds(
+    public KCollection<T> findByIds(
         final String jdbc,
         final List<Y> ids,
         final KColumnAllowedToSelect... selects
     ) {
         return
-            (T)
             getK()
             .jdbc(jdbc)
             .select(selects)
             .from(getMetadata())
             .where(getKTableColumnId().in(ids))
-            .single(getKRowClass());
+            .multiple(getKRowClass());
     }
     
     public KCollection<T> findAll(
