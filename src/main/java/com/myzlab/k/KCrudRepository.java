@@ -40,6 +40,32 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .single(getKRowClass());
     }
     
+    public T findByIds(
+        final List<Y> ids,
+        final KColumnAllowedToSelect... selects
+    ) {
+        return findByIds(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            selects
+        );
+    }
+    
+    public T findByIds(
+        final String jdbc,
+        final List<Y> ids,
+        final KColumnAllowedToSelect... selects
+    ) {
+        return
+            (T)
+            getK()
+            .jdbc(jdbc)
+            .select(selects)
+            .from(getMetadata())
+            .where(getKTableColumnId().in(ids))
+            .single(getKRowClass());
+    }
+    
     public KCollection<T> findAll(
         final KColumnAllowedToSelect... selects
     ) {
