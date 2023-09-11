@@ -108,16 +108,16 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .getFirst();
     }
     
-    public int deleteById(
+    public int deleteByIds(
         final List<Y> ids
     ) {
-        return deleteById(
+        return deleteByIds(
             getK().getEntityManagerDefaultName(),
             ids
         );
     }
     
-    public int deleteById(
+    public int deleteByIds(
         final String jdbc,
         final List<Y> ids
     ) {
@@ -129,18 +129,18 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .execute();
     }
     
-    public KCollection<T> deleteById(
+    public KCollection<T> deleteByIds(
         final List<Y> ids,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
-        return deleteById(
+        return deleteByIds(
             getK().getEntityManagerDefaultName(),
             ids,
             kColumnsAllowedToReturning
         );
     }
     
-    public KCollection<T> deleteById(
+    public KCollection<T> deleteByIds(
         final String jdbc,
         final List<Y> ids,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
