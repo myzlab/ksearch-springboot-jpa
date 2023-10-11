@@ -5142,6 +5142,12 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "TRUNC");
     }
     
+    public static KColumn unaccent(
+        final KColumn kColumn
+    ) {
+        return applyOneParameterFunction(kColumn, "UNACCENT");
+    }
+    
     public static KColumn unnest(
         final KColumn kColumn
     ) {
