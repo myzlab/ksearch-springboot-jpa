@@ -5148,6 +5148,12 @@ public class KFunction {
         return applyOneParameterFunction(kColumn, "UNACCENT");
     }
     
+    public static KValTextField unaccent(
+        final KValTextField kValTextField
+    ) {
+        return applyOneParameterFunction(kValTextField, "UNACCENT");
+    }
+    
     public static KColumn unnest(
         final KColumn kColumn
     ) {
