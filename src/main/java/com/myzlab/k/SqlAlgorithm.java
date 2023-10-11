@@ -5,7 +5,7 @@ import com.myzlab.k.sql.algorithms.KDes;
 import com.myzlab.k.sql.algorithms.KMd5;
 import com.myzlab.k.sql.algorithms.KXdes;
 
-public class SQLAlgorithm {
+public class SqlAlgorithm {
     
     public static KDes des() {
         return new KDes();

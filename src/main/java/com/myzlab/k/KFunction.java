@@ -1,6 +1,6 @@
 package com.myzlab.k;
 
-import static com.myzlab.k.SQLAlgorithm.bf;
+import static com.myzlab.k.SqlAlgorithm.bf;
 import com.myzlab.k.functions.KTupleFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import com.myzlab.k.optional.KOptionalArrayObject;
@@ -1974,6 +1974,36 @@ public class KFunction {
     
     public static KWindowFunctionColumn denseRank() {
         return new KWindowFunctionColumn(new StringBuilder("DENSE_RANK()"), true);
+    }
+    
+    public static KColumn digest(
+        final KColumn kColumn,
+        final KDigestAlgorithm kDigestAlgorithm
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kDigestAlgorithm, "kDigestAlgorithm");
+        
+        final KColumn encodeKColumn = kColumn.cloneMe();
+        encodeKColumn.closed = true;
+        
+        encodeKColumn.sb.insert(0, "DIGEST(").append(", '").append(kDigestAlgorithm.toSql()).append("'").append(")");
+        
+        return encodeKColumn;
+    }
+    
+    public static KValTextField digest(
+        final KValTextField kValTextField,
+        final KDigestAlgorithm kDigestAlgorithm
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        KUtils.assertNotNull(kDigestAlgorithm, "kDigestAlgorithm");
+        
+        final KValTextField encodeKValTextField = kValTextField.cloneMe();
+        encodeKValTextField.closed = true;
+        
+        encodeKValTextField.sb.insert(0, "DIGEST(").append(", '").append(kDigestAlgorithm.toSql()).append("'").append(")");
+        
+        return encodeKValTextField;
     }
     
     public static KColumn div(
