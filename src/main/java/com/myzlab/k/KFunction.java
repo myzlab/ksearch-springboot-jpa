@@ -3443,18 +3443,18 @@ public class KFunction {
     
     public static KColumn pgpSymEncrypt(
         final KColumn data,
-        final String pws,
+        final String psw,
         final String options
     ) {
         KUtils.assertNotNull(data, "data");
-        KUtils.assertNotNull(pws, "pws");
+        KUtils.assertNotNull(psw, "psw");
         
         final KColumn pgpKColumn = new KColumn();
         
         pgpKColumn.sb.append("PGP_SYM_ENCRYPT(").append(data.sb).append(", ?");
         
         pgpKColumn.params.addAll(data.params);
-        pgpKColumn.params.add(pws);
+        pgpKColumn.params.add(psw);
         
         if (options != null) {
             pgpKColumn.sb.append(", ?");
@@ -3469,18 +3469,18 @@ public class KFunction {
     
     public static KColumn pgpSymEncrypt(
         final String data,
-        final String pws,
+        final String psw,
         final String options
     ) {
         KUtils.assertNotNull(data, "data");
-        KUtils.assertNotNull(pws, "pws");
+        KUtils.assertNotNull(psw, "psw");
         
         final KColumn pgpKColumn = new KColumn();
         
         pgpKColumn.sb.append("PGP_SYM_ENCRYPT(?, ?");
         
         pgpKColumn.params.add(data);
-        pgpKColumn.params.add(pws);
+        pgpKColumn.params.add(psw);
         
         if (options != null) {
             pgpKColumn.sb.append(", ?");
@@ -3495,18 +3495,18 @@ public class KFunction {
     
     public static KColumn pgpSymEncryptBytea(
         final KColumn data,
-        final String pws,
+        final String psw,
         final String options
     ) {
         KUtils.assertNotNull(data, "data");
-        KUtils.assertNotNull(pws, "pws");
+        KUtils.assertNotNull(psw, "psw");
         
         final KColumn pgpKColumn = new KColumn();
         
         pgpKColumn.sb.append("PGP_SYM_ENCRYPT_BYTEA(").append(data.sb).append(", ?");
         
         pgpKColumn.params.addAll(data.params);
-        pgpKColumn.params.add(pws);
+        pgpKColumn.params.add(psw);
         
         if (options != null) {
             pgpKColumn.sb.append(", ?");
@@ -3521,18 +3521,18 @@ public class KFunction {
     
     public static KColumn pgpSymDecrypt(
         final KColumn data,
-        final String pws,
+        final String psw,
         final String options
     ) {
         KUtils.assertNotNull(data, "data");
-        KUtils.assertNotNull(pws, "pws");
+        KUtils.assertNotNull(psw, "psw");
         
         final KColumn pgpKColumn = new KColumn();
         
         pgpKColumn.sb.append("PGP_SYM_DECRYPT(").append(data.sb).append(", ?");
         
         pgpKColumn.params.addAll(data.params);
-        pgpKColumn.params.add(pws);
+        pgpKColumn.params.add(psw);
         
         if (options != null) {
             pgpKColumn.sb.append(", ?");
@@ -3547,18 +3547,18 @@ public class KFunction {
     
     public static KColumn pgpSymDecryptBytea(
         final KColumn data,
-        final String pws,
+        final String psw,
         final String options
     ) {
         KUtils.assertNotNull(data, "data");
-        KUtils.assertNotNull(pws, "pws");
+        KUtils.assertNotNull(psw, "psw");
         
         final KColumn pgpKColumn = new KColumn();
         
         pgpKColumn.sb.append("PGP_SYM_DECRYPT_BYTEA(").append(data.sb).append(", ?");
         
         pgpKColumn.params.addAll(data.params);
-        pgpKColumn.params.add(pws);
+        pgpKColumn.params.add(psw);
         
         if (options != null) {
             pgpKColumn.sb.append(", ?");
