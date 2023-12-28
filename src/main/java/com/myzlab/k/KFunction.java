@@ -146,6 +146,13 @@ public class KFunction {
         return applyBinaryOperator(kValNumberField, kColumn, "+");
     }
     
+    public static KColumn age(
+        final KColumn kColumn1,
+        final KColumn kColumn2
+    ) {
+        return applyTwoParameterFunction(kColumn1, kColumn2, "AGE");
+    }
+    
     public static KColumn all(
         final KQuery kQuery
     ) {
