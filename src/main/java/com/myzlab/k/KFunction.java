@@ -13,6 +13,7 @@ import com.myzlab.k.optional.KOptionalKColumnOrdered;
 import com.myzlab.k.optional.KOptionalKCondition;
 import com.myzlab.k.optional.KOptionalKValNumberField;
 import com.myzlab.k.optional.KOptionalKValTextField;
+import com.myzlab.k.optional.KOptionalListObject;
 import com.myzlab.k.optional.KOptionalLocalDate;
 import com.myzlab.k.optional.KOptionalLocalDateTime;
 import com.myzlab.k.optional.KOptionalLong;
@@ -3352,6 +3353,12 @@ public class KFunction {
     }
     
     public static KOptionalArrayObject optional(
+        final Object[] values
+    ) {
+        return optional(values, true);
+    }
+    
+    public static KOptionalArrayObject optional(
         final Object[] values,
         final boolean omitOnEmptyArray
     ) {
@@ -3374,6 +3381,19 @@ public class KFunction {
         final Boolean value
     ) {
         return KOptionalBoolean.getInstance(value);
+    }
+    
+    public static KOptionalListObject optional(
+        final List values
+    ) {
+        return optional(values, true);
+    }
+    
+    public static KOptionalListObject optional(
+        final List values,
+        final boolean omitOnEmptyArray
+    ) {
+        return KOptionalListObject.getInstance(values, omitOnEmptyArray);
     }
     
     public static KColumn overlay(
@@ -4937,6 +4957,13 @@ public class KFunction {
         tuple.sb.append(")");
         
         return tuple;
+    }
+    
+    public static KOptionalKColumn tuple(
+        final KOptionalListObject kOptionalListObject,
+        final KTupleFunction kTupleFunction
+    ) {
+        return KOptionalKColumn.getInstance(kOptionalListObject.isPresent() ? tuple(kOptionalListObject.get(), kTupleFunction) : null);
     }
     
     public static KTuple tuple(

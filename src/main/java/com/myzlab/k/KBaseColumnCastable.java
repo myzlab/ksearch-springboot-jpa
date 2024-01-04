@@ -1087,6 +1087,16 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         return this.in(kOptionalCollection.get());
     }
     
+    public KCondition in(
+        final KOptionalKColumn kOptionalKColumn
+    ) {
+        if (!kOptionalKColumn.isPresent()) {
+            return KCondition.getEmptyInstance();
+        }
+        
+        return this.in(kOptionalKColumn.get());
+    }
+    
     public KCondition isFalse() {
         return KCondition.isFalse(this);
     }
