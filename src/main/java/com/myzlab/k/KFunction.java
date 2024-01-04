@@ -4945,10 +4945,6 @@ public class KFunction {
     ) {
         KUtils.assertNotNullNotEmpty(list, "list", false);
         
-        if (list.size() < 2) {
-            throw KExceptionHelper.internalServerError("'TUPLE' function requires at least two elements in list");
-        }
-        
         final KTuple tuple = new KTuple();
         
         boolean firstTuple = true;
