@@ -61,142 +61,180 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
     public KCombining union(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "UNION", false);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "UNION", false);
     }
     
     public KCombining unionAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "UNION", true);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "UNION", true);
     }
     
     public KCombining intersect(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "INTERSECT", false);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "INTERSECT", false);
     }
     
     public KCombining intersectAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "INTERSECT", true);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "INTERSECT", true);
     }
     
     public KCombining except(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "EXCEPT", false);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "EXCEPT", false);
     }
     
     public KCombining exceptAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "EXCEPT", true);
+        this.buildWindow(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "EXCEPT", true);
     }
     
     public KOrderBy orderBy(
         final KColumnAllowedToOrderBy... kColumnsAllowedToOrderBy
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOrderBy.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kColumnsAllowedToOrderBy);
+        this.buildWindow(clone);
+        
+        return KOrderBy.getInstance(this.k, this.kSpecialFunctions, clone, kColumnsAllowedToOrderBy);
     }
     
     public KLimit limit(
         final int count
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, count);
+        this.buildWindow(clone);
+        
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, count);
     }
     
     public KLimit limit(
         final long count
     ) {
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, count);
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildWindow(clone);
+        
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, count);
     }
     
     public KLimit limit(
         final KOptionalLong kOptionalLong
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildWindow(clone);
         
         if (!kOptionalLong.isPresent()) {
-            return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KLimit.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
     public KOffset offset(
         final int start
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+        this.buildWindow(clone);
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, start);
     }
     
     public KOffset offset(
         final long start
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+        this.buildWindow(clone);
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, start);
     }
     
     public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildWindow(clone);
         
         if (!kOptionalLong.isPresent()) {
-            return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KOffset.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
     public KFetch fetch(
         final int rowCount
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+        this.buildWindow(clone);
+        
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, rowCount);
     }
     
     public KFetch fetch(
         final long rowCount
     ) {
-        this.buildWindow();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+        this.buildWindow(clone);
+        
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, rowCount);
     }
     
     public KFetch fetch(
         final KOptionalLong kOptionalLong
     ) {
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildWindow(clone);
+        
         if (!kOptionalLong.isPresent()) {
-            return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KFetch.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
-    private void buildWindow() {
+    private void buildWindow(
+        final KQueryData kQueryData
+    ) {
         KQueryUtils.buildWindow(
-            this.kQueryData, 
+            kQueryData, 
             this.kWindowDefinitionsAllowedToWindow
         );
         
@@ -209,7 +247,7 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
     public <T> T single(
         final Class<T> clazz
     ) {
-        this.buildWindow();
+        this.buildWindow(this.kQueryData);
         
         return super.single(clazz);
     }
@@ -218,7 +256,7 @@ public class KWindow extends KQuery implements KQueryAllowedToCombining {
     public <T extends KRow> KCollection<T> multiple(
         final Class<T> clazz
     ) {
-        this.buildWindow();
+        this.buildWindow(this.kQueryData);
         
         return super.multiple(clazz);
     }
