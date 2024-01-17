@@ -135,152 +135,190 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     public KWindow window(
         final KWindowDefinitionAllowedToWindow... KWindowDefinitionsAllowedToWindow
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KWindow.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, KWindowDefinitionsAllowedToWindow);
+        this.buildHaving(clone);
+        
+        return KWindow.getInstance(this.k, this.kSpecialFunctions, clone, KWindowDefinitionsAllowedToWindow);
     }
     
     public KCombining union(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "UNION", false);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "UNION", false);
     }
     
     public KCombining unionAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "UNION", true);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "UNION", true);
     }
     
     public KCombining intersect(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "INTERSECT", false);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "INTERSECT", false);
     }
     
     public KCombining intersectAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "INTERSECT", true);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "INTERSECT", true);
     }
     
     public KCombining except(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "EXCEPT", false);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "EXCEPT", false);
     }
     
     public KCombining exceptAll(
         final KQueryAllowedToCombining kQueryAllowedToCombining
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KCombining.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kQueryAllowedToCombining, "EXCEPT", true);
+        this.buildHaving(clone);
+        
+        return KCombining.getInstance(this.k, this.kSpecialFunctions, clone, kQueryAllowedToCombining, "EXCEPT", true);
     }
     
     public KOrderBy orderBy(
         final KColumnAllowedToOrderBy... kColumnsAllowedToOrderBy
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOrderBy.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kColumnsAllowedToOrderBy);
+        this.buildHaving(clone);
+        
+        return KOrderBy.getInstance(this.k, this.kSpecialFunctions, clone, kColumnsAllowedToOrderBy);
     }
     
     public KLimit limit(
         final int count
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, count);
+        this.buildHaving(clone);
+        
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, count);
     }
     
     public KLimit limit(
         final long count
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, count);
+        this.buildHaving(clone);
+        
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, count);
     }
     
     public KLimit limit(
         final KOptionalLong kOptionalLong
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildHaving(clone);
         
         if (!kOptionalLong.isPresent()) {
-            return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KLimit.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KLimit.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KLimit.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
     public KOffset offset(
         final int start
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+        this.buildHaving(clone);
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, start);
     }
     
     public KOffset offset(
         final long start
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, start);
+        this.buildHaving(clone);
+        
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, start);
     }
     
     public KOffset offset(
         final KOptionalLong kOptionalLong
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildHaving(clone);
         
         if (!kOptionalLong.isPresent()) {
-            return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KOffset.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KOffset.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KOffset.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
     public KFetch fetch(
         final int rowCount
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+        this.buildHaving(clone);
+        
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, rowCount);
     }
     
     public KFetch fetch(
         final long rowCount
     ) {
-        this.buildHaving();
+        final KQueryData clone = this.kQueryData.cloneMe();
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, rowCount);
+        this.buildHaving(clone);
+        
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, rowCount);
     }
     
     public KFetch fetch(
         final KOptionalLong kOptionalLong
     ) {
+        final KQueryData clone = this.kQueryData.cloneMe();
+        
+        this.buildHaving(clone);
+        
         if (!kOptionalLong.isPresent()) {
-            return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData);
+            return KFetch.getInstance(this.k, this.kSpecialFunctions, clone);
         }
         
-        return KFetch.getInstance(this.k, this.kSpecialFunctions, this.kQueryData, kOptionalLong.get());
+        return KFetch.getInstance(this.k, this.kSpecialFunctions, clone, kOptionalLong.get());
     }
     
-    private void buildHaving() {
+    private void buildHaving(
+        final KQueryData kQueryData
+    ) {
         KQueryUtils.buildHaving(
-            this.kQueryData, 
+            kQueryData, 
             this.kCondition
         );
         
@@ -293,7 +331,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     public <T> T single(
         final Class<T> clazz
     ) {
-        this.buildHaving();
+        this.buildHaving(this.kQueryData);
         
         return super.single(clazz);
     }
@@ -302,7 +340,7 @@ public class KHaving extends KQuery implements KQueryAllowedToCombining {
     public <T extends KRow> KCollection<T> multiple(
         final Class<T> clazz
     ) {
-        this.buildHaving();
+        this.buildHaving(this.kQueryData);
         
         return super.multiple(clazz);
     }
