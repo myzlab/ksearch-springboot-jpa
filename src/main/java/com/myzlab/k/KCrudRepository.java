@@ -403,7 +403,11 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final List<T> entities
     ) {
-        KUtils.assertNotNullNotEmpty(entities, "entities", false);
+        KUtils.assertNotNull(entities, "entities");
+        
+        if (entities.isEmpty()) {
+            return 0;
+        }
         
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
@@ -429,6 +433,12 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        KUtils.assertNotNull(entities, "entities");
+        
+        if (entities.isEmpty()) {
+            return new KCollection(getKRowClass());
+        }
+        
         return
             KCrudRepositoryUtils.getKQueryBaseToInsert(
                 jdbc,
@@ -502,7 +512,11 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final List<T> entities
     ) {
-        KUtils.assertNotNullNotEmpty(entities, "entities", false);
+        KUtils.assertNotNull(entities, "entities");
+        
+        if (entities.isEmpty()) {
+            return 0;
+        }
         
         return
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
@@ -529,6 +543,12 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<T> entities,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        KUtils.assertNotNull(entities, "entities");
+        
+        if (entities.isEmpty()) {
+            return new KCollection(getKRowClass());
+        }
+        
         return
             KCrudRepositoryUtils.getKQueryBaseToUpdate(
                 jdbc,
