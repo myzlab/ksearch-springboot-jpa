@@ -226,7 +226,7 @@ public class KTotalCount extends KSpecialFunction {
     ) {
         final StringBuilder sb = new StringBuilder(this.kQueryData.sb);
         
-        sb.insert(0, "SELECT COUNT(*) FROM (").append(") AS GOD_BLESS_YOU");
+        sb.insert(0, "SELECT COUNT(*) FROM (").append(") AS _🕆_GOD_BLESS_YOU_🕆_");
         
         final Query query = k.getEntityManager().createNativeQuery(sb.toString());
         
