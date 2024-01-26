@@ -3,6 +3,9 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KValuesFunction;
+import com.myzlab.k.helper.KExceptionHelper;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 
@@ -238,7 +241,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         return
             getK()
             .jdbc(jdbc)
-            .select(exists(subQuery).as("GOD_BLESS_YOU"))
+            .select(exists(subQuery).as("_🕆_GOD_BLESS_YOU_🕆_"))
             .single()
             .getBoolean(0);
     }
@@ -271,6 +274,57 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         assertExists(getK(), jdbc, kQuery, httpStatus, message);
     }
     
+    public void assertExistsByIds(
+        final List<Y> ids,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertExistsByIds(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertExistsByIds(
+        final String jdbc,
+        final List<Y> ids,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        final KValues values = values().append(ids,
+            (KValuesFunction) (final Object id) -> new ArrayList() {{
+                add(id);
+            }}
+        );
+        
+        final KCommonTableExpressionFilled idsCte = 
+            cte("cte_")
+            .columns("id")
+            .as(values, "_🕆_JESUS_SAVES_🕆_");
+        
+        final boolean boolAndExists =
+            getK()
+            .with(idsCte)
+            .select(
+                boolAnd(
+                    exists(
+                        getK()
+                        .select1()
+                        .from(getMetadata())
+                        .where(getKTableColumnId().eq(idsCte.c("id")))
+                    )
+                )
+            )
+            .from(idsCte)
+            .single(Boolean.class);
+        
+        if (!boolAndExists) {
+            throw KExceptionHelper.createByHttpStatus(httpStatus, message);
+        }
+    }
+    
     public void assertNotExistsById(
         final Y id,
         final HttpStatus httpStatus,
@@ -297,6 +351,57 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .where(getKTableColumnId().eq(id));
         
         assertNotExists(getK(), jdbc, kQuery, httpStatus, message);
+    }
+    
+    public void assertNotExistsByIds(
+        final List<Y> ids,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertNotExistsByIds(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertNotExistsByIds(
+        final String jdbc,
+        final List<Y> ids,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        final KValues values = values().append(ids,
+            (KValuesFunction) (final Object id) -> new ArrayList() {{
+                add(id);
+            }}
+        );
+        
+        final KCommonTableExpressionFilled idsCte = 
+            cte("cte_")
+            .columns("id")
+            .as(values, "_🕆_JESUS_SAVES_🕆_");
+        
+        final boolean boolAndNotExists =
+            getK()
+            .with(idsCte)
+            .select(
+                boolAnd(
+                    notExists(
+                        getK()
+                        .select1()
+                        .from(getMetadata())
+                        .where(getKTableColumnId().eq(idsCte.c("id")))
+                    )
+                )
+            )
+            .from(idsCte)
+            .single(Boolean.class);
+        
+        if (!boolAndNotExists) {
+            throw KExceptionHelper.createByHttpStatus(httpStatus, message);
+        }
     }
     
     public long count() {
