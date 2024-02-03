@@ -544,6 +544,22 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         assertNotExistsByIds(
             getK().getEntityManagerDefaultName(),
             ids,
+            null,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertNotExistsByIds(
+        final List<Y> ids,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertNotExistsByIds(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            kAssertExistsFunction,
             httpStatus,
             message
         );
@@ -552,6 +568,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public void assertNotExistsByIds(
         final String jdbc,
         final List<Y> ids,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
         final HttpStatus httpStatus,
         final String message
     ) {
@@ -566,16 +583,19 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .columns("id")
             .as(values, "_🕆_JESUS_SAVES_🕆_");
         
+        final KWhere kWhere = 
+            getK()
+            .select1()
+            .from(getMetadata())
+            .where(getKTableColumnId().eq(idsCte.c("id")));
+        
         final boolean boolAndNotExists =
             getK()
             .with(idsCte)
             .select(
                 boolAnd(
                     notExists(
-                        getK()
-                        .select1()
-                        .from(getMetadata())
-                        .where(getKTableColumnId().eq(idsCte.c("id")))
+                        kAssertExistsFunction != null ? kAssertExistsFunction.run(kWhere) : kWhere
                     )
                 )
             )
