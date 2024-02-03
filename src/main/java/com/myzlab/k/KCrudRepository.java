@@ -455,23 +455,19 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .columns("id")
             .as(values, "_🕆_JESUS_SAVES_🕆_");
         
+        final KWhere kWhere = 
+            getK()
+            .select1()
+            .from(getMetadata())
+            .where(getKTableColumnId().eq(idsCte.c("id")));
+        
         final boolean boolAndExists =
             getK()
             .with(idsCte)
             .select(
                 boolAnd(
                     exists(
-                        kAssertExistsFunction != null ?
-                            kAssertExistsFunction.run(
-                                getK()
-                                .select1()
-                                .from(getMetadata())
-                                .where(getKTableColumnId().eq(idsCte.c("id")))
-                            ) : 
-                            getK()
-                            .select1()
-                            .from(getMetadata())
-                            .where(getKTableColumnId().eq(idsCte.c("id")))
+                        kAssertExistsFunction != null ? kAssertExistsFunction.run(kWhere) : kWhere
                     )
                 )
             )
