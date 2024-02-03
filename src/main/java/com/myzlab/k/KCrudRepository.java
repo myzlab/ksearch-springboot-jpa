@@ -457,6 +457,35 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         }
     }
     
+    public void assertExistsBy(
+        final KExistsFunction<KFrom, KQuery> kExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertExistsBy(
+            getK().getEntityManagerDefaultName(),
+            kExistsFunction,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertExistsBy(
+        final String jdbc,
+        final KExistsFunction<KFrom, KQuery> kExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        final KQuery kQuery =
+            kExistsFunction.run(
+            getK()
+            .select1()
+            .from(getMetadata())
+        );
+        
+        assertExists(getK(), jdbc, kQuery, httpStatus, message);
+    }
+    
     public void assertNotExistsById(
         final Y id,
         final HttpStatus httpStatus,
