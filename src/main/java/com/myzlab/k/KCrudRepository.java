@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KCountFunction;
 import com.myzlab.k.functions.KDeleteFunction;
 import com.myzlab.k.functions.KExistsFunction;
 import com.myzlab.k.functions.KFindFunction;
@@ -619,6 +620,49 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .jdbc(jdbc)
             .select(kColumn != null ? KFunction.count(kColumn) : KFunction.count())
             .from(getMetadata())
+            .single(Long.class);
+    }
+    
+    public long countBy(
+        final KCountFunction<KFrom, KQuery> kCountFunction
+    ) {
+        return countBy(getK().getEntityManagerDefaultName(), kCountFunction);
+    }
+    
+    public long countBy(
+        final String jdbc,
+        final KCountFunction<KFrom, KQuery> kCountFunction
+    ) {
+        return countBy(
+            jdbc,
+            kCountFunction,
+            null
+        );
+    }
+    
+    public long countBy(
+        final KCountFunction<KFrom, KQuery> kCountFunction,
+        final KColumn kColumn
+    ) {
+        return countBy(
+            getK().getEntityManagerDefaultName(),
+            kCountFunction,
+            kColumn
+        );
+    }
+    
+    public long countBy(
+        final String jdbc,
+        final KCountFunction<KFrom, KQuery> kCountFunction,
+        final KColumn kColumn
+    ) {
+        return
+            kCountFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .select(kColumn != null ? KFunction.count(kColumn) : KFunction.count())
+                .from(getMetadata())
+            )
             .single(Long.class);
     }
     
