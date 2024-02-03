@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KAssertExistsFunction;
 import com.myzlab.k.functions.KCountFunction;
 import com.myzlab.k.functions.KDeleteFunction;
 import com.myzlab.k.functions.KExistsFunction;
@@ -415,6 +416,22 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         assertExistsByIds(
             getK().getEntityManagerDefaultName(),
             ids,
+            null,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertExistsByIds(
+        final List<Y> ids,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertExistsByIds(
+            getK().getEntityManagerDefaultName(),
+            ids,
+            kAssertExistsFunction,
             httpStatus,
             message
         );
@@ -423,6 +440,7 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public void assertExistsByIds(
         final String jdbc,
         final List<Y> ids,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
         final HttpStatus httpStatus,
         final String message
     ) {
@@ -443,10 +461,17 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .select(
                 boolAnd(
                     exists(
-                        getK()
-                        .select1()
-                        .from(getMetadata())
-                        .where(getKTableColumnId().eq(idsCte.c("id")))
+                        kAssertExistsFunction != null ?
+                            kAssertExistsFunction.run(
+                                getK()
+                                .select1()
+                                .from(getMetadata())
+                                .where(getKTableColumnId().eq(idsCte.c("id")))
+                            ) : 
+                            getK()
+                            .select1()
+                            .from(getMetadata())
+                            .where(getKTableColumnId().eq(idsCte.c("id")))
                     )
                 )
             )
