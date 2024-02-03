@@ -4,6 +4,7 @@ import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.functions.KDeleteFunction;
+import com.myzlab.k.functions.KExistsFunction;
 import com.myzlab.k.functions.KFindFunction;
 import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
@@ -341,6 +342,34 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .from(getMetadata())
             .where(getKTableColumnId().eq(id));
 
+        return
+            getK()
+            .jdbc(jdbc)
+            .select(exists(subQuery).as("_🕆_GOD_BLESS_YOU_🕆_"))
+            .single()
+            .getBoolean(0);
+    }
+    
+    public boolean existsBy(
+        final KExistsFunction<KFrom, KQuery> kExistsFunction
+    ) {
+        return existsBy(
+            getK().getEntityManagerDefaultName(),
+            kExistsFunction
+        );
+    }
+    
+    public boolean existsBy(
+        final String jdbc,
+        final KExistsFunction<KFrom, KQuery> kExistsFunction
+    ) {
+        final KQuery subQuery =
+            kExistsFunction.run(
+                getK()
+                .select1()
+                .from(getMetadata())
+            );
+        
         return
             getK()
             .jdbc(jdbc)
