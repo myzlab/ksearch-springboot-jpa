@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KFindMultipleFunction;
 import com.myzlab.k.functions.KFindOneFunction;
 import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
@@ -85,15 +86,14 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final KFindOneFunction<KFrom, KQuery> kFindOneFunction,
         final KColumnAllowedToSelect... selects
     ) {
-        final KFrom kFrom =
-            getK()
-            .jdbc(jdbc)
-            .select(selects)
-            .from(getMetadata());
-        
         return
             (T)
-            kFindOneFunction.run(kFrom)
+            kFindOneFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .select(selects)
+                .from(getMetadata())
+            )
             .single(getKRowClass());
     }
     
@@ -115,6 +115,32 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .jdbc(jdbc)
             .select(selects)
             .from(getMetadata())
+            .multiple(getKRowClass());
+    }
+    
+    public KCollection<T> findMultipleBy(
+        final KFindMultipleFunction<KFrom, KQuery> kFindMultipleFunction,
+        final KColumnAllowedToSelect... selects
+    ) {
+        return findMultipleBy(
+            getK().getEntityManagerDefaultName(),
+            kFindMultipleFunction,
+            selects
+        );
+    }
+    
+    public KCollection<T> findMultipleBy(
+        final String jdbc,
+        final KFindMultipleFunction<KFrom, KQuery> kFindMultipleFunction,
+        final KColumnAllowedToSelect... selects
+    ) {
+        return
+            kFindMultipleFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .select(selects)
+                .from(getMetadata())
+            )
             .multiple(getKRowClass());
     }
     
