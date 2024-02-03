@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KFindOneFunction;
 import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.ArrayList;
@@ -66,6 +67,34 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .from(getMetadata())
             .where(getKTableColumnId().in(ids))
             .multiple(getKRowClass());
+    }
+    
+    public T findOneBy(
+        final KFindOneFunction<KFrom, KQuery> kFindOneFunction,
+        final KColumnAllowedToSelect... selects
+    ) {
+        return findOneBy(
+            getK().getEntityManagerDefaultName(),
+            kFindOneFunction,
+            selects
+        );
+    }
+    
+    public T findOneBy(
+        final String jdbc,
+        final KFindOneFunction<KFrom, KQuery> kFindOneFunction,
+        final KColumnAllowedToSelect... selects
+    ) {
+        final KFrom kFrom =
+            getK()
+            .jdbc(jdbc)
+            .select(selects)
+            .from(getMetadata());
+        
+        return
+            (T)
+            kFindOneFunction.run(kFrom)
+            .single(getKRowClass());
     }
     
     public KCollection<T> findAll(
