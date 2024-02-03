@@ -684,6 +684,28 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .single(Long.class);
     }
     
+    public long countDistinctBy(
+        final KCountFunction<KFrom, KQuery> kCountFunction,
+        final KColumn kColumn
+    ) {
+        return countDistinctBy(getK().getEntityManagerDefaultName(), kCountFunction, kColumn);
+    }
+    
+    public long countDistinctBy(
+        final String jdbc,
+        final KCountFunction<KFrom, KQuery> kCountFunction,
+        final KColumn kColumn
+    ) {
+        return
+            kCountFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .select(KFunction.countDistinct(kColumn))
+                .from(getMetadata())
+            )
+            .single(Long.class);
+    }
+    
     public int insert(
         final T entity
     ) {
