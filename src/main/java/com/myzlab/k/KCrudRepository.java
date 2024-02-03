@@ -478,10 +478,10 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     ) {
         final KQuery kQuery =
             kExistsFunction.run(
-            getK()
-            .select1()
-            .from(getMetadata())
-        );
+                getK()
+                .select1()
+                .from(getMetadata())
+            );
         
         assertExists(getK(), jdbc, kQuery, httpStatus, message);
     }
@@ -563,6 +563,35 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         if (!boolAndNotExists) {
             throw KExceptionHelper.createByHttpStatus(httpStatus, message);
         }
+    }
+    
+    public void assertNotExistsBy(
+        final KExistsFunction<KFrom, KQuery> kExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertNotExistsBy(
+            getK().getEntityManagerDefaultName(),
+            kExistsFunction,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertNotExistsBy(
+        final String jdbc,
+        final KExistsFunction<KFrom, KQuery> kExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        final KQuery kQuery =
+            kExistsFunction.run(
+                getK()
+                .select1()
+                .from(getMetadata())
+            );
+        
+        assertNotExists(getK(), jdbc, kQuery, httpStatus, message);
     }
     
     public long count() {
