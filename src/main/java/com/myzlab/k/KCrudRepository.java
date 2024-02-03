@@ -4,8 +4,7 @@ import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
 import com.myzlab.k.functions.KDeleteFunction;
-import com.myzlab.k.functions.KFindMultipleFunction;
-import com.myzlab.k.functions.KFindOneFunction;
+import com.myzlab.k.functions.KFindFunction;
 import com.myzlab.k.functions.KValuesFunction;
 import com.myzlab.k.helper.KExceptionHelper;
 import java.util.ArrayList;
@@ -72,24 +71,24 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     }
     
     public T findOneBy(
-        final KFindOneFunction<KFrom, KQuery> kFindOneFunction,
+        final KFindFunction<KFrom, KQuery> kFindFunction,
         final KColumnAllowedToSelect... selects
     ) {
         return findOneBy(
             getK().getEntityManagerDefaultName(),
-            kFindOneFunction,
+            kFindFunction,
             selects
         );
     }
     
     public T findOneBy(
         final String jdbc,
-        final KFindOneFunction<KFrom, KQuery> kFindOneFunction,
+        final KFindFunction<KFrom, KQuery> kFindFunction,
         final KColumnAllowedToSelect... selects
     ) {
         return
             (T)
-            kFindOneFunction.run(
+            kFindFunction.run(
                 getK()
                 .jdbc(jdbc)
                 .select(selects)
@@ -120,23 +119,23 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     }
     
     public KCollection<T> findMultipleBy(
-        final KFindMultipleFunction<KFrom, KQuery> kFindMultipleFunction,
+        final KFindFunction<KFrom, KQuery> kFindFunction,
         final KColumnAllowedToSelect... selects
     ) {
         return findMultipleBy(
             getK().getEntityManagerDefaultName(),
-            kFindMultipleFunction,
+            kFindFunction,
             selects
         );
     }
     
     public KCollection<T> findMultipleBy(
         final String jdbc,
-        final KFindMultipleFunction<KFrom, KQuery> kFindMultipleFunction,
+        final KFindFunction<KFrom, KQuery> kFindFunction,
         final KColumnAllowedToSelect... selects
     ) {
         return
-            kFindMultipleFunction.run(
+            kFindFunction.run(
                 getK()
                 .jdbc(jdbc)
                 .select(selects)
