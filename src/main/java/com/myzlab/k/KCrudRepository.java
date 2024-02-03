@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToReturning;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import static com.myzlab.k.KFunction.*;
+import com.myzlab.k.functions.KDeleteFunction;
 import com.myzlab.k.functions.KFindMultipleFunction;
 import com.myzlab.k.functions.KFindOneFunction;
 import com.myzlab.k.functions.KValuesFunction;
@@ -233,6 +234,54 @@ public abstract class KCrudRepository<T extends KRow, Y> {
             .jdbc(jdbc)
             .deleteFrom(getMetadata())
             .where(getKTableColumnId().in(ids))
+            .returning(kColumnsAllowedToReturning)
+            .execute(getKRowClass());
+    }
+    
+    public int deleteBy(
+        final KDeleteFunction<KDeleteFrom, KWhereDelete> kDeleteFunction
+    ) {
+        return deleteBy(
+            getK().getEntityManagerDefaultName(),
+            kDeleteFunction
+        );
+    }
+    
+    public int deleteBy(
+        final String jdbc,
+        final KDeleteFunction<KDeleteFrom, KWhereDelete> kDeleteFunction
+    ) {
+        return
+            kDeleteFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .deleteFrom(getMetadata())
+            )
+            .execute();
+    }
+    
+    public KCollection<T> deleteBy(
+        final KDeleteFunction<KDeleteFrom, KWhereDelete> kDeleteFunction,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return deleteBy(
+            getK().getEntityManagerDefaultName(),
+            kDeleteFunction,
+            kColumnsAllowedToReturning
+        );
+    }
+    
+    public KCollection<T> deleteBy(
+        final String jdbc,
+        final KDeleteFunction<KDeleteFrom, KWhereDelete> kDeleteFunction,
+        final KColumnAllowedToReturning... kColumnsAllowedToReturning
+    ) {
+        return 
+            kDeleteFunction.run(
+                getK()
+                .jdbc(jdbc)
+                .deleteFrom(getMetadata())
+            )
             .returning(kColumnsAllowedToReturning)
             .execute(getKRowClass());
     }
