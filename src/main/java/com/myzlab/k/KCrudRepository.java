@@ -388,6 +388,22 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         assertExistsById(
             getK().getEntityManagerDefaultName(),
             id,
+            null,
+            httpStatus,
+            message
+        );
+    }
+    
+    public void assertExistsById(
+        final Y id,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
+        final HttpStatus httpStatus,
+        final String message
+    ) {
+        assertExistsById(
+            getK().getEntityManagerDefaultName(),
+            id,
+            kAssertExistsFunction,
             httpStatus,
             message
         );
@@ -396,15 +412,18 @@ public abstract class KCrudRepository<T extends KRow, Y> {
     public void assertExistsById(
         final String jdbc,
         final Y id,
+        final KAssertExistsFunction<KWhere, KQuery> kAssertExistsFunction,
         final HttpStatus httpStatus,
         final String message
     ) {
-        final KQuery kQuery =
+        final KWhere kWhere = 
             getK()
             .select1()
             .from(getMetadata())
             .where(getKTableColumnId().eq(id));
         
+        final KQuery kQuery = kAssertExistsFunction != null ? kAssertExistsFunction.run(kWhere) : kWhere;
+            
         assertExists(getK(), jdbc, kQuery, httpStatus, message);
     }
     
