@@ -160,6 +160,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final Y id
     ) {
+        KUtils.assertNotNull(id, "id");
+        
         return 
             getK()
             .jdbc(jdbc)
@@ -184,6 +186,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final Y id,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        KUtils.assertNotNull(id, "id");
+        
         return 
             getK()
             .jdbc(jdbc)
@@ -207,6 +211,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final String jdbc,
         final List<Y> ids
     ) {
+        KUtils.assertNotNull(ids, "ids");
+        
         return 
             getK()
             .jdbc(jdbc)
@@ -231,6 +237,8 @@ public abstract class KCrudRepository<T extends KRow, Y> {
         final List<Y> ids,
         final KColumnAllowedToReturning... kColumnsAllowedToReturning
     ) {
+        KUtils.assertNotNull(ids, "ids");
+        
         return 
             getK()
             .jdbc(jdbc)
