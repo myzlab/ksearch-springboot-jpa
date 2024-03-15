@@ -2511,6 +2511,10 @@ public class KFunction {
         return applyOneParameterFunction(kColumn, "INITCAP");
     }
     
+    public static KInterval interval() {
+        return KInterval.getInstance();
+    }
+
     public static KColumn isempty(
         final KColumn kColumn
     ) {
