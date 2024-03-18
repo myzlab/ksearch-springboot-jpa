@@ -452,7 +452,14 @@ public class KQueryUtils {
                     kQueryData.sb.append(((KRaw) values.get(j)).content);
                     kQueryData.params.addAll(((KRaw) values.get(j)).params);
                 } else {
-                    kQueryData.sb.append("?");
+                    if (values.get(j) instanceof LocalDateTime) {
+                        kQueryData.sb.append("CAST(? as TIMESTAMP)");
+                    } else if (values.get(j) instanceof LocalDate) {
+                        kQueryData.sb.append("CAST(? as DATE)");
+                    } else {
+                        kQueryData.sb.append("?");
+                    }
+                    
                     kQueryData.params.add(values.get(j));
                 }
                 
