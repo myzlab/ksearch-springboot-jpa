@@ -468,6 +468,18 @@ public class KRow {
         if (o[n] instanceof BigDecimal) {
             return ((BigDecimal) o[n]).doubleValue();
         }
+        
+        if (o[n] instanceof Long) {
+            return ((Long) o[n]).doubleValue();
+        }
+        
+        if (o[n] instanceof Integer) {
+            return ((Integer) o[n]).doubleValue();
+        }
+        
+        if (o[n] instanceof Short) {
+            return ((Short) o[n]).doubleValue();
+        }
 
         try {
             return (Double) o[n];
