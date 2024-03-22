@@ -24,8 +24,22 @@ public class KIntervalFilled {
         return new KIntervalFilled(sb, value, unit);
     }
     
+    public static KIntervalFilled getInstance(
+        final StringBuilder sb,
+        final Integer value,
+        final String unit
+    ) {
+        return new KIntervalFilled(sb, value.doubleValue(), unit);
+    }
+    
     public KIntervalFilled years(
         final Double value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "years");
+    }
+    
+    public KIntervalFilled years(
+        final Integer value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "years");
     }
@@ -36,8 +50,20 @@ public class KIntervalFilled {
         return KIntervalFilled.getInstance(this.sb, value, "quarters");
     }
     
+    public KIntervalFilled quarters(
+        final Integer value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "quarters");
+    }
+    
     public KIntervalFilled months(
         final Double value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "months");
+    }
+    
+    public KIntervalFilled months(
+        final Integer value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "months");
     }
@@ -48,8 +74,20 @@ public class KIntervalFilled {
         return KIntervalFilled.getInstance(this.sb, value, "weeks");
     }
     
+    public KIntervalFilled weeks(
+        final Integer value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "weeks");
+    }
+    
     public KIntervalFilled days(
         final Double value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "days");
+    }
+    
+    public KIntervalFilled days(
+        final Integer value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "days");
     }
@@ -60,8 +98,20 @@ public class KIntervalFilled {
         return KIntervalFilled.getInstance(this.sb, value, "hours");
     }
     
+    public KIntervalFilled hours(
+        final Integer value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "hours");
+    }
+    
     public KIntervalFilled minutes(
         final Double value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "minutes");
+    }
+    
+    public KIntervalFilled minutes(
+        final Integer value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "minutes");
     }
@@ -72,14 +122,32 @@ public class KIntervalFilled {
         return KIntervalFilled.getInstance(this.sb, value, "seconds");
     }
     
+    public KIntervalFilled seconds(
+        final Integer value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "seconds");
+    }
+    
     public KIntervalFilled milliseconds(
         final Double value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "milliseconds");
     }
     
+    public KIntervalFilled milliseconds(
+        final Integer value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "milliseconds");
+    }
+    
     public KIntervalFilled microseconds(
         final Double value
+    ) {
+        return KIntervalFilled.getInstance(this.sb, value, "microseconds");
+    }
+    
+    public KIntervalFilled microseconds(
+        final Integer value
     ) {
         return KIntervalFilled.getInstance(this.sb, value, "microseconds");
     }
