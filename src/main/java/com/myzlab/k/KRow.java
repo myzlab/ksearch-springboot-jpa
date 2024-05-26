@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.functions.KRowFunction;
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.helper.json.JsonHelper;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -14,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -1074,9 +1074,7 @@ public class KRow {
     }
     
     public String toJSON() {
-        final Map<String, Object> item = this.toMap();
-        
-        return new JSONObject(item).toString();
+        return JsonHelper.toJson(this.toMap());
     }
     
     private Map<String, Object> toResponse() {

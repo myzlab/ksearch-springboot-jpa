@@ -26,7 +26,6 @@ public class DynamicMap {
             return this;
         }
         
-        
         for (final Map.Entry<String, ?> entry : map.entrySet()) {            
             if (entry.getValue() != null) {
                 this.add(entry.getKey(), entry.getValue());

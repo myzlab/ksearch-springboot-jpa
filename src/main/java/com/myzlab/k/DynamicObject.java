@@ -1,8 +1,8 @@
 package com.myzlab.k;
 
+import com.myzlab.k.helper.json.JsonHelper;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -121,17 +121,7 @@ public class DynamicObject {
     }
     
     public String toJSON() {
-        final HashMap<String, Object> map = new HashMap<>();
-        
-        for (final Map.Entry<String,Object> entry : this.toMap().entrySet()) {
-            if (entry.getValue() == null) {
-                map.put(entry.getKey(), JSONObject.NULL);
-            } else {
-                map.put(entry.getKey(), entry.getValue());
-            }
-        } 
-        
-        return new JSONObject(map).toString();
+        return JsonHelper.toJson(this.toMap());
     }
 
     public HashMap<String, Object> toMap() {

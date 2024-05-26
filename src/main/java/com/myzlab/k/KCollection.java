@@ -2,6 +2,7 @@ package com.myzlab.k;
 
 import com.myzlab.k.functions.KRowFunction;
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.helper.json.JsonHelper;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -14,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 
 public class KCollection<T extends KRow> {
@@ -1279,9 +1279,7 @@ public class KCollection<T extends KRow> {
     }
     
     public String toJSON() {
-        final List<Map<String, Object>> items = this.toList();
-        
-        return new JSONArray(items).toString();
+        return JsonHelper.toJson(this.toList());
     }
     
     public ResponseEntity buildResponse() {
