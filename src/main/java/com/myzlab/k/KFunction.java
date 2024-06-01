@@ -4864,6 +4864,23 @@ public class KFunction {
         return toTimestampKValTextField;
     }
     
+    public static KColumn toTsvector(
+        final KTsConfig kTsConfig,
+        final KBaseColumnCastable kBaseColumnCastable
+    ) {
+        KUtils.assertNotNull(kTsConfig, "kTsConfig");
+        KUtils.assertNotNull(kBaseColumnCastable, "kBaseColumnCastable");
+        
+        final KColumn toTsvectorKColumn = new KColumn(false);
+        
+        toTsvectorKColumn.sb.append("TO_TSVECTOR('").append(kTsConfig.toSql()).append("', ").append(kBaseColumnCastable.sb);
+        toTsvectorKColumn.params.addAll(kBaseColumnCastable.params);
+        
+        toTsvectorKColumn.sb.append(")");
+        
+        return toTsvectorKColumn;
+    }
+    
     public static KColumn translate(
         final KColumn kColumn,
         final String from,
