@@ -36,6 +36,38 @@ public class KSet extends KQuery {
         this.executeQuery();
     }
     
+    public  void strictWordSimilarityThreshold(
+        final Double strictWordSimilarityThreshold
+    ) {
+        strictWordSimilarityThreshold(strictWordSimilarityThreshold.floatValue());
+    }
+    
+    public void strictWordSimilarityThreshold(
+        final Float strictWordSimilarityThreshold
+    ) {
+        KUtils.assertNotNull(strictWordSimilarityThreshold, "strictWordSimilarityThreshold");
+        
+        this.kQueryData.sb.append("pg_trgm.strict_word_similarity_threshold = ").append(strictWordSimilarityThreshold);
+        
+        this.executeQuery();
+    }
+    
+    public  void wordSimilarityThreshold(
+        final Double wordSimilarityThreshold
+    ) {
+        wordSimilarityThreshold(wordSimilarityThreshold.floatValue());
+    }
+    
+    public void wordSimilarityThreshold(
+        final Float wordSimilarityThreshold
+    ) {
+        KUtils.assertNotNull(wordSimilarityThreshold, "wordSimilarityThreshold");
+        
+        this.kQueryData.sb.append("pg_trgm.word_similarity_threshold = ").append(wordSimilarityThreshold);
+        
+        this.executeQuery();
+    }
+    
     private void process() {
         KQueryUtils.processSet(this.kQueryData);
     }
