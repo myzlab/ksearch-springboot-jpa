@@ -18,6 +18,10 @@ public abstract class KBuilder {
         return KExecutor.getInstance(this, this.getEntityManagerDefaultName());
     }
     
+    public KSet set() {
+        return KSet.getInstance(jdbc());
+    }
+    
     public KSpecialBuilder sf(
         final KSpecialFunction kSpecialFunction
     ) {

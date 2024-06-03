@@ -21,6 +21,7 @@ import com.myzlab.k.optional.KOptionalNumber;
 import com.myzlab.k.optional.KOptionalSpecialFunction;
 import com.myzlab.k.optional.KOptionalString;
 import com.myzlab.k.optional.KOptionalUuid;
+import com.myzlab.k.sql.SqlOperator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -206,6 +207,28 @@ public class KFunction {
         
         operationKColumn.sb.append(" ").append(operator).append(" ").append(closeNextParam ? "(" : "").append(kColumn2.sb).append(closeNextParam ? ")" : "");
         operationKColumn.params.addAll(kColumn2.params);
+        
+        return operationKColumn;
+    }
+    
+    private static KColumn applyBinaryOperator(
+        final KColumn kColumn,
+        final KBaseColumn kBaseColumn,
+        final String operator
+    ) {
+        KUtils.assertNotNull(kColumn, "kColumn");
+        KUtils.assertNotNull(kBaseColumn, "kBaseColumn");
+        
+        final KColumn operationKColumn = new KColumn(kColumn.sb, kColumn.params, false);
+        
+        if (!kColumn.closed) {
+            operationKColumn.sb.insert(0, "(").append(")");
+        }
+        
+        final boolean closeNextParam = !kBaseColumn.closed;
+        
+        operationKColumn.sb.append(" ").append(operator).append(" ").append(closeNextParam ? "(" : "").append(kBaseColumn.sb).append(closeNextParam ? ")" : "");
+        operationKColumn.params.addAll(kBaseColumn.params);
         
         return operationKColumn;
     }
@@ -2014,56 +2037,56 @@ public class KFunction {
         return encodeKValTextField;
     }
     
-    public static KColumn div(
+    public static KColumn divide(
         final KColumn kColumn1,
         final KColumn kColumn2
     ) {
         return applyBinaryOperator(kColumn1, kColumn2, "/");
     }
     
-    public static KColumn div(
+    public static KColumn divide(
         final KColumn kColumn,
         final Number number
     ) {
         return applyBinaryOperator(kColumn, number, "/");
     }
     
-    public static KColumn div(
+    public static KColumn divide(
         final Number number,
         final KColumn kColumn
     ) {
         return applyBinaryOperator(number, kColumn, "/");
     }
     
-    public static KValNumberField div(
+    public static KValNumberField divide(
         final KValNumberField kValNumberField,
         final Number number
     ) {
         return applyBinaryOperator(kValNumberField, number, "/");
     }
     
-    public static KValNumberField div(
+    public static KValNumberField divide(
         final Number number,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(number, kValNumberField, "/");
     }
     
-    public static KValNumberField div(
+    public static KValNumberField divide(
         final KValNumberField kValNumberField1,
         final KValNumberField kValNumberField2
     ) {
         return applyBinaryOperator(kValNumberField1, kValNumberField2, "/");
     }
     
-    public static KColumn div(
+    public static KColumn divide(
         final KColumn kColumn,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(kColumn, kValNumberField, "/");
     }
     
-    public static KColumn div(
+    public static KColumn divide(
         final KValNumberField kValNumberField,
         final KColumn kColumn
     ) {
@@ -3126,56 +3149,56 @@ public class KFunction {
         return applyBinaryOperator(kValNumberField, kColumn, "%");
     }
     
-    public static KColumn mul(
+    public static KColumn multiply(
         final KColumn kColumn1,
         final KColumn kColumn2
     ) {
         return applyBinaryOperator(kColumn1, kColumn2, "*");
     }
     
-    public static KColumn mul(
+    public static KColumn multiply(
         final KColumn kColumn,
         final Number number
     ) {
         return applyBinaryOperator(kColumn, number, "*");
     }
     
-    public static KColumn mul(
+    public static KColumn multiply(
         final Number number,
         final KColumn kColumn
     ) {
         return applyBinaryOperator(number, kColumn, "*");
     }
     
-    public static KValNumberField mul(
+    public static KValNumberField multiply(
         final KValNumberField kValNumberField,
         final Number number
     ) {
         return applyBinaryOperator(kValNumberField, number, "*");
     }
     
-    public static KValNumberField mul(
+    public static KValNumberField multiply(
         final Number number,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(number, kValNumberField, "*");
     }
     
-    public static KValNumberField mul(
+    public static KValNumberField multiply(
         final KValNumberField kValNumberField1,
         final KValNumberField kValNumberField2
     ) {
         return applyBinaryOperator(kValNumberField1, kValNumberField2, "*");
     }
     
-    public static KColumn mul(
+    public static KColumn multiply(
         final KColumn kColumn,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(kColumn, kValNumberField, "*");
     }
     
-    public static KColumn mul(
+    public static KColumn multiply(
         final KValNumberField kValNumberField,
         final KColumn kColumn
     ) {
@@ -3281,6 +3304,22 @@ public class KFunction {
         final KValTextField kValTextField
     ) {
         return applyOneParameterFunction(kValTextField, "OCTET_LENGTH");
+    }
+    
+    public static KColumn op(
+        final KColumn kColumn,
+        final SqlOperator sqlOperator,
+        final KBaseColumnCastable kBaseColumnCastable
+    ) {
+        return op(kColumn, sqlOperator.getSql(), kBaseColumnCastable);
+    }
+    
+    public static KColumn op(
+        final KColumn kColumn,
+        final String sqlOperator,
+        final KBaseColumnCastable kBaseColumnCastable
+    ) {
+        return applyBinaryOperator(kColumn, kBaseColumnCastable, sqlOperator);
     }
     
     public static KOptionalKColumn optional(
@@ -5072,56 +5111,56 @@ public class KFunction {
         return tuple;
     }
     
-    public static KColumn sub(
+    public static KColumn subtract(
         final KColumn kColumn1,
         final KColumn kColumn2
     ) {
         return applyBinaryOperator(kColumn1, kColumn2, "-");
     }
     
-    public static KColumn sub(
+    public static KColumn subtract(
         final KColumn kColumn,
         final Number number
     ) {
         return applyBinaryOperator(kColumn, number, "-");
     }
     
-    public static KColumn sub(
+    public static KColumn subtract(
         final Number number,
         final KColumn kColumn
     ) {
         return applyBinaryOperator(number, kColumn, "-");
     }
     
-    public static KValNumberField sub(
+    public static KValNumberField subtract(
         final KValNumberField kValNumberField,
         final Number number
     ) {
         return applyBinaryOperator(kValNumberField, number, "-");
     }
     
-    public static KValNumberField sub(
+    public static KValNumberField subtract(
         final Number number,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(number, kValNumberField, "-");
     }
     
-    public static KValNumberField sub(
+    public static KValNumberField subtract(
         final KValNumberField kValNumberField1,
         final KValNumberField kValNumberField2
     ) {
         return applyBinaryOperator(kValNumberField1, kValNumberField2, "-");
     }
     
-    public static KColumn sub(
+    public static KColumn subtract(
         final KColumn kColumn,
         final KValNumberField kValNumberField
     ) {
         return applyBinaryOperator(kColumn, kValNumberField, "-");
     }
     
-    public static KColumn sub(
+    public static KColumn subtract(
         final KValNumberField kValNumberField,
         final KColumn kColumn
     ) {

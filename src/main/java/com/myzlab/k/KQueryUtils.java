@@ -569,6 +569,12 @@ public class KQueryUtils {
         kQueryData.sb.append("(").append(subQuery.sb).append(") AS ").append(alias);
     }
     
+    protected static void processSet(
+        final KQueryData kQueryData
+    ) {
+        kQueryData.sb.append("SET ");
+    }
+    
     protected static void processFrom(
         final KQueryData kQueryData,
         final KTable kTable

@@ -97,6 +97,13 @@ public abstract class KQuery extends KGenericQuery {
         }
     }
     
+    protected void executeQuery() {
+        k
+        .getEntityManager()
+        .createNativeQuery(this.kQueryData.sb.toString())
+        .executeUpdate();
+    }
+    
     public KRow single() {
         return this.single(KRow.class);
     }

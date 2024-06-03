@@ -44,40 +44,40 @@ public class KValNumberField extends KBaseValField implements KColumnAllowedToSe
         return KFunction.add(this, number);
     }
     
-    public KColumn div(
+    public KColumn divide(
         final KColumn kColumn
     ) {
-        return KFunction.div(this, kColumn);
+        return KFunction.divide(this, kColumn);
     }
     
-    public KValNumberField div(
+    public KValNumberField divide(
         final KValNumberField kValNumberField
     ) {
-        return KFunction.div(this, kValNumberField);
+        return KFunction.divide(this, kValNumberField);
     }
     
-    public KValNumberField div(
+    public KValNumberField divide(
         final Number number
     ) {
-        return KFunction.div(this, number);
+        return KFunction.divide(this, number);
     }
     
-    public KColumn sub(
+    public KColumn subtract(
         final KColumn kColumn
     ) {
-        return KFunction.sub(this, kColumn);
+        return KFunction.subtract(this, kColumn);
     }
     
-    public KValNumberField sub(
+    public KValNumberField subtract(
         final KValNumberField kValNumberField
     ) {
-        return KFunction.sub(this, kValNumberField);
+        return KFunction.subtract(this, kValNumberField);
     }
     
-    public KValNumberField sub(
+    public KValNumberField subtract(
         final Number number
     ) {
-        return KFunction.sub(this, new KValNumberField(number));
+        return KFunction.subtract(this, new KValNumberField(number));
     }
     
     public KColumn mod(
@@ -98,22 +98,22 @@ public class KValNumberField extends KBaseValField implements KColumnAllowedToSe
         return KFunction.mod(this, new KValNumberField(number));
     }
     
-    public KColumn mul(
+    public KColumn multiply(
         final KColumn kColumn
     ) {
-        return KFunction.mul(this, kColumn);
+        return KFunction.multiply(this, kColumn);
     }
     
-    public KValNumberField mul(
+    public KValNumberField multiply(
         final KValNumberField kValNumberField
     ) {
-        return KFunction.mul(this, kValNumberField);
+        return KFunction.multiply(this, kValNumberField);
     }
     
-    public KValNumberField mul(
+    public KValNumberField multiply(
         final Number number
     ) {
-        return KFunction.mul(this, new KValNumberField(number));
+        return KFunction.multiply(this, new KValNumberField(number));
     }
     
     public KColumnOrdered asc() {
