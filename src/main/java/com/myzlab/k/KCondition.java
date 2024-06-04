@@ -3,6 +3,7 @@ package com.myzlab.k;
 import com.myzlab.k.allowed.KColumnAllowedToSelect;
 import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import com.myzlab.k.helper.KExceptionHelper;
+import com.myzlab.k.sql.ComparisonSqlOperator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -2399,6 +2400,18 @@ public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUp
         
         kCondition.sb.append(kBaseColumn.sb).append(" NOT IN ").append(kColumn.sb);
 
+        return kCondition;
+    }
+    
+    public static KCondition op(
+        final KColumn kColumn,
+        final ComparisonSqlOperator comparisonSqlOperator,
+        final KBaseColumnCastable kBaseColumnCastable
+    ) {
+        final KCondition kCondition = new KCondition();
+        
+        kCondition.processBinaryOperator(kColumn, kBaseColumnCastable, comparisonSqlOperator.getSql());
+        
         return kCondition;
     }
     

@@ -21,7 +21,8 @@ import com.myzlab.k.optional.KOptionalNumber;
 import com.myzlab.k.optional.KOptionalSpecialFunction;
 import com.myzlab.k.optional.KOptionalString;
 import com.myzlab.k.optional.KOptionalUuid;
-import com.myzlab.k.sql.SqlOperator;
+import com.myzlab.k.sql.ArithmeticSqlOperator;
+import com.myzlab.k.sql.ComparisonSqlOperator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -3308,18 +3309,18 @@ public class KFunction {
     
     public static KColumn op(
         final KColumn kColumn,
-        final SqlOperator sqlOperator,
+        final ArithmeticSqlOperator arithmeticSqlOperator,
         final KBaseColumnCastable kBaseColumnCastable
     ) {
-        return op(kColumn, sqlOperator.getSql(), kBaseColumnCastable);
+        return applyBinaryOperator(kColumn, kBaseColumnCastable, arithmeticSqlOperator.getSql());
     }
     
-    public static KColumn op(
+    public static KCondition op(
         final KColumn kColumn,
-        final String sqlOperator,
+        final ComparisonSqlOperator comparisonSqlOperator,
         final KBaseColumnCastable kBaseColumnCastable
     ) {
-        return applyBinaryOperator(kColumn, kBaseColumnCastable, sqlOperator);
+        return KCondition.op(kColumn, comparisonSqlOperator, kBaseColumnCastable);
     }
     
     public static KOptionalKColumn optional(
@@ -4365,6 +4366,24 @@ public class KFunction {
         return applyOneParameterFunction(val(number), "SIGN");
     }
     
+    public static KColumn similarity(
+        final KColumn kColumn,
+        final String value
+    ) {
+        KUtils.assertNotNullNotEmpty(value, "value");
+        
+        return applyTwoParameterFunction(kColumn, val(value), "SIMILARITY");
+    }
+    
+    public static KColumn similarity(
+        final KColumn kColumn,
+        final KValTextField kValTextField
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        
+        return applyTwoParameterFunction(kColumn, kValTextField, "SIMILARITY");
+    }
+    
     public static KColumn sin(
         final KColumn kColumn
     ) {
@@ -4461,6 +4480,24 @@ public class KFunction {
         KUtils.assertNotNull(number, "number");
         
         return applyOneParameterFunction(val(number), "SQRT");
+    }
+    
+    public static KColumn strictWordSimilarity(
+        final KColumn kColumn,
+        final String value
+    ) {
+        KUtils.assertNotNullNotEmpty(value, "value");
+        
+        return applyTwoParameterFunction(kColumn, val(value), "STRICT_WORD_SIMILARITY");
+    }
+    
+    public static KColumn strictWordSimilarity(
+        final KColumn kColumn,
+        final KValTextField kValTextField
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        
+        return applyTwoParameterFunction(kColumn, kValTextField, "STRICT_WORD_SIMILARITY");
     }
     
     public static KStringAggColumn stringAgg(
@@ -5418,6 +5455,24 @@ public class KFunction {
         widthBucketkColumn.sb.append("WIDTH_BUCKET(").append(op).append(", ").append(b1).append(", ").append(b2).append(", ").append(count).append(")");
         
         return widthBucketkColumn;
+    }
+    
+    public static KColumn wordSimilarity(
+        final KColumn kColumn,
+        final String value
+    ) {
+        KUtils.assertNotNullNotEmpty(value, "value");
+        
+        return applyTwoParameterFunction(kColumn, val(value), "WORD_SIMILARITY");
+    }
+    
+    public static KColumn wordSimilarity(
+        final KColumn kColumn,
+        final KValTextField kValTextField
+    ) {
+        KUtils.assertNotNull(kValTextField, "kValTextField");
+        
+        return applyTwoParameterFunction(kColumn, kValTextField, "WORD_SIMILARITY");
     }
     
     public static KAggregateFunctionColumn xmlagg(
