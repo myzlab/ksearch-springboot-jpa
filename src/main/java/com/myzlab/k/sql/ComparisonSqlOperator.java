@@ -5,18 +5,22 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum ComparisonSqlOperator {
+public class ComparisonSqlOperator {
     
-    TRGM_SIMILARITY("%"),
-    TRGM_WORD_SIMILARITY("<%"),
-    TRGM_WORD_SIMILARITY_COMMUTATOR("%>"),
-    TRGM_STRICT_WORD_SIMILARITY("<<%"),
-    TRGM_STRICT_WORD_SIMILARITY_COMMUTATOR("%>>"),
-    TRGM_SIMILARITY_DISTANCE("<->"),
-    TRGM_WORD_SIMILARITY_DISTANCE("<<->"),
-    TRGM_WORD_SIMILARITY_DISTANCE_COMMUTATOR("<->>"),
-    TRGM_STRICT_WORD_SIMILARITY_DISTANCE("<<<->"),
-    TRGM_STRICT_WORD_SIMILARITY_DISTANCE_COMMUTATOR("<->>>");
+    /* TRGM operators */
+    public static final ComparisonSqlOperator TRGM_SIMILARITY = new ComparisonSqlOperator("%");
+    public static final ComparisonSqlOperator TRGM_WORD_SIMILARITY = new ComparisonSqlOperator("<%");
+    public static final ComparisonSqlOperator TRGM_WORD_SIMILARITY_COMMUTATOR = new ComparisonSqlOperator("%>");
+    public static final ComparisonSqlOperator TRGM_STRICT_WORD_SIMILARITY = new ComparisonSqlOperator("<<%");
+    public static final ComparisonSqlOperator TRGM_STRICT_WORD_SIMILARITY_COMMUTATOR = new ComparisonSqlOperator("%>>");
+    public static final ComparisonSqlOperator TRGM_SIMILARITY_DISTANCE = new ComparisonSqlOperator("<->");
+    public static final ComparisonSqlOperator TRGM_WORD_SIMILARITY_DISTANCE = new ComparisonSqlOperator("<<->");
+    public static final ComparisonSqlOperator TRGM_WORD_SIMILARITY_DISTANCE_COMMUTATOR = new ComparisonSqlOperator("<->>");
+    public static final ComparisonSqlOperator TRGM_STRICT_WORD_SIMILARITY_DISTANCE = new ComparisonSqlOperator("<<<->");
+    public static final ComparisonSqlOperator TRGM_STRICT_WORD_SIMILARITY_DISTANCE_COMMUTATOR = new ComparisonSqlOperator("<->>>");
+    
+    /* Full-text search operator */
+    public static final ComparisonSqlOperator TEXT_SEARCH_MATCH = new ComparisonSqlOperator("@@");
 
     private final String sql;
 }
