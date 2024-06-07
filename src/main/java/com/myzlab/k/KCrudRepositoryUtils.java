@@ -163,7 +163,7 @@ public class KCrudRepositoryUtils {
             k
             .jdbc(jdbc)
             .insertInto(kTableMetadata)
-            .columns(columns.toArray(new KTableColumn[columns.size()]))
+            .columns(columns.toArray(new KTableColumn[0]))
             .values(kValues, columnsDataType);
     }
     
@@ -222,7 +222,7 @@ public class KCrudRepositoryUtils {
             k
             .jdbc(jdbc)
             .insertInto(kTableMetadata)
-            .columns(columns.toArray(new KTableColumn[columns.size()]))
+            .columns(columns.toArray(new KTableColumn[0]))
             .values(kValues, columnsDataType);
     }
     
