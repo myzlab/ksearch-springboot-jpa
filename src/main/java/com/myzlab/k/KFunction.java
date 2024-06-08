@@ -5325,6 +5325,12 @@ public class KFunction {
         return new KValTextField(val);
     }
     
+    public static KValArrayTextField val(
+        final String[] val
+    ) {
+        return new KValArrayTextField(val);
+    }
+    
     public static KValBooleanField val(
         final Boolean val
     ) {
@@ -5335,6 +5341,12 @@ public class KFunction {
         final Number val
     ) {
         return new KValNumberField(val);
+    }
+    
+    public static KValArrayNumberField val(
+        final Number[] val
+    ) {
+        return new KValArrayNumberField(val);
     }
     
     public static KValLocalDateField val(

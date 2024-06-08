@@ -2433,6 +2433,10 @@ public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUp
         
         this.sb.append(kBaseColumn1.sb);
         
+        if (kBaseColumn1 instanceof KValArrayTextField) {
+            this.sb.append("::text[]");
+        }
+        
         if (!kBaseColumn1.closed) {
             this.sb.append(")");
         }
@@ -2444,6 +2448,10 @@ public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUp
         }
         
         this.sb.append(kBaseColumn2.sb);
+        
+        if (kBaseColumn2 instanceof KValArrayTextField) {
+            this.sb.append("::text[]");
+        }
         
         if (!kBaseColumn2.closed) {
             this.sb.append(")");

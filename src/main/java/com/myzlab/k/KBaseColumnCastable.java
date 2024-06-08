@@ -86,6 +86,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     }
     
     protected KBaseColumnCastable(
+        final String[] val
+    ) {
+        super(val);
+    }
+    
+    protected KBaseColumnCastable(
         final Boolean val
     ) {
         super(val, true);
@@ -93,6 +99,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
     
     protected KBaseColumnCastable(
         final Number val
+    ) {
+        super(val);
+    }
+    
+    protected KBaseColumnCastable(
+        final Number[] val
     ) {
         super(val);
     }

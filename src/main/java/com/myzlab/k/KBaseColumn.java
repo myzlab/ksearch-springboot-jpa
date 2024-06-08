@@ -116,6 +116,19 @@ public abstract class KBaseColumn {
     }
     
     protected KBaseColumn(
+        final String[] val
+    ) {
+        this();
+        
+        if (val == null) {
+            throw KExceptionHelper.internalServerError("The 'val' param cannot be null");
+        }
+        
+        this.sb.append("?");
+        this.params.add(val);
+    }
+    
+    protected KBaseColumn(
         final Boolean val,
         final boolean closed
     ) {
@@ -131,6 +144,19 @@ public abstract class KBaseColumn {
     
     protected KBaseColumn(
         final Number val
+    ) {
+        this();
+        
+        if (val == null) {
+            throw KExceptionHelper.internalServerError("The 'val' param cannot be null");
+        }
+        
+        this.sb.append("?");
+        this.params.add(val);
+    }
+    
+    protected KBaseColumn(
+        final Number[] val
     ) {
         this();
         
