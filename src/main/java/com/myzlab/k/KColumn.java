@@ -8,7 +8,8 @@ import com.myzlab.k.allowed.KColumnAllowedToSetUpdate;
 import com.myzlab.k.optional.KOptionalKColumn;
 import com.myzlab.k.optional.KOptionalKValTextField;
 import com.myzlab.k.optional.KOptionalString;
-import com.myzlab.k.sql.ArithmeticSqlOperator;
+import com.myzlab.k.sql.ArithmeticSqlBinaryOperator;
+import com.myzlab.k.sql.ArithmeticSqlUnaryOperator;
 import com.myzlab.k.sql.ComparisonSqlOperator;
 import java.util.ArrayList;
 import java.util.List;
@@ -3244,10 +3245,16 @@ public class KColumn extends KBaseColumnCastable implements
     }
     
     public KColumn op(
-        final ArithmeticSqlOperator arithmeticSqlOperator,
+        final ArithmeticSqlBinaryOperator arithmeticSqlBinaryOperator,
         final KBaseColumnCastable kBaseColumnCastable
     ) {
-        return KFunction.op(this, arithmeticSqlOperator, kBaseColumnCastable);
+        return KFunction.op(this, arithmeticSqlBinaryOperator, kBaseColumnCastable);
+    }
+    
+    public KColumn op(
+        final ArithmeticSqlUnaryOperator arithmeticSqlUnaryOperator
+    ) {
+        return KFunction.op(this, arithmeticSqlUnaryOperator);
     }
     
     public KCondition op(

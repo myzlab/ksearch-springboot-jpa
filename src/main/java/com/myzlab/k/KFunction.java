@@ -21,7 +21,8 @@ import com.myzlab.k.optional.KOptionalNumber;
 import com.myzlab.k.optional.KOptionalSpecialFunction;
 import com.myzlab.k.optional.KOptionalString;
 import com.myzlab.k.optional.KOptionalUuid;
-import com.myzlab.k.sql.ArithmeticSqlOperator;
+import com.myzlab.k.sql.ArithmeticSqlBinaryOperator;
+import com.myzlab.k.sql.ArithmeticSqlUnaryOperator;
 import com.myzlab.k.sql.ComparisonSqlOperator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -3309,10 +3310,17 @@ public class KFunction {
     
     public static KColumn op(
         final KColumn kColumn,
-        final ArithmeticSqlOperator arithmeticSqlOperator,
+        final ArithmeticSqlBinaryOperator arithmeticSqlBinaryOperator,
         final KBaseColumnCastable kBaseColumnCastable
     ) {
-        return applyBinaryOperator(kColumn, kBaseColumnCastable, arithmeticSqlOperator.getSql());
+        return applyBinaryOperator(kColumn, kBaseColumnCastable, arithmeticSqlBinaryOperator.getSql());
+    }
+    
+    public static KColumn op(
+        final KColumn kColumn,
+        final ArithmeticSqlUnaryOperator arithmeticSqlUnaryOperator
+    ) {
+        return applyUnaryOperator(kColumn, arithmeticSqlUnaryOperator.getSql(), arithmeticSqlUnaryOperator.isAddToRightSide());
     }
     
     public static KCondition op(
