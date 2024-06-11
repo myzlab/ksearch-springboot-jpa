@@ -848,6 +848,7 @@ public class KRow {
         return ((String) o[n]).trim().isEmpty();
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final KTableColumn kTableColumn,
         final HttpStatus status,
@@ -864,6 +865,7 @@ public class KRow {
         return (T) this;
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final String c,
         final HttpStatus status,
@@ -880,6 +882,7 @@ public class KRow {
         return (T) this;
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final int n,
         final HttpStatus status,
@@ -896,6 +899,7 @@ public class KRow {
         return (T) this;
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final String c,
         final HttpStatus status
@@ -903,6 +907,7 @@ public class KRow {
         return (T) assertNotNull(c, status, null);
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final int n,
         final HttpStatus status
@@ -910,6 +915,7 @@ public class KRow {
         return assertNotNull(n, status, null);
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final HttpStatus status,
         final String message
@@ -921,10 +927,51 @@ public class KRow {
         return (T) this;
     }
     
+    @Deprecated
     public <T extends KRow> T assertNotNull(
         final HttpStatus status
     ) {
         return (T) assertNotNull(status, null);
+    }
+    
+    public <T extends KRow> T orElseThrow(
+        final String c,
+        final KException kException
+    ) {
+        if (this.isNull) {
+            throw kException;
+        }
+        
+        if (this.isNull(c)) {
+            throw kException;
+        }
+        
+        return (T) this;
+    }
+    
+    public <T extends KRow> T orElseThrow(
+        final int n,
+        final KException kException
+    ) {
+        if (this.isNull) {
+            throw kException;
+        }
+        
+        if (this.isNull(n)) {
+            throw kException;
+        }
+        
+        return (T) this;
+    }
+    
+    public <T extends KRow> T orElseThrow(
+        final KException kException
+    ) {
+        if (this.isNull) {
+            throw kException;
+        }
+        
+        return (T) this;
     }
     
     public <T extends KRow> T set(
