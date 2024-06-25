@@ -929,10 +929,27 @@ public class KFunction {
     
     public static void assertExists(
         final KBuilder k,
+        final KQuery kQuery,
+        final KException kException
+    ) {
+        assertExists(k, k.getEntityManagerDefaultName(), kQuery, kException);
+    }
+    
+    public static void assertExists(
+        final KBuilder k,
         final String jdbc,
         final KQuery kQuery,
         final HttpStatus httpStatus,
         final String message
+    ) {
+        assertExists(k, jdbc, kQuery, new KException(httpStatus, message));
+    }
+    
+    public static void assertExists(
+        final KBuilder k,
+        final String jdbc,
+        final KQuery kQuery,
+        final KException kException
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
@@ -943,7 +960,7 @@ public class KFunction {
             .single(Boolean.class);
         
         if (!exists) {
-            throw new KException(httpStatus, message);
+            throw kException;
         }
     }
     
@@ -958,10 +975,27 @@ public class KFunction {
     
     public static void assertNotExists(
         final KBuilder k,
+        final KQuery kQuery,
+        final KException kException
+    ) {
+        assertNotExists(k, k.getEntityManagerDefaultName(), kQuery, kException);
+    }
+    
+    public static void assertNotExists(
+        final KBuilder k,
         final String jdbc,
         final KQuery kQuery,
         final HttpStatus httpStatus,
         final String message
+    ) {
+        assertNotExists(k, jdbc, kQuery, new KException(httpStatus, message));
+    }
+    
+    public static void assertNotExists(
+        final KBuilder k,
+        final String jdbc,
+        final KQuery kQuery,
+        final KException kException
     ) {
         KUtils.assertNotNull(kQuery, "kQuery");
         
@@ -972,7 +1006,7 @@ public class KFunction {
             .single(Boolean.class);
         
         if (!notExists) {
-            throw new KException(httpStatus, message);
+            throw kException;
         }
     }
     

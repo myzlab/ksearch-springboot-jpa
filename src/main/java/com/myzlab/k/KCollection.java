@@ -1341,7 +1341,7 @@ public class KCollection<T extends KRow> {
             return this.get(0);
         }
         
-        return KQueryUtils.getKRowNull(this.type);
+        return KQueryUtils.buildKRowNull(this.type);
     }
     
     public KCollection set(final String property, final KRowFunction kRowFunction) {

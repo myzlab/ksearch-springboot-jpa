@@ -9,9 +9,11 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -248,6 +250,12 @@ public class KQueryUtils {
                 }
             } else if (v instanceof PgSQLXML) {
                 return ((PgSQLXML) v).getString();
+            } else if (v instanceof Timestamp) {
+                return ((Timestamp) v).toLocalDateTime();
+            } else if (v instanceof Date) {
+                return ((Date) v).toLocalDate();
+            } else if (v instanceof Time) {
+                return ((Time) v).toLocalTime();
             }
 
             return v;
@@ -910,10 +918,22 @@ public class KQueryUtils {
             return null;
         }
         
+        if (clazz == LocalTime.class) {
+            if (v instanceof Time) {
+                return (T) ((Time) v).toLocalTime();
+            }
+            
+            if (v instanceof LocalTime) {
+                return (T) v;
+            }
+            
+            return null;
+        }
+        
         return (T) v;
     }
     
-    protected static <T extends KRow> T getKRowNull(
+    protected static <T extends KRow> T buildKRowNull(
         final Class<T> clazz
     ) {
         
@@ -928,6 +948,27 @@ public class KQueryUtils {
         }
         
         t.isNull = true;
+
+        return t;
+    }
+    
+    public static <T extends KRow> T buildKRowEmpty(
+        final Class<T> clazz
+    ) {
+        
+        final T t;
+        
+        try {
+            t = (T) clazz.newInstance();  
+        } catch (Exception e) {
+            logger.error("An error occurred while trying create a new instance of a KRow", e);
+            
+            throw KExceptionHelper.internalServerError(e.getMessage());
+        }
+        
+        t.isNull = false;
+        t.ref = new HashMap<>();
+        t.o =  new Object[0];
 
         return t;
     }

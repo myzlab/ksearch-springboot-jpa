@@ -67,7 +67,7 @@ public abstract class KQuery extends KGenericQuery {
 
             return KQueryUtils.mapObject(this.kQueryData, (Object[]) object, paths, clazz);
         } catch (NoResultException | NonUniqueResultException e) {
-            return KQueryUtils.getKRowNull(clazz);
+            return KQueryUtils.buildKRowNull(clazz);
         } catch (ClassCastException e) {
             return KQueryUtils.mapObject(this.kQueryData, new Object[]{
                 object
