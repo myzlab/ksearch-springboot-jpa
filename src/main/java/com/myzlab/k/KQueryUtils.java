@@ -848,7 +848,7 @@ public class KQueryUtils {
         
         if (clazz == Long.class) {
             if (v instanceof BigInteger) {
-                return (T) new Long(((BigInteger) v).longValue());
+                return (T) Long.valueOf(((BigInteger) v).longValue());
             }
 
             if (v instanceof Long) {
@@ -856,11 +856,11 @@ public class KQueryUtils {
             }
             
             if (v instanceof Integer) {
-                return (T) new Long(((Integer) v).longValue());
+                return (T) Long.valueOf(((Integer) v).longValue());
             }
             
             if (v instanceof Short) {
-                return (T) new Long(((Short) v).longValue());
+                return (T) Long.valueOf(((Short) v).longValue());
             }
             
             return null;
@@ -868,11 +868,11 @@ public class KQueryUtils {
         
         if (clazz == Integer.class) {
             if (v instanceof Short) {
-                return (T) new Integer(((Short) v).intValue());
+                return (T) Integer.valueOf(((Short) v).intValue());
             }
 
             if (v instanceof BigInteger) {
-                return (T) new Long(((BigInteger) v).longValue());
+                return (T) Integer.valueOf(((BigInteger) v).intValue());
             }
         
             if (v instanceof Integer) {
@@ -884,46 +884,10 @@ public class KQueryUtils {
         
         if (clazz == Double.class) {
             if (v instanceof BigDecimal) {
-                return (T) new Double(((BigDecimal) v).doubleValue());
+                return (T) Double.valueOf(((BigDecimal) v).doubleValue());
             }
             
             if (v instanceof Double) {
-                return (T) v;
-            }
-            
-            return null;
-        }
-        
-        if (clazz == LocalDateTime.class) {
-            if (v instanceof Timestamp) {
-                return (T) ((Timestamp) v).toLocalDateTime();
-            }
-            
-            if (v instanceof LocalDateTime) {
-                return (T) v;
-            }
-            
-            return null;
-        }
-        
-        if (clazz == LocalDate.class) {
-            if (v instanceof Date) {
-                return (T) ((Date) v).toLocalDate();
-            }
-            
-            if (v instanceof LocalDate) {
-                return (T) v;
-            }
-            
-            return null;
-        }
-        
-        if (clazz == LocalTime.class) {
-            if (v instanceof Time) {
-                return (T) ((Time) v).toLocalTime();
-            }
-            
-            if (v instanceof LocalTime) {
                 return (T) v;
             }
             
