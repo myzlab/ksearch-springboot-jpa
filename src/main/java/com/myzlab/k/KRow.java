@@ -9,6 +9,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1082,13 +1085,13 @@ public class KRow {
 //                continue;
 //            }
             
-            if (o[entry.getValue()] == null) {
+            final Object value = o[entry.getValue()];
+            
+            if (value == null) {
                 map.put(key, null);
                     
                 continue;
             }
-            
-            final Object value = o[entry.getValue()];
 
             if (value instanceof List) {
                 final List list = (List) value;
@@ -1108,13 +1111,13 @@ public class KRow {
 
                     map.put(key, kRows);
                 } else {
-                    map.put(key, value);
+                    map.put(key, castValueToString(value));
                 }
                 
                 continue;
             }
                 
-            map.put(key, value);
+            map.put(key, castValueToString(value));
         }
         
         return map;
@@ -1123,30 +1126,30 @@ public class KRow {
     public String toJSON() {
         return JsonHelper.toJson(this.toMap());
     }
+    public ResponseEntity buildResponse() {
+        return ResponseEntity.ok(this.toMap());
+    }
     
-    private Map<String, Object> toResponse() {
-        if (this.isNull) {
+    private Object castValueToString(
+        final Object value
+    ) {
+        if (value == null) {
             return null;
         }
         
-        final Map<String, Object> map = new HashMap<>();
-        
-        for (final Map.Entry<String, Integer> entry : this.ref.entrySet()) {
-//            if (this.exclude.contains(entry.getKey())) {
-//                continue;
-//            }
-            
-//            if (o[entry.getValue()] != null) {
-                map.put(entry.getKey(), o[entry.getValue()]);   
-//            }
+        if (value instanceof LocalDateTime) {
+            return ((LocalDateTime) value).atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
         }
         
-        return map;
-//        return new JSONObject(map).toString();
-    }
-    
-    public ResponseEntity buildResponse() {
-        return ResponseEntity.ok(this.toResponse());
+        if (value instanceof LocalDate) {
+            return ((LocalDate) value).format(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+        
+        if (value instanceof LocalTime) {
+            return ((LocalTime) value).format(DateTimeFormatter.ISO_LOCAL_TIME);
+        }
+        
+        return value;
     }
     
     private void addColumn(
