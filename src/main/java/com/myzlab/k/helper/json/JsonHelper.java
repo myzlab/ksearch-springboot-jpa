@@ -17,9 +17,12 @@ public class JsonHelper {
         }
         
         final GsonBuilder gsonBuilder = new GsonBuilder();
+        
+        gsonBuilder.registerTypeAdapter(String.class, new StringAdapter());
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
         gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateAdapter());
         gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeAdapter());
+        gsonBuilder.disableHtmlEscaping();
         
         INSTANCE = gsonBuilder.create();
         
