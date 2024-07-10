@@ -6,17 +6,23 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class JsonHelper {
     
-    private static ObjectMapper INSTANCE = null;
+    private static ObjectMapper MAPPER_INSTANCE = null;
+    private static Gson GSON_INSTANCE = null;
 
     private static ObjectMapper getObjectMapper() {
-        if (INSTANCE != null) {
-            return INSTANCE;
+        if (MAPPER_INSTANCE != null) {
+            return MAPPER_INSTANCE;
         }
         
         final ObjectMapper objectMapper = new ObjectMapper();
@@ -36,13 +42,29 @@ public class JsonHelper {
         
         // Setting to omit fields with null values
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        MAPPER_INSTANCE = objectMapper;
         
-        INSTANCE = objectMapper;
+        return MAPPER_INSTANCE;
+    }
+
+    private static Gson getGson() {
+        if (GSON_INSTANCE != null) {
+            return GSON_INSTANCE;
+        }
         
-        return INSTANCE;
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateAdapter());
+        gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeAdapter());
+        
+        GSON_INSTANCE = gsonBuilder.create();
+        
+        return GSON_INSTANCE;
     }
     
-    public static String toJson(Object src) {
+    public static String toJson(final Object src) {
         try {
             return getObjectMapper().writeValueAsString(src);
         } catch (JsonProcessingException e) {
@@ -50,7 +72,7 @@ public class JsonHelper {
         }
     }
     
-    public static <T> T fromJson(String json, Class<T> typeOfT) {
+    public static <T> T fromJson(final String json, final Class<T> typeOfT) {
         try {
             return getObjectMapper().readValue(json, typeOfT);
         } catch (JsonProcessingException e) {
@@ -58,10 +80,18 @@ public class JsonHelper {
         }
     }
     
-    public static <T> T fromJson(String json, TypeReference<T> typeRef) {
+    public static <T> T fromJson(final String json, final TypeReference<T> typeRef) {
         try {
             return getObjectMapper().readValue(json, typeRef);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to convert JSON to object", e);
+        }
+    }
+    
+    public static <T extends Object> T fromJson(final String json, final Type typeOfT) {
+        try {
+            return getGson().fromJson(json, typeOfT);
+        } catch (JsonSyntaxException e) {
             throw new RuntimeException("Failed to convert JSON to object", e);
         }
     }
