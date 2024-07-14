@@ -9,7 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -72,10 +71,10 @@ public class JsonHelper {
         }
     }
     
-    public static <T> T fromJson(final String json, final Class<T> typeOfT) {
+    public static <T> T fromJson(final String json, final Class<T> clazz) {
         try {
-            return getObjectMapper().readValue(json, typeOfT);
-        } catch (JsonProcessingException e) {
+            return getGson().fromJson(json, clazz);
+        } catch (JsonSyntaxException e) {
             throw new RuntimeException("Failed to convert JSON to object", e);
         }
     }
