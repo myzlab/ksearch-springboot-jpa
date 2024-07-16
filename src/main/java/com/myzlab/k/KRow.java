@@ -1152,16 +1152,6 @@ public class KRow {
         return value;
     }
     
-    private void addColumn(
-        final String name,
-        final Object value
-    ) {
-        this.o = Arrays.copyOf(o, o.length + 1);
-        this.o[o.length - 1] = value;
-        
-        this.ref.put(name, o.length - 1);
-    }
-    
     public KRow removeProperty(
         final KTableColumn kTableColumn
     ) {
@@ -1204,16 +1194,19 @@ public class KRow {
         final String property,
         final KRowFunction kRowFunction
     ) {
-        this.addColumn(property, kRowFunction.run(this));
+        this.addProperty(property, kRowFunction.run(this));
         
         return this;
     }
     
     public KRow addProperty(
         final String property,
-        final Object o
+        final Object value
     ) {
-        this.addColumn(property, o);
+        this.o = Arrays.copyOf(o, o.length + 1);
+        this.o[o.length - 1] = value;
+        
+        this.ref.put(property, o.length - 1);
         
         return this;
     }
