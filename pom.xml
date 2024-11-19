@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.myzlab.ksearch.springboot.jpa</groupId>
     <artifactId>k</artifactId>
-    <version>3.7.3-alpha</version>
+    <version>3.7.4-alpha</version>
     <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
