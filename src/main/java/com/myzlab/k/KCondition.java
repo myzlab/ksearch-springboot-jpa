@@ -1018,6 +1018,21 @@ public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUp
         return kCondition;
     }
     
+    protected static KCondition in(
+        final KBaseColumn kBaseColumn,
+        final KQuery kQuery
+    ) {
+        KUtils.assertNotNull(kQuery, "kQuery");
+        
+        final KCondition kCondition = new KCondition();
+        
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
+        
+        kCondition.processBinaryOperator(kBaseColumn, new KColumn(subQuery.sb, subQuery.params, false), "IN");
+        
+        return kCondition;
+    }
+    
     protected static KCondition isFalse(
         final KBaseColumn kBaseColumn
     ) {
@@ -2400,6 +2415,21 @@ public class KCondition implements KColumnAllowedToSelect, KColumnAllowedToSetUp
         
         kCondition.sb.append(kBaseColumn.sb).append(" NOT IN ").append(kColumn.sb);
 
+        return kCondition;
+    }
+    
+    protected static KCondition notIn(
+        final KBaseColumn kBaseColumn1,
+        final KQuery kQuery
+    ) {
+        KUtils.assertNotNull(kQuery, "kQuery");
+        
+        final KCondition kCondition = new KCondition();
+        
+        final KQueryGenericData subQuery = kQuery.generateSubQueryData();
+        
+        kCondition.processBinaryOperator(kBaseColumn1, new KColumn(subQuery.sb, subQuery.params, false), "NOT IN");
+        
         return kCondition;
     }
     

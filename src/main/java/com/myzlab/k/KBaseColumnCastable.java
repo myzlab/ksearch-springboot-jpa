@@ -1109,6 +1109,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         return this.in(kOptionalKColumn.get());
     }
     
+    public KCondition in(
+        final KQuery kQuery
+    ) {
+        return KCondition.in(this, kQuery);
+    }
+    
     public KCondition isFalse() {
         return KCondition.isFalse(this);
     }
@@ -2847,6 +2853,12 @@ public abstract class KBaseColumnCastable extends KBaseColumn {
         }
         
         return this.notIn(kOptionalCollection.get());
+    }
+    
+    public KCondition notIn(
+        final KQuery kQuery
+    ) {
+        return KCondition.notIn(this, kQuery);
     }
     
     public KCondition notLessThan(

@@ -2300,6 +2300,37 @@ public class KFunction {
         return new KColumn(new StringBuilder("GEN_RANDOM_UUID()"), true);
     }
     
+    public static KColumn generateSeries(
+        final Number start,
+        final Number stop
+    ) {
+        return generateSeries(start, stop, null);
+    }
+    
+    public static KColumn generateSeries(
+        final Number start,
+        final Number stop,
+        final Number step
+    ) {
+        KUtils.assertNotNull(start, "start");
+        KUtils.assertNotNull(stop, "stop");
+        
+        final KColumn generateSeriesKColumn = new KColumn();
+        
+        generateSeriesKColumn.sb.append("GENERATE_SERIES(?, ?");
+        generateSeriesKColumn.params.add(start);
+        generateSeriesKColumn.params.add(stop);
+        
+        if (step != null) {
+            generateSeriesKColumn.sb.append(", ").append("?");
+            generateSeriesKColumn.params.add(step);
+        }
+        
+        generateSeriesKColumn.sb.append(")");
+        
+        return generateSeriesKColumn;
+    }
+    
     private static KColumn genericTrim(
         final KColumn kColumn,
         final String characters,
